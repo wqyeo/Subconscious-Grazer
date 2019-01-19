@@ -5,10 +5,10 @@ using System.Linq;
 
 public class ObjectPool : Singleton<ObjectPool> {
 
-    private List<GameObject> objectPool;
+    private HashSet<GameObject> objectPool;
 
     private void Awake() {
-        objectPool = new List<GameObject>();
+        objectPool = new HashSet<GameObject>();
     }
 
     /// <summary>
@@ -64,14 +64,23 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <returns>The respective fetched game objects.</returns>
     public GameObject[] FetchObjectsByComponent<T>(int maxSize = -1, bool removeFromPool = true) where T : MonoBehaviour {
 
-        List<GameObject> temp = new List<GameObject>();
+        HashSet<GameObject> temp = new HashSet<GameObject>();
 
-        // Loop through the object pool as long as the size limit it not reached.
-        for (int i = 0; i < objectPool.Count && i < maxSize; ++i) {
-            // If this current object contains the desired component.
-            if (objectPool[i].GetComponent<T>() != null) {
-                // Add to the temporary list
-                temp.Add(objectPool[i]);
+        // For counting how many objects we already have in the temporary list.
+        int i = 0;
+        // Go through the object pool.
+        foreach (var obj in objectPool) {
+            // If we have already reached the max array size.
+            if (i >= maxSize) {
+                // Exit loop.
+                break;
+            }
+            // If the current object contains the desired component.
+            else if (obj.GetComponent<T>() != null) {
+                // Add to the temporary list.
+                temp.Add(obj);
+                // An object has been added.
+                ++i;
             }
         }
 
@@ -93,20 +102,27 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <param name="removeFromPool">True to remove the respective fetched gameobject from the object pool.</param>
     /// <returns>The respective fetched game objects.</returns>
     public GameObject[] FetchObjectsByCondition(Func<GameObject, bool> condition, int maxSize = -1, bool removeFromPool = true) {
-        // Fetch all the matching objects.
-        var fetchedObjects = objectPool.Where(condition).ToArray();
+        HashSet<GameObject> temp = new HashSet<GameObject>();
 
-        // If an array size limit is given.
-        if (maxSize >= 1) {
-            List<GameObject> temp = new List<GameObject>();
-
-            // Loop through the fetched objects, adding to the list as long as the list stays in it's given size limit.
-            for (int i = 0; i < fetchedObjects.Length && i < maxSize; ++i) {
-                temp.Add(fetchedObjects[i]);
+        // For counting how many objects we already have in the temporary list.
+        int i = 0;
+        // Go through the object pool.
+        foreach (var obj in objectPool) {
+            // If we have already reached the max array size.
+            if (i >= maxSize) {
+                // Exit loop.
+                break;
             }
-
-            fetchedObjects = temp.ToArray();
+            // If the current object meets the condition.
+            else if (condition(obj)) {
+                // Add to the temporary list.
+                temp.Add(obj);
+                // An object has been added.
+                ++i;
+            }
         }
+
+        var fetchedObjects = temp.ToArray();
 
         // If we need to remove the fetched objects from the object pool
         if (removeFromPool) {
@@ -114,6 +130,35 @@ public class ObjectPool : Singleton<ObjectPool> {
         }
 
         return fetchedObjects;
+    }
+
+    /// <summary>
+    /// Fetch a gameobject with the given condition.
+    /// </summary>
+    /// <param name="condition">The condition based on to fetch the gameobject</param>
+    /// <param name="removeFromPool">True to remove this gameobject from the object pool.</param>
+    /// <returns>The fetched gameobject by the respective condition. (Null if none is found.)</returns>
+    public GameObject FetchObjectByCondition(Func<GameObject, bool> condition, bool removeFromPool = true) {
+
+        GameObject fetchedObject = null;
+
+        // Loop through the object pool.
+        foreach (var obj in objectPool) {
+            // If this object's condition meets the given condition.
+            if (condition(obj)) {
+                // Fetch this object.
+                fetchedObject = obj;
+                // Stop loop (object is found.)
+                break;
+            }
+        }
+
+        // Remove this object pool if required.
+        if (removeFromPool && fetchedObject != null){
+            objectPool.Remove(fetchedObject);
+        }
+
+        return fetchedObject;
     }
 
     #region Util

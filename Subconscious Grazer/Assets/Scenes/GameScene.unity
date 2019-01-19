@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac28f0786862d8478682d83d22f329e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
+  rotationSpeed: 1
 --- !u!114 &54322138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   y: 1
   z: 0
   targetTransform: {fileID: 1606452613}
-  updateType: 0
+  updateType: 2
   snapIntensity: 0.03
 --- !u!1 &143576729
 GameObject:
@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 154749802}
   - component: {fileID: 154749801}
   - component: {fileID: 154749803}
+  - component: {fileID: 154749804}
   m_Layer: 0
   m_Name: NeedleShooter (1)
   m_TagString: Untagged
@@ -312,7 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b2d12f3c7d01f4a9388762760d7a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFadeValue: 0.5
+  minFadeValue: 0.2
   maxFadeValue: 0.7
   fadeSpeed: 1
   fadeOnStart: 1
@@ -382,9 +383,22 @@ MonoBehaviour:
   bulletAcceleration: 0
   bulletType: 2
   bulletRotationOffset: 90
-  bulletCount: 3
-  shotAngle: 90
-  shotWideness: 50
+  bulletCount: 4
+  shotAngle: 0
+  shotWideness: 60
+--- !u!114 &154749804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154749799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac28f0786862d8478682d83d22f329e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 30
 --- !u!1 &179270681
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +411,7 @@ GameObject:
   - component: {fileID: 179270684}
   - component: {fileID: 179270683}
   - component: {fileID: 179270685}
+  - component: {fileID: 179270686}
   m_Layer: 0
   m_Name: NeedleShooter (0)
   m_TagString: Untagged
@@ -430,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b2d12f3c7d01f4a9388762760d7a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFadeValue: 0.5
+  minFadeValue: 0.2
   maxFadeValue: 0.7
   fadeSpeed: 1
   fadeOnStart: 1
@@ -500,9 +515,22 @@ MonoBehaviour:
   bulletAcceleration: 0
   bulletType: 2
   bulletRotationOffset: 90
-  bulletCount: 3
-  shotAngle: 90
-  shotWideness: 50
+  bulletCount: 4
+  shotAngle: 0
+  shotWideness: 60
+--- !u!114 &179270686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179270681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac28f0786862d8478682d83d22f329e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 30
 --- !u!1 &211254661
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,8 +582,8 @@ MonoBehaviour:
   bottomBorder: {fileID: 852290965}
   leftBorder: {fileID: 342820145}
   rightBorder: {fileID: 1801724380}
-  xOffset: -0.1
-  yOffset: -0.1
+  xOffset: 0.03
+  yOffset: 0.03
 --- !u!1 &265059836
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +596,7 @@ GameObject:
   - component: {fileID: 265059839}
   - component: {fileID: 265059838}
   - component: {fileID: 265059840}
+  - component: {fileID: 265059841}
   m_Layer: 0
   m_Name: NeedleShooter (3)
   m_TagString: Untagged
@@ -601,7 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b2d12f3c7d01f4a9388762760d7a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFadeValue: 0.5
+  minFadeValue: 0.2
   maxFadeValue: 0.7
   fadeSpeed: 1
   fadeOnStart: 1
@@ -671,9 +700,22 @@ MonoBehaviour:
   bulletAcceleration: 0
   bulletType: 2
   bulletRotationOffset: 90
-  bulletCount: 3
-  shotAngle: 90
-  shotWideness: 50
+  bulletCount: 4
+  shotAngle: 0
+  shotWideness: 60
+--- !u!114 &265059841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265059836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac28f0786862d8478682d83d22f329e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 30
 --- !u!1 &342820145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,8 +1067,8 @@ MonoBehaviour:
   bottomBorder: {fileID: 1272660058}
   leftBorder: {fileID: 1468397380}
   rightBorder: {fileID: 1379995353}
-  xOffset: 0.3
-  yOffset: 0.3
+  xOffset: 2.5
+  yOffset: 2.5
 --- !u!4 &972482519
 Transform:
   m_ObjectHideFlags: 0
@@ -1070,7 +1112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026098653}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13, y: 0.375, z: 0}
+  m_LocalPosition: {x: 0.12999997, y: 0.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1606452613}
@@ -1149,7 +1191,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.6240005, y: -2.9131336}
+  m_Offset: {x: 0.975111, y: -2.9131336}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1160,7 +1202,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 28.317314, y: 6.146267}
+  m_Size: {x: 35.8551, y: 6.146267}
   m_EdgeRadius: 0
 --- !u!212 &1272660061
 SpriteRenderer:
@@ -1462,7 +1504,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -3.0756078, y: -0.3030691}
+  m_Offset: {x: -3.0756078, y: 0.010828972}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1473,7 +1515,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.4712152, y: 24.071186}
+  m_Size: {x: 6.4712152, y: 27.525635}
   m_EdgeRadius: 0
 --- !u!212 &1468397383
 SpriteRenderer:
@@ -1627,7 +1669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac28f0786862d8478682d83d22f329e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: -50
+  rotationSpeed: -30
 --- !u!4 &1471442731
 Transform:
   m_ObjectHideFlags: 0
@@ -1675,16 +1717,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c51bbd7309af0468f0fa8db6f5d313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: {x: 4, y: 3.75}
+  moveSpeed: {x: 5, y: 5}
   focusSpeedMultiplier: 0.5
   focusIndicators:
-  - {fileID: 1471442729}
   - {fileID: 2017423923}
-  shootCooldown: 0.1
+  - {fileID: 1471442729}
+  shootCooldown: 0.075
   blueBullet: {fileID: 21300088, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
   redBullet: {fileID: 21300086, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
-  focusedSpreadWideness: 35
-  defocusedSpreadWideness: 55
+  focusedSpreadWideness: 30
+  defocusedSpreadWideness: 75
   redNeedle: {fileID: 21300090, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
   blueNeedle: {fileID: 21300092, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
   redRose: {fileID: 21300094, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
@@ -1839,8 +1881,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652165557}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13, y: 0.375, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.12999979, y: 0.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1606452613}
@@ -2025,7 +2067,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.4773331, y: 2.510255}
+  m_Offset: {x: -1.4814587, y: 2.510255}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2036,7 +2078,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20.56961, y: 5.34051}
+  m_Size: {x: 36.842937, y: 5.34051}
   m_EdgeRadius: 0
 --- !u!212 &1900214194
 SpriteRenderer:
@@ -2190,7 +2232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac28f0786862d8478682d83d22f329e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 30
 --- !u!4 &2017423925
 Transform:
   m_ObjectHideFlags: 0
@@ -2299,6 +2341,7 @@ GameObject:
   - component: {fileID: 2092203502}
   - component: {fileID: 2092203501}
   - component: {fileID: 2092203503}
+  - component: {fileID: 2092203504}
   m_Layer: 0
   m_Name: NeedleShooter (2)
   m_TagString: Untagged
@@ -2332,7 +2375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b2d12f3c7d01f4a9388762760d7a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFadeValue: 0.5
+  minFadeValue: 0.2
   maxFadeValue: 0.7
   fadeSpeed: 1
   fadeOnStart: 1
@@ -2402,6 +2445,19 @@ MonoBehaviour:
   bulletAcceleration: 0
   bulletType: 2
   bulletRotationOffset: 90
-  bulletCount: 3
-  shotAngle: 90
-  shotWideness: 50
+  bulletCount: 4
+  shotAngle: 0
+  shotWideness: 60
+--- !u!114 &2092203504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092203499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac28f0786862d8478682d83d22f329e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 30

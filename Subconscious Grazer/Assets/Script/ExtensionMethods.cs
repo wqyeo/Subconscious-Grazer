@@ -16,12 +16,16 @@ public static class ExtensionMethods {
 
     public static float GetAngleToPosition(this Vector2 fromTrans, Vector2 toTrans) {
 
-        float xDistance = toTrans.x - fromTrans.x;
+        float cos0 = fromTrans.DotProduct(toTrans) / (fromTrans.magnitude * toTrans.magnitude);
 
-        float angle = (Mathf.Atan2(0, xDistance) * Mathf.Rad2Deg) - 90f;
-        angle = GetNormalizedAngle(angle);
+        return Mathf.Acos(cos0);
+    }
 
-        return angle;
+    public static float DotProduct(this Vector2 firstV, Vector2 secondV) {
+        float firstDot = firstV.x * secondV.x;
+        float secondDot = firstV.y * secondV.y;
+
+        return firstDot + secondDot;
     }
 
     /// <summary>

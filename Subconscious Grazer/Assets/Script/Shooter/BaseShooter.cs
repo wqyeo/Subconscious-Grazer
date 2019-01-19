@@ -46,7 +46,7 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
-    public BulletType BulletType {
+    public BulletType ShotBulletType {
         get {
             return bulletType;
         }
@@ -59,9 +59,7 @@ public abstract class BaseShooter : MonoBehaviour {
     /// <summary>
     /// The sprite of the bullet to change to after fetching a bullet from the object pool.
     /// </summary>
-    public Sprite BulletDefaultSprites {
-        get; set;
-    }
+    public Sprite BulletDefaultSprites { get; set; }
 
     public float BulletRotationOffset {
         get {
@@ -75,36 +73,27 @@ public abstract class BaseShooter : MonoBehaviour {
 
     #endregion
 
-    public abstract void Shoot();
+    /// <summary>
+    /// Shoot a bullet, defining if the bullet should constantly rotate to the direction it is travelling to.
+    /// </summary>
+    /// <param name="rotateBulletToDirection">True if the bullet should constantly rotate to the direction it is travelling to.</param>
+    public abstract void Shoot(bool rotateBulletToDirection = false);
 
-    protected Bullet InitBullet(Vector2 direction) {
-        // Attempt to fetch a bullet from the object pool.
-        GameObject newBullet = ObjectPool.Instance.FetchObjectByComponent<Bullet>();
+    /// <summary>
+    /// Shoot a bullet, defining the bullet's rotation speed and rotation acceleration.
+    /// </summary>
+    /// <param name="rotation"></param>
+    /// <param name="rotationAcceleration"></param>
+    public abstract void Shoot(float rotation, float rotationAcceleration = 0f);
 
-        // If the object pool does not contain a bullet.
-        if (newBullet == null) {
-            // Instantiate a new bullet.
-            newBullet = Instantiate(bulletPrefab);
-        } else {
-            newBullet.SetActive(true);
-        }
+    protected Bullet InitBullet(Vector2 direction, bool rotateBulletToDirection = false) {
+        var newBullet = FetchOrCreateBullet();
 
-        if (BulletDefaultSprites != null) {
-            // Set the bullet sprite.
-            newBullet.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprites;
-        }
-
-        // Rotate the bullet respectively.
-        var tempRotation = newBullet.transform.rotation.eulerAngles;
-        tempRotation.z += bulletRotationOffset;
-        newBullet.transform.eulerAngles = tempRotation;
-
-        // Set the bullet position to this shooter's position.
-        newBullet.transform.position = transform.position;
+        HandleBulletObject(newBullet);
 
         var bullet = newBullet.GetComponent<Bullet>();
 
-        bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration);
+        bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotateBulletToDirection);
 
         // If there are listeners to add.
         if (onBulletDestroy != null) {
@@ -114,6 +103,76 @@ public abstract class BaseShooter : MonoBehaviour {
         
 
         return bullet;
+    }
+
+    protected Bullet InitBullet(Vector2 direction, float rotation, float rotationAcceleration = 0f) {
+        var newBullet = FetchOrCreateBullet();
+
+        HandleBulletObject(newBullet);
+
+        var bullet = newBullet.GetComponent<Bullet>();
+
+        bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotation, rotationAcceleration);
+
+        // If there are listeners to add.
+        if (onBulletDestroy != null) {
+            // Add them.
+            bullet.OnBulletDestroyedEvent += OnBulletDestroyedEvent;
+        }
+
+
+        return bullet;
+    }
+
+    /// <summary>
+    /// Set the bullet sprite (if default sprite is given), rotation and position.
+    /// </summary>
+    /// <param name="bulletObj"></param>
+    private void HandleBulletObject(GameObject bulletObj) {
+        // If a bullet default sprite is given.
+        if (BulletDefaultSprites != null) {
+            // Set the bullet sprite.
+            bulletObj.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprites;
+        }
+
+        // Rotate the bullet respectively.
+        var tempRotation = new Vector3();
+        tempRotation.z += bulletRotationOffset;
+        bulletObj.transform.eulerAngles = tempRotation;
+
+        // Set the bullet position to this shooter's position.
+        bulletObj.transform.position = transform.position;
+    }
+
+    /// <summary>
+    /// Fetch a bullet from the object pool. Creates one if none exists in the object pool.
+    /// </summary>
+    /// <returns>The bullet.</returns>
+    private GameObject FetchOrCreateBullet() {
+        // Attempt to fetch a bullet from the object pool.
+        GameObject newBullet = ObjectPool.Instance.FetchObjectByCondition(IsSameBulletType);
+
+        // If the object pool does not contain a bullet.
+        if (newBullet == null) {
+            // Instantiate a new bullet.
+            newBullet = Instantiate(bulletPrefab);
+        } else {
+            newBullet.SetActive(true);
+        }
+
+        return newBullet;
+    }
+
+    private bool IsSameBulletType(GameObject bulletObj) {
+        var bullet = bulletObj.GetComponent<Bullet>();
+
+        // If this is not a bullet.
+        if (bulletObj.GetComponent<Bullet>() == null) {
+            return false;
+        }
+
+        return bullet.Type == bulletType;
+
     }
 
     private void OnBulletDestroyedEvent(object sender, EventArgs e) {

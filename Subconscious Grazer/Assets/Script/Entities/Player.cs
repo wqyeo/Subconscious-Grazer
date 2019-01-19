@@ -101,6 +101,8 @@ public class Player : MonoBehaviour {
         needleShooters = GetComponentsInChildren<SpreadShooter>();
 
         SetFocused(false);
+
+        //Time.timeScale = 0.2f;
     }
 
     private void Update() {
@@ -207,7 +209,7 @@ public class Player : MonoBehaviour {
             // If the shooter is active
             if (shooter.enabled) {
                 // shoot
-                shooter.Shoot();
+                shooter.Shoot(true);
             }
         }
     }
