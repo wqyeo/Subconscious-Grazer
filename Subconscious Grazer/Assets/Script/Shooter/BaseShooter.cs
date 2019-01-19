@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
+using System;
 
 public abstract class BaseShooter : MonoBehaviour {
+
+    public delegate void OnBulletDestroyed(Bullet destroyedBullet);
+
+    public OnBulletDestroyed onBulletDestroy;
+
+    [Header("Base shooter properties")]
 
     [SerializeField, Tooltip("Prefab of the bullet that this shooter shoots out")]
     protected GameObject bulletPrefab;
@@ -18,8 +23,8 @@ public abstract class BaseShooter : MonoBehaviour {
     [SerializeField, Tooltip("The type of the bullet this shooter shoots.")]
     private BulletType bulletType;
 
-    [SerializeField, Tooltip("The sprite of the bullet to change to after fetching a bullet from the object pool.")]
-    private Sprite bulletDefaultSprites;
+    [Range(0, 360), SerializeField, Tooltip("How much more to rotate the bullet by. (For the sprite to show correctly.)")]
+    private float bulletRotationOffset;
 
     #region Property
 
@@ -51,13 +56,20 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// The sprite of the bullet to change to after fetching a bullet from the object pool.
+    /// </summary>
     public Sprite BulletDefaultSprites {
+        get; set;
+    }
+
+    public float BulletRotationOffset {
         get {
-            return bulletDefaultSprites;
+            return bulletRotationOffset;
         }
 
         set {
-            bulletDefaultSprites = value;
+            bulletRotationOffset = value;
         }
     }
 
@@ -74,9 +86,18 @@ public abstract class BaseShooter : MonoBehaviour {
             // Instantiate a new bullet.
             newBullet = Instantiate(bulletPrefab);
         } else {
-            newBullet.GetComponent<SpriteRenderer>().sprite = bulletDefaultSprites;
             newBullet.SetActive(true);
         }
+
+        if (BulletDefaultSprites != null) {
+            // Set the bullet sprite.
+            newBullet.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprites;
+        }
+
+        // Rotate the bullet respectively.
+        var tempRotation = newBullet.transform.rotation.eulerAngles;
+        tempRotation.z += bulletRotationOffset;
+        newBullet.transform.eulerAngles = tempRotation;
 
         // Set the bullet position to this shooter's position.
         newBullet.transform.position = transform.position;
@@ -85,7 +106,22 @@ public abstract class BaseShooter : MonoBehaviour {
 
         bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration);
 
+        // If there are listeners to add.
+        if (onBulletDestroy != null) {
+            // Add them.
+            bullet.OnBulletDestroyedEvent += OnBulletDestroyedEvent;
+        }
+        
+
         return bullet;
+    }
+
+    private void OnBulletDestroyedEvent(object sender, EventArgs e) {
+        // If the delegate still exists.
+        if (onBulletDestroy != null) {
+            // Invoke delegate.
+            onBulletDestroy(sender as Bullet);
+        }
     }
 
     private bool IsCorrectBulletType(GameObject bulletObj) {
@@ -99,5 +135,17 @@ public abstract class BaseShooter : MonoBehaviour {
         }
 
         return correctBulletType;
+    }
+
+    public void AddOnBulletDestroyedListener(OnBulletDestroyed listener) {
+        if (onBulletDestroy == null) {
+            onBulletDestroy = listener;
+        } else {
+            onBulletDestroy += listener;
+        }
+    }
+
+    public void ClearAllOnBulletDestroyedListener() {
+        onBulletDestroy = null;
     }
 }

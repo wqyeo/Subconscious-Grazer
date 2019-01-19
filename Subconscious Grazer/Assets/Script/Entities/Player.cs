@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class Player : MonoBehaviour {
 
+    [Header("Player movement properties")]
+
     [SerializeField, Tooltip("The respective move speed of this player")]
     private Vector2 moveSpeed;
 
@@ -14,39 +16,45 @@ public class Player : MonoBehaviour {
     [SerializeField, Tooltip("The sprite renderers for focus indicators to show to player when focused.")]
     private SpriteRenderer[] focusIndicators;
 
+    [Header("Player shooter properties")]
+
     [SerializeField, Tooltip("The cooldown time before the player can shoot again.")]
     private float shootCooldown;
 
+    [SerializeField, Tooltip("The respective bullet sprites.")]
+    private Sprite blueBullet, redBullet;
+
+    [Header("Player shooter properties (Rose Shooters)")]
+
+    [Range(0, 360), SerializeField, Tooltip("The wideness of the shot when focused")]
+    private float focusedSpreadWideness;
+
+    [Range(0, 360), SerializeField, Tooltip("The wideness of the shot when not focused")]
+    private float defocusedSpreadWideness;
+
+    [SerializeField, Tooltip("The respective bullet sprites.")]
+    private Sprite redNeedle, blueNeedle;
+
+    [SerializeField, Tooltip("The respective rose sprite")]
+    private Sprite redRose, blueRose;
+
+
     private float cooldownTimer;
 
-    private BaseShooter[] shooters;
+    // The default shooter player has.
+    private LinearShooter[] defaultShooter;
+    // The roses following the player (Shoots out needles).
+    private SpreadShooter[] needleShooters;
 
     private Rigidbody2D playerRB;
 
     private Animator playerAnim;
 
-    private bool _focused;
+    private bool isFocused;
 
     private bool CanShoot {
         get {
             return cooldownTimer >= shootCooldown;
-        }
-    }
-    
-    /// <summary>
-    /// True if this player is focused.
-    /// </summary>
-    public bool Focused {
-        get {
-            return _focused;
-        }
-        private set {
-            // Loop through all all the focused indicators.
-            foreach (var indicator in focusIndicators) {
-                // Enable them if the player is focused.
-                indicator.enabled = value;
-            }
-            _focused = value;
         }
     }
 
@@ -80,7 +88,7 @@ public class Player : MonoBehaviour {
     #endregion
 
     private void Awake() {
-        Focused = false;
+        isFocused = true;
         cooldownTimer = 1f;
     }
 
@@ -89,7 +97,10 @@ public class Player : MonoBehaviour {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
 
-        shooters = GetComponentsInChildren<BaseShooter>();
+        defaultShooter = GetComponentsInChildren<LinearShooter>();
+        needleShooters = GetComponentsInChildren<SpreadShooter>();
+
+        SetFocused(false);
     }
 
     private void Update() {
@@ -117,7 +128,7 @@ public class Player : MonoBehaviour {
         // Determines where this player would move to.
         Vector2 moveDirection = new Vector2(0, 0);
 
-        Focused = false;
+        bool focusState = false;
 
         #region Horizontal Movement
 
@@ -168,9 +179,11 @@ public class Player : MonoBehaviour {
         // If the player decides to focus
         if (Input.GetKey(KeyCode.LeftShift)) {
             // Player is focused and slow movement
-            Focused = true;
+            focusState = true;
             finalSpeed *= focusSpeedMultiplier;
         }
+
+        SetFocused(focusState);
 
         // Move the player respective.
         playerRB.velocity = moveDirection * finalSpeed;
@@ -181,7 +194,16 @@ public class Player : MonoBehaviour {
         cooldownTimer = 0f;
 
         // For each shooter the player has
-        foreach (var shooter in shooters) {
+        foreach (var shooter in defaultShooter) {
+            // If the shooter is active
+            if (shooter.enabled) {
+                // shoot
+                shooter.Shoot();
+            }
+        }
+
+        // For each shooter the player has
+        foreach (var shooter in needleShooters) {
             // If the shooter is active
             if (shooter.enabled) {
                 // shoot
@@ -198,5 +220,42 @@ public class Player : MonoBehaviour {
 
         playerAnim.SetBool("left", left);
         playerAnim.SetBool("right", right);
+    }
+
+
+    private void SetFocused(bool focusedState) {
+
+        // If the focused state given is the same as the current focus state
+        if (isFocused == focusedState) {
+            // Exit (Prevent unncessary invoking to line of codes.)
+            return;
+        }
+
+        isFocused = focusedState;
+
+        foreach (var indicator in focusIndicators) {
+            indicator.enabled = isFocused;
+        }
+
+        // Use the red sprites if the played changed to focused state.
+        Sprite defBulletSprite = isFocused ? redBullet : blueBullet;
+        Sprite roseBulletSprite = isFocused ? redNeedle : blueNeedle;
+        Sprite roseSprite = isFocused ? redRose : blueRose;
+
+        // Change the spread shot wideness when focused.
+        float spreadWidness = isFocused ? focusedSpreadWideness : defocusedSpreadWideness;
+
+        // Set the respective default sprite for the shooters.
+        foreach (var defShooter in defaultShooter) {
+            defShooter.BulletDefaultSprites = defBulletSprite;
+        }
+
+        foreach (var needleShooter in needleShooters) {
+            needleShooter.BulletDefaultSprites = roseBulletSprite;
+
+            needleShooter.gameObject.GetComponent<SpriteRenderer>().sprite = roseSprite;
+
+            needleShooter.ShotWideness = spreadWidness;
+        }
     }
 }

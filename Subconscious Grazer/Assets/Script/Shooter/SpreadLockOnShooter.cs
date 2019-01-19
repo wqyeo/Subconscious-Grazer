@@ -6,6 +6,8 @@ using System.Text;
 using UnityEngine;
 
 public class SpreadLockOnShooter : BaseShooter {
+    [Header("Spread shooter properties")]
+
     [SerializeField, Tooltip("The amount of bullet this shooter shoots out at once.")]
     private int bulletCount;
 
@@ -14,9 +16,6 @@ public class SpreadLockOnShooter : BaseShooter {
 
     [SerializeField, Tooltip("How wide the shot will spread out.")]
     private float shotWideness;
-
-    [SerializeField, Tooltip("The default pellets of bullets to shoot.")]
-    private int pelletShot;
 
     #region Property
     public int BulletCount {
@@ -38,16 +37,6 @@ public class SpreadLockOnShooter : BaseShooter {
         }
     }
 
-    public int PelletShot {
-        get {
-            return pelletShot;
-        }
-
-        set {
-            pelletShot = value;
-        }
-    }
-
     public Transform TargetTransform {
         get {
             return targetTransform;
@@ -62,9 +51,9 @@ public class SpreadLockOnShooter : BaseShooter {
 
     private void OnValidate() {
         // If the number of pellets to shoot is negative or zero.
-        if (pelletShot < 0) {
+        if (bulletCount < 0) {
             // Make it positive and warn.
-            pelletShot = 1;
+            bulletCount = 1;
             Debug.LogWarning(gameObject.name + " : ArcShooter.cs :: pelletShot must be a positive value!");
         }
     }
@@ -74,10 +63,10 @@ public class SpreadLockOnShooter : BaseShooter {
         float offSet = shotWideness / 2f;
 
         // For each pellet we have to shoot
-        for (int i = 0; i < pelletShot; ++i) {
+        for (int i = 0; i < bulletCount; ++i) {
 
             // The angle to rotate after each shot.
-            float anglePerShot = (shotWideness / (pelletShot + 1)) - offSet;
+            float anglePerShot = (shotWideness / (bulletCount + 1)) - offSet;
 
             // Get where to shoot at.
             Vector2 directionToShootAt = targetTransform.position - transform.position;

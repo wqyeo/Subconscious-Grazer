@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LinearShooter : BaseShooter {
 
+    [Header("Linear shooter properties")]
+
     [SerializeField, Tooltip("Where this shot is angled towards."), Range(0f, 360f)]
     private float shotAngle;
 

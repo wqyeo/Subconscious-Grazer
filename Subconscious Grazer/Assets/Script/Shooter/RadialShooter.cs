@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RadialShooter : BaseShooter {
 
+    [Header("Radial shooter properties")]
+
     [SerializeField, Tooltip("The amount of bullet this shooter shoots out at once.")]
     private int bulletCount;
 

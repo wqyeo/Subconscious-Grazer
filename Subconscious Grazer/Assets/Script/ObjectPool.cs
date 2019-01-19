@@ -18,7 +18,12 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <param name="deactivateObj">Deactivate this gameobject upon storing into the object pool.</param>
     public void AddToPool(GameObject objToPool, bool deactivateObj = true) {
         objectPool.Add(objToPool);
-        objToPool.SetActive(!deactivateObj);
+
+        // If we need to deactivate this gameobject.
+        if (deactivateObj) {
+            // Set it to not active.
+            objToPool.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -57,7 +62,7 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <param name="maxSize">The max size of the array returned. (Negative for limitless)</param>
     /// <param name="removeFromPool">True to remove the respective fetched gameobject from the object pool.</param>
     /// <returns>The respective fetched game objects.</returns>
-    public GameObject[] FetchGameObjectsByComponent<T>(int maxSize = -1, bool removeFromPool = true) where T : MonoBehaviour {
+    public GameObject[] FetchObjectsByComponent<T>(int maxSize = -1, bool removeFromPool = true) where T : MonoBehaviour {
 
         List<GameObject> temp = new List<GameObject>();
 

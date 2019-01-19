@@ -59,6 +59,7 @@ TextureImporter:
     21300108: blueBulletdel_01
     21300110: blueBulletdel_02
     21300112: blueBulletdel_03
+    21300114: needleSplash
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -1227,6 +1228,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: bb92981c1b245fa48ae145c2810cf3f0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: needleSplash
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a61b9528f7cee054a95cf7800e83d956
       vertices: []
       indices: 
       edges: []

@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 [DisallowMultipleComponent]
 public class Bullet : MonoBehaviour {
+
+    public event EventHandler OnBulletDestroyedEvent;
 
     /// <summary>
     /// The type of this bullet.
@@ -38,5 +39,18 @@ public class Bullet : MonoBehaviour {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
+    }
+
+    public void DestroyBullet(bool poolBullet = true) {
+
+        if (OnBulletDestroyedEvent != null) {
+            OnBulletDestroyedEvent.Invoke(this, null);
+        }
+
+        if (poolBullet) {
+            ObjectPool.Instance.AddToPool(gameObject);
+        } else {
+            Destroy(gameObject);
+        }
     }
 }
