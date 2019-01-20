@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class ConstantRotation : MonoBehaviour {
 
     [SerializeField, Tooltip("The speed which this object rotates at.")]

@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 
-public class SpreadShooter : BaseShooter {
+public class SpreadShooter : TargettingShooter {
 
-    [Header("Spread shooter properties")]
+    [Separator("Spread shooter properties", true)]
 
     [SerializeField, Tooltip("The amount of bullet this shooter shoots out at once.")]
     private int bulletCount;
-
-    [SerializeField, Tooltip("Where this shot is angled towards."), Range(0f, 360f)]
-    private float shotAngle;
 
     [SerializeField, Tooltip("How wide the shot will spread out."), Range(0f, 360f)]
     private float shotWideness;
@@ -53,7 +50,10 @@ public class SpreadShooter : BaseShooter {
         }
     }
 
-    public override void Shoot(bool rotateBulletToDirection = false) {
+    public override void Shoot() {
+
+        float startAngle = GetStartingAngle();
+
         // Offset for the spread. (So that the first shot wont start at the targetted angle, and continue clockwise.)
         float offSet = shotWideness / 2;
 
@@ -66,26 +66,7 @@ public class SpreadShooter : BaseShooter {
             // Find out where the bullet have to move to from the current shooting angle.
             Vector2 bulletMoveDirection = DetermineBulletMoveDirection(angle);
             // Initalize the bullet.
-            InitBullet(bulletMoveDirection, rotateBulletToDirection);
-
-            angle += angleStep;
-        }
-    }
-
-    public override void Shoot(float rotation, float rotationAcceleration = 0) {
-        // Offset for the spread. (So that the first shot wont start at the targetted angle, and continue clockwise.)
-        float offSet = shotWideness / 2;
-
-        // The angle to rotate after each shot.
-        float angleStep = (shotWideness / (bulletCount + 1));
-        float angle = shotAngle + (angleStep - offSet);
-
-        // For each pellet we have to shoot
-        for (int i = 0; i < bulletCount; ++i) {
-            // Find out where the bullet have to move to from the current shooting angle.
-            Vector2 bulletMoveDirection = DetermineBulletMoveDirection(angle);
-            // Initalize the bullet.
-            InitBullet(bulletMoveDirection, rotation, rotationAcceleration);
+            InitBullet(bulletMoveDirection);
 
             angle += angleStep;
         }

@@ -35,6 +35,8 @@ public class ObjectPool : Singleton<ObjectPool> {
     public GameObject FetchObjectByComponent<T>(bool removeFromPool = true) where T : MonoBehaviour {
         GameObject fetchedObject = null;
 
+        
+
         // Foreach game object in the object pool
         foreach (var gameObj in objectPool) {
             // If this gameobject has the desired component.

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadialShooter : BaseShooter {
+public class RadialShooter : TargettingShooter {
 
-    [Header("Radial shooter properties")]
+    [Separator("Radial shooter properties", true)]
 
     [SerializeField, Tooltip("The amount of bullet this shooter shoots out at once.")]
     private int bulletCount;
@@ -22,31 +22,14 @@ public class RadialShooter : BaseShooter {
 
     #endregion
 
-    public override void Shoot(float rotation, float rotationAcceleration = 0) {
-        // Find how much to shift the angle of the shot by after each shot.
+    public override void Shoot() {
         float angleStep = 360f / bulletCount;
-        // Starting angle of the shot.
-        float angle = 0f;
-
-        // For each bullet to shoot.
-        for (int i = 0; i <= bulletCount - 1; i++) {
-            // Find out which direction the bullet should go based on the shooting angle.
-            Vector2 bulletMoveDirection = DetermineBulletMoveDirection(angle);
-            // Initalize bullet.
-            InitBullet(bulletMoveDirection, rotation, rotationAcceleration);
-            // Shift the angle of the shot.
-            angle += angleStep;
-        }
-    }
-
-    public override void Shoot(bool rotateBulletToDirection = false) {
-        float angleStep = 360f / bulletCount;
-        float angle = 0f;
+        float angle = GetStartingAngle();
 
         for (int i = 0; i <= bulletCount - 1; i++) {
-            Vector2 bulletMoveDirection = DetermineBulletMoveDirection(angle);
+            Vector2 bulletMoveDirection = DetermineBulletMoveDirection(angle.GetNormalizedAngle());
 
-            InitBullet(bulletMoveDirection, rotateBulletToDirection);
+            InitBullet(bulletMoveDirection);
 
             angle += angleStep;
         }

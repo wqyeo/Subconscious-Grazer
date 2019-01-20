@@ -4,7 +4,7 @@ using System;
 [DisallowMultipleComponent]
 public class Bullet : MonoBehaviour {
 
-    public event EventHandler OnBulletDestroyedEvent;
+    public event EventHandler OnBulletDisposedEvent;
 
     /// <summary>
     /// The type of this bullet.
@@ -98,10 +98,16 @@ public class Bullet : MonoBehaviour {
 
     #endregion
 
-    public void DestroyBullet(bool poolBullet = true) {
+    public void Dispose(bool poolBullet = true) {
 
-        if (OnBulletDestroyedEvent != null) {
-            OnBulletDestroyedEvent.Invoke(this, null);
+        if (OnBulletDisposedEvent != null) {
+            OnBulletDisposedEvent.Invoke(this, null);
+        }
+
+        // If this bullet has an animator
+        if (GetComponent<Animator>() != null) {
+            // Play bullet death animation.
+            GetComponent<Animator>().Play("death");
         }
 
         if (poolBullet) {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 public static class ExtensionMethods {
 
@@ -45,5 +46,27 @@ public static class ExtensionMethods {
         v.y = (sin * tx) + (cos * ty);
 
         return v;
+    }
+
+    /// <summary>
+    /// Get string representation of serialized property, includes non-string fields
+    /// </summary>
+    public static string AsStringValue(this SerializedProperty property) {
+        switch (property.propertyType) {
+            case SerializedPropertyType.String:
+                return property.stringValue;
+            case SerializedPropertyType.Character:
+            case SerializedPropertyType.Integer:
+                if (property.type == "char") return System.Convert.ToChar(property.intValue).ToString();
+                return property.intValue.ToString();
+            case SerializedPropertyType.ObjectReference:
+                return property.objectReferenceValue != null ? property.objectReferenceValue.ToString() : "null";
+            case SerializedPropertyType.Boolean:
+                return property.boolValue.ToString();
+            case SerializedPropertyType.Enum:
+                return property.enumNames[property.enumValueIndex];
+            default:
+                return string.Empty;
+        }
     }
 }

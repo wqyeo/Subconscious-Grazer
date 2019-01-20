@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BorderSetter : MonoBehaviour {
-    [SerializeField, Tooltip("The top border")]
+    [MustBeAssigned, SerializeField, Tooltip("The top border")]
     private GameObject topBorder;
 
-    [SerializeField, Tooltip("The bottom border")]
+    [MustBeAssigned, SerializeField, Tooltip("The bottom border")]
     private GameObject bottomBorder;
 
-    [SerializeField, Tooltip("The left border")]
+    [MustBeAssigned, SerializeField, Tooltip("The left border")]
     private GameObject leftBorder;
 
-    [SerializeField, Tooltip("The right border")]
+    [MustBeAssigned, SerializeField, Tooltip("The right border")]
     private GameObject rightBorder;
 
     [SerializeField, Tooltip("Offset for the heigth and width of the border respectively.")]

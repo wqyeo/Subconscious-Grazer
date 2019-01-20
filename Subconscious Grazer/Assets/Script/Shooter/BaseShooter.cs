@@ -9,16 +9,13 @@ public abstract class BaseShooter : MonoBehaviour {
 
     public OnBulletDestroyed onBulletDestroy;
 
-    [Header("Base shooter properties")]
+    [SerializeField, Tooltip("True if this is active on start.")]
+    private bool activeOnStart;
 
-    [SerializeField, Tooltip("Prefab of the bullet that this shooter shoots out")]
+    [Separator("Base bullet properties", true)]
+
+    [MustBeAssigned, SerializeField, Tooltip("Prefab of the bullet that this shooter shoots out")]
     protected GameObject bulletPrefab;
-
-    [SerializeField, Tooltip("The default speed of all the bullets shot out")]
-    protected float bulletSpeed;
-
-    [SerializeField, Tooltip("The default acceleration of all the bullets shot out")]
-    protected float bulletAcceleration;
 
     [SerializeField, Tooltip("The type of the bullet this shooter shoots.")]
     private BulletType bulletType;
@@ -26,7 +23,39 @@ public abstract class BaseShooter : MonoBehaviour {
     [Range(0, 360), SerializeField, Tooltip("How much more to rotate the bullet by. (For the sprite to show correctly.)")]
     private float bulletRotationOffset;
 
+    [SerializeField, Tooltip("The default sprite for the bullets. (Null to just use what was given from prefab or object pool)")]
+    private Sprite bulletDefaultSprites;
+
+    [Separator("Initalized Bullet properties", true)]
+
+    [SerializeField, Tooltip("The default speed of all the bullets shot out")]
+    protected float bulletSpeed;
+
+    [SerializeField, Tooltip("The default acceleration of all the bullets shot out")]
+    protected float bulletAcceleration;
+
+    [SerializeField, Tooltip("True if we need to initally rotate the bullet to it's flying direction.")]
+    private bool initalRotateToDirection;
+
+    [SerializeField, Tooltip("True to constantly rotate the bullet to the direction it is flying to.")]
+    private bool rotateBulletToDirection;
+
+    [SerializeField, ConditionalField("RotateBulletToDirection", false), Tooltip("The constant rotation speed to apply to the bullet.")]
+    private float rotation;
+
+    [SerializeField, ConditionalField("RotateBulletToDirection", false), Tooltip("Rotation acceleration value for the bullet.")]
+    private float rotationAcceleration;
+
     #region Property
+
+    public bool IsActive {
+        get {
+            return activeOnStart;
+        }
+        set {
+            activeOnStart = value;
+        }
+    }
 
     public float BulletSpeed {
         get {
@@ -56,11 +85,6 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// The sprite of the bullet to change to after fetching a bullet from the object pool.
-    /// </summary>
-    public Sprite BulletDefaultSprites { get; set; }
-
     public float BulletRotationOffset {
         get {
             return bulletRotationOffset;
@@ -71,25 +95,67 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
+    public float Rotation {
+        get {
+            return rotation;
+        }
+
+        set {
+            rotation = value;
+        }
+    }
+
+    public float RotationAcceleration {
+        get {
+            return rotationAcceleration;
+        }
+
+        set {
+            rotationAcceleration = value;
+        }
+    }
+
+    public bool RotateBulletToDirection {
+        get {
+            return rotateBulletToDirection;
+        }
+
+        set {
+            rotateBulletToDirection = value;
+        }
+    }
+
+    public bool InitalRotateToDirection {
+        get {
+            return initalRotateToDirection;
+        }
+
+        set {
+            initalRotateToDirection = value;
+        }
+    }
+
+    public Sprite BulletDefaultSprites {
+        get {
+            return bulletDefaultSprites;
+        }
+
+        set {
+            bulletDefaultSprites = value;
+        }
+    }
+
     #endregion
 
     /// <summary>
-    /// Shoot a bullet, defining if the bullet should constantly rotate to the direction it is travelling to.
+    /// Shoot a bullet.
     /// </summary>
-    /// <param name="rotateBulletToDirection">True if the bullet should constantly rotate to the direction it is travelling to.</param>
-    public abstract void Shoot(bool rotateBulletToDirection = false);
+    public abstract void Shoot();
 
-    /// <summary>
-    /// Shoot a bullet, defining the bullet's rotation speed and rotation acceleration.
-    /// </summary>
-    /// <param name="rotation"></param>
-    /// <param name="rotationAcceleration"></param>
-    public abstract void Shoot(float rotation, float rotationAcceleration = 0f);
-
-    protected Bullet InitBullet(Vector2 direction, bool rotateBulletToDirection = false) {
+    protected Bullet InitBullet(Vector2 direction) {
         var newBullet = FetchOrCreateBullet();
 
-        HandleBulletObject(newBullet);
+        HandleBulletObject(newBullet, direction, initalRotateToDirection);
 
         var bullet = newBullet.GetComponent<Bullet>();
 
@@ -98,28 +164,9 @@ public abstract class BaseShooter : MonoBehaviour {
         // If there are listeners to add.
         if (onBulletDestroy != null) {
             // Add them.
-            bullet.OnBulletDestroyedEvent += OnBulletDestroyedEvent;
+            bullet.OnBulletDisposedEvent += OnBulletDestroyedEvent;
         }
         
-
-        return bullet;
-    }
-
-    protected Bullet InitBullet(Vector2 direction, float rotation, float rotationAcceleration = 0f) {
-        var newBullet = FetchOrCreateBullet();
-
-        HandleBulletObject(newBullet);
-
-        var bullet = newBullet.GetComponent<Bullet>();
-
-        bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotation, rotationAcceleration);
-
-        // If there are listeners to add.
-        if (onBulletDestroy != null) {
-            // Add them.
-            bullet.OnBulletDestroyedEvent += OnBulletDestroyedEvent;
-        }
-
 
         return bullet;
     }
@@ -128,17 +175,24 @@ public abstract class BaseShooter : MonoBehaviour {
     /// Set the bullet sprite (if default sprite is given), rotation and position.
     /// </summary>
     /// <param name="bulletObj"></param>
-    private void HandleBulletObject(GameObject bulletObj) {
+    private void HandleBulletObject(GameObject bulletObj, Vector2 direction, bool initalRotateToDirection = false) {
         // If a bullet default sprite is given.
         if (BulletDefaultSprites != null) {
             // Set the bullet sprite.
             bulletObj.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprites;
         }
 
-        // Rotate the bullet respectively.
+        // Rotate the bullet to the offset.
         var tempRotation = new Vector3();
         tempRotation.z += bulletRotationOffset;
         bulletObj.transform.eulerAngles = tempRotation;
+
+        if (initalRotateToDirection) {
+            // Set a rotation where it looks at the new position from the current position.
+            Quaternion rotation = Quaternion.LookRotation(((Vector3)direction + transform.position) - transform.position, transform.TransformDirection(Vector3.up));
+            // Rotate respectively.
+            bulletObj.transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+        }
 
         // Set the bullet position to this shooter's position.
         bulletObj.transform.position = transform.position;
@@ -150,7 +204,7 @@ public abstract class BaseShooter : MonoBehaviour {
     /// <returns>The bullet.</returns>
     private GameObject FetchOrCreateBullet() {
         // Attempt to fetch a bullet from the object pool.
-        GameObject newBullet = ObjectPool.Instance.FetchObjectByCondition(IsSameBulletType);
+        GameObject newBullet = ObjectPool.Instance.FetchObjectByComponent<Bullet>();
 
         // If the object pool does not contain a bullet.
         if (newBullet == null) {

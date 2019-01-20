@@ -14,7 +14,7 @@ public class RelativeSnapper : MonoBehaviour {
     [SerializeField, Tooltip("The relative axis this object should snap by.")]
     private bool x, y, z;
 
-    [SerializeField, Tooltip("The transform to snap to.")]
+    [MustBeAssigned, SerializeField, Tooltip("The transform to snap to.")]
     private Transform targetTransform;
 
     [SerializeField, Tooltip("The update type to use")]

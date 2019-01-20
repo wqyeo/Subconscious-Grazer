@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
-public class Player : MonoBehaviour {
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator)), DisallowMultipleComponent]
+public class Player : Singleton<Player> {
 
-    [Header("Player movement properties")]
+    [Separator("Player Input Keycodes", true)]
+
+    [SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
+    private KeyCode shootKey;
+
+    [SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
+    private KeyCode focusKey, moveUpKey, moveDownKey, moveRightKey, moveLeftKey;
+
+    [Separator("Player movement properties",true)]
 
     [SerializeField, Tooltip("The respective move speed of this player")]
     private Vector2 moveSpeed;
@@ -16,15 +24,15 @@ public class Player : MonoBehaviour {
     [SerializeField, Tooltip("The sprite renderers for focus indicators to show to player when focused.")]
     private SpriteRenderer[] focusIndicators;
 
-    [Header("Player shooter properties")]
+    [Separator("Player shooter properties", true)]
 
     [SerializeField, Tooltip("The cooldown time before the player can shoot again.")]
     private float shootCooldown;
 
-    [SerializeField, Tooltip("The respective bullet sprites.")]
+    [MustBeAssigned, SerializeField, Tooltip("The respective bullet sprites.")]
     private Sprite blueBullet, redBullet;
 
-    [Header("Player shooter properties (Rose Shooters)")]
+    [Separator("Player shooter properties (Rose Shooters)", true)]
 
     [Range(0, 360), SerializeField, Tooltip("The wideness of the shot when focused")]
     private float focusedSpreadWideness;
@@ -32,12 +40,14 @@ public class Player : MonoBehaviour {
     [Range(0, 360), SerializeField, Tooltip("The wideness of the shot when not focused")]
     private float defocusedSpreadWideness;
 
-    [SerializeField, Tooltip("The respective bullet sprites.")]
+    [MustBeAssigned, SerializeField, Tooltip("The respective bullet sprites.")]
     private Sprite redNeedle, blueNeedle;
 
-    [SerializeField, Tooltip("The respective rose sprite")]
+    [MustBeAssigned, SerializeField, Tooltip("The respective rose sprite")]
     private Sprite redRose, blueRose;
 
+    [SerializeField, Tooltip("How far the rose shooter should be away from the player.")]
+    private float shooterDistance;
 
     private float cooldownTimer;
 
@@ -93,7 +103,7 @@ public class Player : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
 
@@ -101,8 +111,6 @@ public class Player : MonoBehaviour {
         needleShooters = GetComponentsInChildren<SpreadShooter>();
 
         SetFocused(false);
-
-        //Time.timeScale = 0.2f;
     }
 
     private void Update() {
@@ -113,9 +121,11 @@ public class Player : MonoBehaviour {
         HandleMovement(Time.fixedTime);
     }
 
+    #region Input_Handling
+
     private void HandleShooting(float time) {
         // If the player gives an input to shoot and the player can shoot.
-        if (Input.GetKey(KeyCode.Z) && CanShoot) {
+        if (Input.GetKey(shootKey) && CanShoot) {
             Shoot();
         }
 
@@ -135,12 +145,12 @@ public class Player : MonoBehaviour {
         #region Horizontal Movement
 
         // If the user presses the left arrow key.
-        if (Input.GetKey(KeyCode.LeftArrow)) {
+        if (Input.GetKey(moveLeftKey)) {
             // Move to the left.
             moveDirection.x += -1f;
         }
         // If the user presses the right arrow key.
-        if (Input.GetKey(KeyCode.RightArrow)) {
+        if (Input.GetKey(moveRightKey)) {
             // Move to the right.
             moveDirection.x += 1f;
         }
@@ -150,12 +160,12 @@ public class Player : MonoBehaviour {
         #region Verticle Movement
 
         // If the user presses the up arrow key.
-        if (Input.GetKey(KeyCode.UpArrow)) {
+        if (Input.GetKey(moveUpKey)) {
             // Move upwards.
             moveDirection.y += 1f;
         }
         // If the user presses the down arrow key.
-        if (Input.GetKey(KeyCode.DownArrow)) {
+        if (Input.GetKey(moveDownKey)) {
             // Move downwards
             moveDirection.y += -1f;
         }
@@ -179,7 +189,7 @@ public class Player : MonoBehaviour {
         Vector2 finalSpeed = moveSpeed;
 
         // If the player decides to focus
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        if (Input.GetKey(focusKey)) {
             // Player is focused and slow movement
             focusState = true;
             finalSpeed *= focusSpeedMultiplier;
@@ -191,6 +201,8 @@ public class Player : MonoBehaviour {
         playerRB.velocity = moveDirection * finalSpeed;
     }
 
+    #endregion
+
     private void Shoot() {
         // Reset shoot timer
         cooldownTimer = 0f;
@@ -198,7 +210,7 @@ public class Player : MonoBehaviour {
         // For each shooter the player has
         foreach (var shooter in defaultShooter) {
             // If the shooter is active
-            if (shooter.enabled) {
+            if (shooter.IsActive) {
                 // shoot
                 shooter.Shoot();
             }
@@ -207,9 +219,9 @@ public class Player : MonoBehaviour {
         // For each shooter the player has
         foreach (var shooter in needleShooters) {
             // If the shooter is active
-            if (shooter.enabled) {
+            if (shooter.IsActive) {
                 // shoot
-                shooter.Shoot(true);
+                shooter.Shoot();
             }
         }
     }
@@ -224,6 +236,7 @@ public class Player : MonoBehaviour {
         playerAnim.SetBool("right", right);
     }
 
+    #region Focused_State_Handling
 
     private void SetFocused(bool focusedState) {
 
@@ -239,6 +252,113 @@ public class Player : MonoBehaviour {
             indicator.enabled = isFocused;
         }
 
+        HandleSpriteState();
+        HandleRosePosition();
+    }
+
+    /// <summary>
+    /// Handle the position of the needle shooters.
+    /// </summary>
+    private void HandleRosePosition() {
+        // Represents the number of active needle shooter.
+        int activeShooterCount = 0;
+
+        // Go through all needle shooters.
+        foreach (var needleShooter in needleShooters) {
+            // If this needle shooter is active.
+            if (needleShooter.IsActive) {
+                // Add to active count.
+                activeShooterCount += 1;
+            }
+        }
+        // Exit function if there are no active shooter. (Handling position of needle shooters is not needed.)
+        if (activeShooterCount <= 0) { return; }
+
+        // Determines which angle from the player the shooter will be at.
+        float angle;
+        // Determine how much to rotate the angle by (relative to the player) before placing the next shooter.
+        float angleStep;
+
+        GetAngleToPlaceShooter(activeShooterCount, out angle, out angleStep);
+        angle = angle.GetNormalizedAngle();
+        angleStep = angleStep.GetNormalizedAngle();
+
+        // Where to start placing the shooter before rotating.
+        Vector2 startPos = new Vector2(0, shooterDistance);
+
+        foreach (var shooter in needleShooters) {
+            // If this needle shooter is active
+            if (shooter.IsActive) {
+                // Set the needle position.
+                shooter.gameObject.transform.localPosition = startPos;
+                // Rotate the shooter around the player with the given angle.
+                shooter.gameObject.transform.RotateAround(transform.position, Vector3.forward, angle);
+
+                // If we are not focused
+                if (!isFocused) {
+                    // Rotate the shot angle too.
+                    shooter.ShotAngle = -angle;
+                } else {
+                    // Shoot front.
+                    shooter.ShotAngle = 0f;
+                }
+
+                // Rotate respectively.
+                angle += angleStep;
+            }
+        }
+    }
+
+    private void GetAngleToPlaceShooter(int activeShooterCount, out float angle, out float angleStep) {
+        angle = 0f;
+        angleStep = 0f;
+        if (isFocused) {
+            float offSet;
+            switch (activeShooterCount) {
+                // If there are 4 shooters.
+                case 4:
+                    offSet = 130f / 2f;
+                    angleStep = (130f / (activeShooterCount + 1));
+                    angle = (angleStep - offSet);
+                    break;
+                case 3:
+                    angle = -30f;
+                    angleStep = 30f;
+                    break;
+                case 2:
+                    offSet = 130f / 2f;
+                    angleStep = (130f / (activeShooterCount + 1));
+                    angle = (angleStep - offSet);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (activeShooterCount) {
+                // If there are 4 shooters.
+                case 4:
+                    // Place at top-left, top-right, bottom-left, bottom-right
+                    angle = -45f;
+                    angleStep = 360f / activeShooterCount;
+                    break;
+                case 3:
+                    // Triangle formation, the first point being at the top of the player.
+                    angleStep = 360f / activeShooterCount;
+                    break;
+                case 2:
+                    // Somewhere near top-left and top-right.
+                    angle = -45f;
+                    angleStep = 90f;
+                    break;
+                // If there is only 1 shooter.
+                default:
+                    // Use the initalized default.
+                    break;
+            }
+        }
+    }
+
+    private void HandleSpriteState() {
         // Use the red sprites if the played changed to focused state.
         Sprite defBulletSprite = isFocused ? redBullet : blueBullet;
         Sprite roseBulletSprite = isFocused ? redNeedle : blueNeedle;
@@ -260,4 +380,6 @@ public class Player : MonoBehaviour {
             needleShooter.ShotWideness = spreadWidness;
         }
     }
+
+    #endregion
 }

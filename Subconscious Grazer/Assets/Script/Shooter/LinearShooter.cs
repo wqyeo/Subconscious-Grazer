@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LinearShooter : BaseShooter {
-
-    [Header("Linear shooter properties")]
-
-    [SerializeField, Tooltip("Where this shot is angled towards."), Range(0f, 360f)]
-    private float shotAngle;
+public class LinearShooter : TargettingShooter {
 
     #region Property
 
@@ -23,19 +18,15 @@ public class LinearShooter : BaseShooter {
 
     #endregion
 
-    public override void Shoot(bool rotateBulletToDirection = false) {
-        Vector2 bulletMoveDirection = DetermineBulletMoveDirection();
+    public override void Shoot() {
+        float startAngle = GetStartingAngle();
 
-        InitBullet(bulletMoveDirection, rotateBulletToDirection);
+        Vector2 bulletMoveDirection = DetermineBulletMoveDirection(startAngle);
+
+        InitBullet(bulletMoveDirection);
     }
 
-    public override void Shoot(float rotation, float rotationAcceleration = 0) {
-        Vector2 bulletMoveDirection = DetermineBulletMoveDirection();
-
-        InitBullet(bulletMoveDirection, rotation, rotationAcceleration);
-    }
-
-    private Vector2 DetermineBulletMoveDirection() {
+    private Vector2 DetermineBulletMoveDirection(float shotAngle) {
         // Determine the direction of the bullet travel on the x and y axis.
         float bulletDirectionX = transform.position.x + Mathf.Sin((shotAngle * Mathf.PI) / 180);
         float bulletDirectionY = transform.position.y + Mathf.Cos((shotAngle * Mathf.PI) / 180);
