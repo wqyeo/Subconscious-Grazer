@@ -21,9 +21,9 @@ TagManager:
   - EnemyBullet
   - PlayerBullet
   - Effects
-  - 
-  - 
-  - 
+  - PlayerBorder
+  - BulletBorder
+  - EnemyBorder
   - 
   - 
   - 
@@ -56,12 +56,9 @@ TagManager:
   - name: Effects
     uniqueID: 2568308249
     locked: 0
-  - name: PlayerBullet
+  - name: Collectables
     uniqueID: 3930381005
     locked: 0
-  - name: Collectables
+  - name: Bullets
     uniqueID: 1600798707
-    locked: 0
-  - name: EnemyBullet
-    uniqueID: 2415514831
     locked: 0

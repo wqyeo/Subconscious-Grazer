@@ -6,12 +6,17 @@ public abstract class Enemy : MonoBehaviour {
     [Separator("Base enemy properties", true)]
 
     [SerializeField, Tooltip("The move speed of this enemy.")]
-    protected float speed;
+    private float speed;
 
     [SerializeField, Tooltip("The hitpoints of this enemy.")]
     protected int health;
 
+    [SearchableEnum, SerializeField, Tooltip("The type of AI assigned to this enemy at start.")]
+    protected AIType startAIType;
+
     protected Rigidbody2D enemyRB;
+
+    protected AI controllingAI;
 
     protected BaseShooter[] shooters;
 
@@ -21,11 +26,23 @@ public abstract class Enemy : MonoBehaviour {
         get { return health; }
     }
 
+    public float Speed {
+        get {
+            return speed;
+        }
+    }
+
     #endregion
 
     private void Start() {
         enemyRB = GetComponent<Rigidbody2D>();
         shooters = GetComponentsInChildren<BaseShooter>();
+
+        AssignAI(startAIType);
+    }
+
+    private void Update() {
+        controllingAI.UpdateAI(Time.deltaTime);
     }
 
     /// <summary>
@@ -50,6 +67,22 @@ public abstract class Enemy : MonoBehaviour {
         // If this enemy touched the player's bullet.
         if (other.CompareTag("PlayerBullet")) {
             other.gameObject.GetComponent<Bullet>().Dispose();
+        }
+    }
+
+    private void AssignAI(AIType typeToAssign) {
+        AI assignedAI = null;
+
+        switch (typeToAssign) {
+            case AIType.DriveByAI:
+                assignedAI = new DriveByPlayerAI(this);
+                break;
+        }
+
+        if (controllingAI != null) {
+            controllingAI.SwitchState(assignedAI);
+        } else {
+            controllingAI = assignedAI;
         }
     }
 }

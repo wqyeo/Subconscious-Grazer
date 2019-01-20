@@ -369,11 +369,11 @@ public class Player : Singleton<Player> {
 
         // Set the respective default sprite for the shooters.
         foreach (var defShooter in defaultShooter) {
-            defShooter.BulletDefaultSprites = defBulletSprite;
+            defShooter.BulletDefaultSprite = defBulletSprite;
         }
 
         foreach (var needleShooter in needleShooters) {
-            needleShooter.BulletDefaultSprites = roseBulletSprite;
+            needleShooter.BulletDefaultSprite = roseBulletSprite;
 
             needleShooter.gameObject.GetComponent<SpriteRenderer>().sprite = roseSprite;
 

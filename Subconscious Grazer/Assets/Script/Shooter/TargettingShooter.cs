@@ -25,14 +25,32 @@ public abstract class TargettingShooter : BaseShooter
 
         // If we are locking on to an enemy.
         if (lockOn) {
-            // Get the direction from shooter to player
-            Vector2 directionToPlayer = targetTransform.position - transform.position;
 
-            startAngle = ((Vector2)(transform.position) + Vector2.up).GetAngleToPosition(directionToPlayer);
+            startAngle = AngleTo(transform.position, (targetTransform.position));
         } else {
             startAngle = shotAngle;
         }
 
         return startAngle;
+    }
+
+    float AngleBetweenVector2(Vector2 vec1, Vector2 vec2) {
+        Vector2 vec1Rotated90 = new Vector2(-vec1.y, vec1.x);
+        float sign = (Vector2.Dot(vec1Rotated90, vec2) < 0) ? -1.0f : 1.0f;
+        return Vector2.Angle(vec1, vec2) * sign;
+    }
+
+    private float AngleTo(Vector2 pos, Vector2 target) {
+        Vector2 diference = Vector2.zero;
+
+        diference = target - pos;
+
+        //if (target.y > pos.y) {
+        //    diference = target - pos;
+        //} else {
+        //    diference = pos - target;
+        //}
+
+        return Vector2.Angle(Vector2.zero, diference);
     }
 }

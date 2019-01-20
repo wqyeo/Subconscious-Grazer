@@ -10,7 +10,7 @@ public abstract class BaseShooter : MonoBehaviour {
     public OnBulletDestroyed onBulletDestroy;
 
     [SerializeField, Tooltip("True if this is active on start.")]
-    private bool activeOnStart;
+    private bool activeOnStart = true;
 
     [Separator("Base bullet properties", true)]
 
@@ -24,7 +24,10 @@ public abstract class BaseShooter : MonoBehaviour {
     private float bulletRotationOffset;
 
     [SerializeField, Tooltip("The default sprite for the bullets. (Null to just use what was given from prefab or object pool)")]
-    private Sprite bulletDefaultSprites;
+    private Sprite bulletDefaultSprite;
+
+    [SerializeField, Tooltip("True if this bullet belongs to the enemy's")]
+    private bool enemyBullet = true;
 
     [Separator("Initalized Bullet properties", true)]
 
@@ -40,10 +43,10 @@ public abstract class BaseShooter : MonoBehaviour {
     [SerializeField, Tooltip("True to constantly rotate the bullet to the direction it is flying to.")]
     private bool rotateBulletToDirection;
 
-    [SerializeField, ConditionalField("RotateBulletToDirection", false), Tooltip("The constant rotation speed to apply to the bullet.")]
+    [SerializeField, ConditionalField("rotateBulletToDirection", false), Tooltip("The constant rotation speed to apply to the bullet.")]
     private float rotation;
 
-    [SerializeField, ConditionalField("RotateBulletToDirection", false), Tooltip("Rotation acceleration value for the bullet.")]
+    [SerializeField, ConditionalField("rotateBulletToDirection", false), Tooltip("Rotation acceleration value for the bullet.")]
     private float rotationAcceleration;
 
     #region Property
@@ -135,13 +138,13 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
-    public Sprite BulletDefaultSprites {
+    public Sprite BulletDefaultSprite {
         get {
-            return bulletDefaultSprites;
+            return bulletDefaultSprite;
         }
 
         set {
-            bulletDefaultSprites = value;
+            bulletDefaultSprite = value;
         }
     }
 
@@ -159,7 +162,11 @@ public abstract class BaseShooter : MonoBehaviour {
 
         var bullet = newBullet.GetComponent<Bullet>();
 
-        bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotateBulletToDirection);
+        if (rotateBulletToDirection) {
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotateBulletToDirection);
+        } else {
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotation, rotationAcceleration);
+        }
 
         // If there are listeners to add.
         if (onBulletDestroy != null) {
@@ -176,10 +183,18 @@ public abstract class BaseShooter : MonoBehaviour {
     /// </summary>
     /// <param name="bulletObj"></param>
     private void HandleBulletObject(GameObject bulletObj, Vector2 direction, bool initalRotateToDirection = false) {
+        if (enemyBullet) {
+            bulletObj.tag = "EnemyBullet";
+            bulletObj.layer = 10;
+        } else {
+            bulletObj.tag = "PlayerBullet";
+            bulletObj.layer = 11;
+        }
+
         // If a bullet default sprite is given.
-        if (BulletDefaultSprites != null) {
+        if (BulletDefaultSprite != null) {
             // Set the bullet sprite.
-            bulletObj.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprites;
+            bulletObj.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprite;
         }
 
         // Rotate the bullet to the offset.
@@ -260,5 +275,15 @@ public abstract class BaseShooter : MonoBehaviour {
 
     public void ClearAllOnBulletDestroyedListener() {
         onBulletDestroy = null;
+    }
+
+    protected Vector2 DetermineBulletMoveDirection(float shotAngle) {
+        // Determine the direction of the bullet travel on the x and y axis.
+        float bulletDirectionX = transform.position.x + Mathf.Sin((shotAngle * Mathf.PI) / 180);
+        float bulletDirectionY = transform.position.y + Mathf.Cos((shotAngle * Mathf.PI) / 180);
+
+        // Determines the direction this bullet should be moving.
+        Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
+        return (bulletDirection - (Vector2)transform.position).normalized;
     }
 }
