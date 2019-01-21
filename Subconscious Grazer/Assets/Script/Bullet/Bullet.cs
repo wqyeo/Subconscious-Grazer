@@ -36,14 +36,12 @@ public class Bullet : MonoBehaviour {
     /// </summary>
     public float RotationAccelerationSpeed { get; set; }
 
-    private BaseShooter parentShooter;
-
     public void Update() {
 
         // Change speed based on acceleration.
         Velocity += (Velocity.normalized * (AccelerationSpeed * Time.deltaTime));
 
-        Vector3 newPosition = ( transform.position) + ((Vector3) (Velocity * Time.deltaTime));
+        Vector3 newPosition = (transform.position) + ((Vector3) (Velocity * Time.deltaTime));
 
         HandleRotation(newPosition, Time.deltaTime);
 
@@ -75,8 +73,7 @@ public class Bullet : MonoBehaviour {
     #region Initalize_Overloads
 
     // Rotates bullet to the direction it is travelling at.
-    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true) {
-        parentShooter = shooter;
+    public void Initalize(Vector2 velocity, float accelerationSpeed, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -86,8 +83,7 @@ public class Bullet : MonoBehaviour {
     }
 
     // Constantly rotates the bullet at the given speed.
-    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
-        parentShooter = shooter;
+    public void Initalize(Vector2 velocity, float accelerationSpeed, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -104,14 +100,12 @@ public class Bullet : MonoBehaviour {
             OnBulletDisposedEvent.Invoke(this, null);
         }
 
-        // If this bullet has an animator
-        if (GetComponent<Animator>() != null) {
-            // Play bullet death animation.
-            GetComponent<Animator>().Play("death");
-        }
-
+        // If we need to pool this bullet.
         if (poolBullet) {
+            // Pool it.
             ObjectPool.Instance.AddToPool(gameObject);
+            // Empty eventlistener.
+            OnBulletDisposedEvent = null;
         } else {
             Destroy(gameObject);
         }

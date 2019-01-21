@@ -514,7 +514,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300096, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.35, y: 0.31666666}
@@ -541,7 +541,8 @@ MonoBehaviour:
   bulletType: 2
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
-  enemyBullet: 0
+  bulletLayer: 11
+  bulletTag: 
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1
@@ -682,7 +683,8 @@ MonoBehaviour:
   bulletType: 2
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
-  enemyBullet: 0
+  bulletLayer: 11
+  bulletTag: 
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1
@@ -849,7 +851,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300096, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.35, y: 0.31666666}
@@ -876,7 +878,8 @@ MonoBehaviour:
   bulletType: 2
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
-  enemyBullet: 0
+  bulletLayer: 11
+  bulletTag: 
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1
@@ -1462,7 +1465,8 @@ MonoBehaviour:
   bulletType: 1
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
-  enemyBullet: 0
+  bulletLayer: 11
+  bulletTag: 
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 0
@@ -2401,7 +2405,7 @@ MonoBehaviour:
   shootCooldown: 0.08
   blueBullet: {fileID: 21300088, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
   redBullet: {fileID: 21300086, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
-  focusedSpreadWideness: 30
+  focusedSpreadWideness: 15
   defocusedSpreadWideness: 100
   redNeedle: {fileID: 21300090, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
   blueNeedle: {fileID: 21300092, guid: c9ff879d79f996844835e82a7ebc8908, type: 3}
@@ -2583,7 +2587,8 @@ MonoBehaviour:
   bulletType: 1
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
-  enemyBullet: 0
+  bulletLayer: 11
+  bulletTag: 
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 0
@@ -2710,14 +2715,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: redFairy
       objectReference: {fileID: 0}
-    - target: {fileID: 1272396770553664, guid: 6e1468b3d84d5334880cd57d8b63dbb7, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272396770553664, guid: 6e1468b3d84d5334880cd57d8b63dbb7, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 4953799958780862, guid: 6e1468b3d84d5334880cd57d8b63dbb7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.65
@@ -2762,106 +2759,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1893200051, guid: 6e1468b3d84d5334880cd57d8b63dbb7, type: 3}
+      propertyPath: targetTransform
+      value: 
+      objectReference: {fileID: 1606452613}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e1468b3d84d5334880cd57d8b63dbb7, type: 3}
---- !u!1 &1893200047 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1272396770553664, guid: 6e1468b3d84d5334880cd57d8b63dbb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1893200046}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1893200048
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893200047}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0061818957, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.51666665, y: 0.48333332}
-    newSize: {x: 0.31, y: 0.29}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.18636167, y: 0.29}
-  m_EdgeRadius: 0
---- !u!50 &1893200049
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893200047}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &1893200050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893200047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 911da392f2a9e14468d523a62b354028, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2.5
-  health: 0
-  startAIType: 0
-  shootCooldown: 0.5
---- !u!114 &1893200051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893200047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b84cf87d61123a43bcafe639c70078b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeOnStart: 1
-  bulletPrefab: {fileID: 6586376734119972354, guid: 7f7920384f236584e99686458d9eff39,
-    type: 3}
-  bulletType: 0
-  bulletRotationOffset: 0
-  bulletDefaultSprite: {fileID: 21300028, guid: 08d32be3adc24f449a8c8a2c774c0ee9,
-    type: 3}
-  enemyBullet: 1
-  bulletSpeed: 4
-  bulletAcceleration: 0
-  initalRotateToDirection: 0
-  rotateBulletToDirection: 0
-  rotation: 180
-  rotationAcceleration: 0
-  lockOn: 1
-  shotAngle: 0
-  targetTransform: {fileID: 1606452613}
 --- !u!1 &1900214191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,7 +3197,8 @@ MonoBehaviour:
   bulletType: 2
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
-  enemyBullet: 0
+  bulletLayer: 11
+  bulletTag: 
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1

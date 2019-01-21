@@ -52,19 +52,20 @@ public class SpreadShooter : TargettingShooter {
 
     public override void Shoot() {
 
-        float startAngle = GetStartingAngle();
+        // Get the initial direction to shoot at
+        Vector2 initalDirection = FindShootDirection();
 
         // Offset for the spread. (So that the first shot wont start at the targetted angle, and continue clockwise.)
         float offSet = shotWideness / 2;
 
         // The angle to rotate after each shot.
         float angleStep = (shotWideness / (bulletCount + 1));
-        float angle = shotAngle + (angleStep - offSet);
+        float angle = (angleStep - offSet);
 
         // For each pellet we have to shoot
         for (int i = 0; i < bulletCount; ++i) {
             // Find out where the bullet have to move to from the current shooting angle.
-            Vector2 bulletMoveDirection = DetermineBulletMoveDirection(angle);
+            Vector2 bulletMoveDirection = initalDirection.Rotate(angle);
             // Initalize the bullet.
             InitBullet(bulletMoveDirection);
 

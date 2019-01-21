@@ -23,14 +23,20 @@ public class RadialShooter : TargettingShooter {
     #endregion
 
     public override void Shoot() {
+        // Find the initial direction to shoot for the first bullet.
+        Vector2 initialDirection = FindShootDirection();
+        // How much to rotate by after each shot.
         float angleStep = 360f / bulletCount;
-        float angle = GetStartingAngle();
+        // Current facing angle.
+        float angle = 0f;
 
+        // For each bullet to shoot.
         for (int i = 0; i <= bulletCount - 1; i++) {
-            Vector2 bulletMoveDirection = DetermineBulletMoveDirection(angle.GetNormalizedAngle());
-
+            // Rotate the initial direction by the current facing angle.
+            Vector2 bulletMoveDirection = initialDirection.Rotate(angle.GetNormalizedAngle());
+            // Shoot.
             InitBullet(bulletMoveDirection);
-
+            // Rotate respectively.
             angle += angleStep;
         }
     }

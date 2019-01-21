@@ -26,10 +26,13 @@ public abstract class BaseShooter : MonoBehaviour {
     [SerializeField, Tooltip("The default sprite for the bullets. (Null to just use what was given from prefab or object pool)")]
     private Sprite bulletDefaultSprite;
 
-    [SerializeField, Tooltip("True if this bullet belongs to the enemy's")]
-    private bool enemyBullet = true;
-
     [Separator("Initalized Bullet properties", true)]
+
+    [SerializeField, Layer, Tooltip("The layer of the bullet shot out.")]
+    private int bulletLayer;
+
+    [TagSelector, SerializeField, Tooltip("The tag of the bullet shot out.")]
+    private string bulletTag;
 
     [SerializeField, Tooltip("The default speed of all the bullets shot out")]
     protected float bulletSpeed;
@@ -163,9 +166,9 @@ public abstract class BaseShooter : MonoBehaviour {
         var bullet = newBullet.GetComponent<Bullet>();
 
         if (rotateBulletToDirection) {
-            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotateBulletToDirection);
+            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotateBulletToDirection);
         } else {
-            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotation, rotationAcceleration);
+            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotation, rotationAcceleration);
         }
 
         // If there are listeners to add.
@@ -173,7 +176,6 @@ public abstract class BaseShooter : MonoBehaviour {
             // Add them.
             bullet.OnBulletDisposedEvent += OnBulletDestroyedEvent;
         }
-        
 
         return bullet;
     }
@@ -183,13 +185,8 @@ public abstract class BaseShooter : MonoBehaviour {
     /// </summary>
     /// <param name="bulletObj"></param>
     private void HandleBulletObject(GameObject bulletObj, Vector2 direction, bool initalRotateToDirection = false) {
-        if (enemyBullet) {
-            bulletObj.tag = "EnemyBullet";
-            bulletObj.layer = 10;
-        } else {
-            bulletObj.tag = "PlayerBullet";
-            bulletObj.layer = 11;
-        }
+        bulletObj.tag = bulletTag;
+        bulletObj.layer = bulletLayer;
 
         // If a bullet default sprite is given.
         if (BulletDefaultSprite != null) {
@@ -265,6 +262,16 @@ public abstract class BaseShooter : MonoBehaviour {
         return correctBulletType;
     }
 
+    protected Vector2 DetermineBulletMoveDirection(float shotAngle) {
+        // Determine the direction of the bullet travel on the x and y axis.
+        float bulletDirectionX = transform.position.x + Mathf.Sin((shotAngle * Mathf.PI) / 180);
+        float bulletDirectionY = transform.position.y + Mathf.Cos((shotAngle * Mathf.PI) / 180);
+
+        // Determines the direction this bullet should be moving.
+        Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
+        return (bulletDirection - (Vector2)transform.position).normalized;
+    }
+
     public void AddOnBulletDestroyedListener(OnBulletDestroyed listener) {
         if (onBulletDestroy == null) {
             onBulletDestroy = listener;
@@ -275,15 +282,5 @@ public abstract class BaseShooter : MonoBehaviour {
 
     public void ClearAllOnBulletDestroyedListener() {
         onBulletDestroy = null;
-    }
-
-    protected Vector2 DetermineBulletMoveDirection(float shotAngle) {
-        // Determine the direction of the bullet travel on the x and y axis.
-        float bulletDirectionX = transform.position.x + Mathf.Sin((shotAngle * Mathf.PI) / 180);
-        float bulletDirectionY = transform.position.y + Mathf.Cos((shotAngle * Mathf.PI) / 180);
-
-        // Determines the direction this bullet should be moving.
-        Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
-        return (bulletDirection - (Vector2)transform.position).normalized;
     }
 }

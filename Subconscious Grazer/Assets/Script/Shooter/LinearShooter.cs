@@ -19,10 +19,6 @@ public class LinearShooter : TargettingShooter {
     #endregion
 
     public override void Shoot() {
-        float startAngle = GetStartingAngle();
-
-        Vector2 bulletMoveDirection = DetermineBulletMoveDirection(startAngle);
-
-        InitBullet(bulletMoveDirection);
+        InitBullet(FindShootDirection());
     }
 }

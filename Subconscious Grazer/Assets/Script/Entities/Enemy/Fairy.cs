@@ -20,8 +20,6 @@ public class Fairy : Enemy, IShooting {
             // Shoot if this shooter is active
             if (shooter.IsActive) {
                 shooter.Shoot();
-
-                Debug.Log("Shoot!");
             }
         }
     }

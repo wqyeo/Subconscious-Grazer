@@ -7,10 +7,10 @@ public class Player : Singleton<Player> {
 
     [Separator("Player Input Keycodes", true)]
 
-    [SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
+    [MustBeAssigned, SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
     private KeyCode shootKey;
 
-    [SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
+    [MustBeAssigned, SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
     private KeyCode focusKey, moveUpKey, moveDownKey, moveRightKey, moveLeftKey;
 
     [Separator("Player movement properties",true)]
@@ -107,8 +107,10 @@ public class Player : Singleton<Player> {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
 
-        defaultShooter = GetComponentsInChildren<LinearShooter>();
-        needleShooters = GetComponentsInChildren<SpreadShooter>();
+        defaultShooter = GetComponentsInChildren<LinearShooter>(true);
+        needleShooters = GetComponentsInChildren<SpreadShooter>(true);
+
+        Debug.Log(needleShooters.Length);
 
         SetFocused(false);
     }

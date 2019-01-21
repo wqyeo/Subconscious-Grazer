@@ -17,40 +17,19 @@ public abstract class TargettingShooter : BaseShooter
     protected Transform targetTransform;
 
     /// <summary>
-    /// Get the angle to the target.
+    /// Get the direction to the desired target to shoot at.
     /// </summary>
-    /// <returns></returns>
-    protected float GetStartingAngle() {
-        float startAngle;
-
+    /// <returns>The direction to the desired target</returns>
+    protected Vector2 FindShootDirection() {
         // If we are locking on to an enemy.
         if (lockOn) {
+            // Find out how much this bullet would have to rotate.
+            Quaternion rotation = Quaternion.LookRotation(targetTransform.position - transform.position, Vector3.up);
 
-            startAngle = AngleTo(transform.position, (targetTransform.position));
+            return (targetTransform.position - transform.position).normalized;
+
         } else {
-            startAngle = shotAngle;
+            return DetermineBulletMoveDirection(shotAngle);
         }
-
-        return startAngle;
-    }
-
-    float AngleBetweenVector2(Vector2 vec1, Vector2 vec2) {
-        Vector2 vec1Rotated90 = new Vector2(-vec1.y, vec1.x);
-        float sign = (Vector2.Dot(vec1Rotated90, vec2) < 0) ? -1.0f : 1.0f;
-        return Vector2.Angle(vec1, vec2) * sign;
-    }
-
-    private float AngleTo(Vector2 pos, Vector2 target) {
-        Vector2 diference = Vector2.zero;
-
-        diference = target - pos;
-
-        //if (target.y > pos.y) {
-        //    diference = target - pos;
-        //} else {
-        //    diference = pos - target;
-        //}
-
-        return Vector2.Angle(Vector2.zero, diference);
     }
 }
