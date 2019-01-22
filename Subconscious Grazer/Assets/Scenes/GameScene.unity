@@ -542,7 +542,7 @@ MonoBehaviour:
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
   bulletLayer: 11
-  bulletTag: 
+  bulletTag: PlayerBullet
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1
@@ -684,7 +684,7 @@ MonoBehaviour:
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
   bulletLayer: 11
-  bulletTag: 
+  bulletTag: PlayerBullet
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1
@@ -879,7 +879,7 @@ MonoBehaviour:
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
   bulletLayer: 11
-  bulletTag: 
+  bulletTag: PlayerBullet
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
   bulletLayer: 11
-  bulletTag: 
+  bulletTag: PlayerBullet
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 0
@@ -2588,7 +2588,7 @@ MonoBehaviour:
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
   bulletLayer: 11
-  bulletTag: 
+  bulletTag: PlayerBullet
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 0
@@ -2763,6 +2763,10 @@ PrefabInstance:
       propertyPath: targetTransform
       value: 
       objectReference: {fileID: 1606452613}
+    - target: {fileID: 1893200051, guid: 6e1468b3d84d5334880cd57d8b63dbb7, type: 3}
+      propertyPath: bulletTag
+      value: EnemyBullet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e1468b3d84d5334880cd57d8b63dbb7, type: 3}
 --- !u!1 &1900214191
@@ -3198,7 +3202,7 @@ MonoBehaviour:
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
   bulletLayer: 11
-  bulletTag: 
+  bulletTag: PlayerBullet
   bulletSpeed: 15
   bulletAcceleration: 0
   initalRotateToDirection: 1
