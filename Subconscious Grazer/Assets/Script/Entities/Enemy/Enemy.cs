@@ -19,7 +19,7 @@ public abstract class Enemy : MonoBehaviour {
     [SearchableEnum, MustBeAssigned, SerializeField, Tooltip("Where this AI will start moving towards. (For non-seeker based AI)")]
     private Direction startDirection;
 
-    [ConditionalField("startAIType", AIType.HitRunAI), SerializeField, Tooltip("How long this AI move before lingering")]
+    [ConditionalField("startAIType", AIType.HitRunAI), SerializeField, Tooltip("How long this AI moves before lingering")]
     private float moveDuration;
 
     [ConditionalField("startAIType", AIType.HitRunAI), SerializeField, Tooltip("How long this AI will stay in the lingering spot before running away. (Negative for stay after move)")]
@@ -28,13 +28,24 @@ public abstract class Enemy : MonoBehaviour {
     [ConditionalField("startAIType", AIType.HitRunAI), SerializeField, Tooltip("True if this AI only starts shooting after moving.")]
     private bool shootAfterMoving;
 
+    [Separator("Death Properties", true)]
+
+    [SerializeField, Tooltip("True if this enemy explodes on death.")]
+    private bool explodeOnDeath;
+
+    [SerializeField, Tooltip("The shooters to invoke when this enemy dies.")]
+    public BaseShooter[] onDeathShooters;
+
     protected Rigidbody2D enemyRB;
 
     protected AI controllingAI;
 
     protected BaseShooter[] shooters;
 
+    public bool CanAct { get; set; }
+
     #region Properties
+    public bool Invulnerable { get; set; }
 
     public Vector2 Velocity {
         get {
@@ -112,10 +123,21 @@ public abstract class Enemy : MonoBehaviour {
         }
     }
 
+    public bool ExplodeOnDeath {
+        get {
+            return explodeOnDeath;
+        }
+
+        set {
+            explodeOnDeath = value;
+        }
+    }
+
     #endregion
 
     private void Start() {
-        
+
+        CanAct = true;
         enemyRB = GetComponent<Rigidbody2D>();
         shooters = GetComponentsInChildren<BaseShooter>();
 
@@ -127,11 +149,17 @@ public abstract class Enemy : MonoBehaviour {
             }
         }
 
+        foreach (var deathShooter in onDeathShooters) {
+            deathShooter.IsActive = false;
+        }
+
         AssignAI(startAIType);
     }
 
     private void Update() {
-        controllingAI.UpdateAI(Time.deltaTime);
+        if (CanAct) {
+            controllingAI.UpdateAI(Time.deltaTime);
+        }
     }
 
     /// <summary>
@@ -140,16 +168,6 @@ public abstract class Enemy : MonoBehaviour {
     /// <param name="direction">Where to move this enemy to.</param>
     public void SetMoveDirection(Vector2 direction) {
         enemyRB.velocity = direction * speed;
-    }
-
-    /// <summary>
-    /// Invoke an action on all shooters.
-    /// </summary>
-    /// <param name="foreachAction"></param>
-    public void ForeachShooter(Action<BaseShooter> foreachAction) {
-        foreach (var shooter in shooters) {
-            foreachAction(shooter);
-        }
     }
 
     public void AssignAI(AIType typeToAssign) {
@@ -178,15 +196,65 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        // If this enemy is invulnerable, exit.
+        if (Invulnerable) { return; }
+
         // If this enemy touched the player's bullet.
         if (other.CompareTag("PlayerBullet")) {
-            other.gameObject.GetComponent<Bullet>().Dispose();
+            var hitBullet = other.gameObject.GetComponent<Bullet>();
+
+            DamageEnemy(hitBullet.Damage);
+
+            hitBullet.Dispose();
         }
     }
 
-    #region overrideable
+    private void DamageEnemy(int damage) {
+        // Reduce health
+        Health -= damage;
 
-    protected virtual void OnEnemyDeath() { };
+        // If the enemy is dead
+        if (Health <= 0) {
+            CanAct = false;
+            enemyRB.velocity = Vector2.zero;
+            // If this enemy explodes on death
+            if (explodeOnDeath) {
+                // Set all shooter to inactive.
+                ForeachShooter((BaseShooter shooter) => { shooter.IsActive = false; });
+
+                // Fetch all deathshooter
+                foreach (var deathShooter in onDeathShooters) {
+                    // Shoot them.
+                    deathShooter.Shoot();
+                }
+            }
+
+            // If this enemy has an animator.
+            if (GetComponent<Animator>() != null) {
+                // Play it's death animation.
+                GetComponent<Animator>().Play("DeathClip");
+            } else {
+                // Destroy this enemy.
+                DiposeEnemy();
+            }
+        }
+    }
+
+    #region Util
+
+    public void DiposeEnemy() {
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Invoke an action on all shooters.
+    /// </summary>
+    /// <param name="foreachAction"></param>
+    public void ForeachShooter(Action<BaseShooter> foreachAction) {
+        foreach (var shooter in shooters) {
+            foreachAction(shooter);
+        }
+    }
 
     #endregion
 }

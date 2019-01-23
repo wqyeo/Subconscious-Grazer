@@ -11,7 +11,8 @@ public enum BulletType {
 
     #region Enemy_Bullets
 
-    star_Small
+    star_Small,
+    ball_Small
 
     #endregion
 }

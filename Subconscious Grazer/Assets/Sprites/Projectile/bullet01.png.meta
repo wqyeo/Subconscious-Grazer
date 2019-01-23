@@ -18,6 +18,14 @@ TextureImporter:
     21300026: danmaku_Orange
     21300028: smallStar_Orange
     21300030: bigStar_Orange
+    21300032: smallStar_Red
+    21300034: smallBall_Red
+    21300036: danmaku_Red
+    21300038: bigStar_Red
+    21300040: spiritBullet_Red_0
+    21300042: spiritBullet_Red_1
+    21300044: spiritBullet_Red_2
+    21300046: spiritBullet_Red_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -426,6 +434,166 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c0b351536cd9df244bfbeac1411a9639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smallStar_Red
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 412
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ec3e817d4f12354893f286dde391234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smallBall_Red
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 462
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b90338d1558eaa14cb36f55f3590134d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: danmaku_Red
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 428
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f18fa2409c497794a9b6f389fee3e632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bigStar_Red
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 246
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3047a5ebb27656c42846fcce7d298530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spiritBullet_Red_0
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 218
+        width: 27
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5326866, y: 0.5935979}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c1238fd8356b0f41885e3aae3c67118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spiritBullet_Red_1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 218
+        width: 27
+        height: 33
+      alignment: 9
+      pivot: {x: 0.48774323, y: 0.5835696}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8903d50220af0c24f946837d68d4ed70
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spiritBullet_Red_2
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 218
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.522824, y: 0.5869122}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76f4db58a0fb91c4f9526085dfa6db8f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spiritBullet_Red_3
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 218
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.49115518, y: 0.59068066}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81fcfdd1842dca546989c292d914609d
       vertices: []
       indices: 
       edges: []

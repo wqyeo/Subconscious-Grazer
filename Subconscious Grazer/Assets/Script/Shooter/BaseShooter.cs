@@ -17,6 +17,9 @@ public abstract class BaseShooter : MonoBehaviour {
     [MustBeAssigned, SerializeField, Tooltip("Prefab of the bullet that this shooter shoots out")]
     protected GameObject bulletPrefab;
 
+    [SerializeField, Tooltip("The amount of damage this bullet deals.")]
+    private int damage;
+
     [SearchableEnum,SerializeField, Tooltip("The type of the bullet this shooter shoots.")]
     private BulletType bulletType;
 
@@ -27,12 +30,6 @@ public abstract class BaseShooter : MonoBehaviour {
     private Sprite bulletDefaultSprite;
 
     [Separator("Initalized Bullet properties", true)]
-
-    [SerializeField, Layer, Tooltip("The layer of the bullet shot out.")]
-    private int bulletLayer;
-
-    [TagSelector, SerializeField, Tooltip("The tag of the bullet shot out.")]
-    private string bulletTag;
 
     [SerializeField, Tooltip("The default speed of all the bullets shot out")]
     protected float bulletSpeed;
@@ -151,6 +148,16 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
+    public int Damage {
+        get {
+            return damage;
+        }
+
+        set {
+            damage = value;
+        }
+    }
+
     #endregion
 
     /// <summary>
@@ -165,10 +172,13 @@ public abstract class BaseShooter : MonoBehaviour {
 
         var bullet = newBullet.GetComponent<Bullet>();
 
+        // If we need to rotate the bullet to the flying direction.
         if (rotateBulletToDirection) {
-            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotateBulletToDirection);
+            // Create a bullet that constantly rotates to the flying direction.
+            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotateBulletToDirection);
         } else {
-            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, ShotBulletType, rotation, rotationAcceleration);
+            // Create a bullet, giving desired rotation and rotation acceleration.
+            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration);
         }
 
         // If there are listeners to add.
@@ -185,13 +195,14 @@ public abstract class BaseShooter : MonoBehaviour {
     /// </summary>
     /// <param name="bulletObj"></param>
     private void HandleBulletObject(GameObject bulletObj, Vector2 direction, bool initalRotateToDirection = false) {
-        bulletObj.tag = bulletTag;
-        bulletObj.layer = bulletLayer;
 
         // If a bullet default sprite is given.
         if (BulletDefaultSprite != null) {
             // Set the bullet sprite.
             bulletObj.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprite;
+        } else {
+            // Use the given prefab's sprite.
+            bulletObj.GetComponent<SpriteRenderer>().sprite = bulletPrefab.GetComponent<SpriteRenderer>().sprite;
         }
 
         // Rotate the bullet to the offset.
@@ -199,6 +210,7 @@ public abstract class BaseShooter : MonoBehaviour {
         tempRotation.z += bulletRotationOffset;
         bulletObj.transform.eulerAngles = tempRotation;
 
+        // If we initally need to rotate this bullet to the shooting direction.
         if (initalRotateToDirection) {
             // Set a rotation where it looks at the new position from the current position.
             Quaternion rotation = Quaternion.LookRotation(((Vector3)direction + transform.position) - transform.position, transform.TransformDirection(Vector3.up));
@@ -216,7 +228,7 @@ public abstract class BaseShooter : MonoBehaviour {
     /// <returns>The bullet.</returns>
     private GameObject FetchOrCreateBullet() {
         // Attempt to fetch a bullet from the object pool.
-        GameObject newBullet = ObjectPool.Instance.FetchObjectByComponent<Bullet>();
+        GameObject newBullet = ObjectPool.Instance.FetchObjectByCondition(IsSameBulletType);
 
         // If the object pool does not contain a bullet.
         if (newBullet == null) {

@@ -36,6 +36,11 @@ public class Bullet : MonoBehaviour {
     /// </summary>
     public float RotationAccelerationSpeed { get; set; }
 
+    /// <summary>
+    /// The amount of damage this bullet deals.
+    /// </summary>
+    public int Damage { get; set; }
+
     public void Update() {
 
         // Change speed based on acceleration.
@@ -73,23 +78,25 @@ public class Bullet : MonoBehaviour {
     #region Initalize_Overloads
 
     // Rotates bullet to the direction it is travelling at.
-    public void Initalize(Vector2 velocity, float accelerationSpeed, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true) {
+    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
         RotateBulletToDirection = rotateBulletToDirection;
         RotationSpeed = 0;
         RotationAccelerationSpeed = 0f;
+        Damage = damage;
     }
 
     // Constantly rotates the bullet at the given speed.
-    public void Initalize(Vector2 velocity, float accelerationSpeed, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
+    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
         RotateBulletToDirection = false;
         RotationSpeed = rotationSpeed;
         RotationAccelerationSpeed = rotationAcceleration;
+        Damage = damage;
     }
 
     #endregion

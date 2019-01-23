@@ -13,7 +13,7 @@ public abstract class TargettingShooter : BaseShooter
     [ConditionalField("lockOn", false), SerializeField, Tooltip("Where this shot is angled towards."), Range(0f, 360f)]
     private float shotAngle;
 
-    [MustBeAssigned, ConditionalField("lockOn", true), SerializeField, Tooltip("The target this shooter is locking on to.")]
+    [MustBeAssigned, ConditionalField("lockOn", true), SerializeField, Tooltip("The target this shooter is locking on to. (Play if null.)")]
     private Transform targetTransform;
 
     #region Properties
@@ -55,6 +55,11 @@ public abstract class TargettingShooter : BaseShooter
     protected Vector2 FindShootDirection() {
         // If we are locking on to an enemy.
         if (lockOn) {
+            // If no target was given.
+            if (targetTransform == null) {
+                targetTransform = Player.Instance.transform;
+            }
+
             // Find out how much this bullet would have to rotate.
             Quaternion rotation = Quaternion.LookRotation(targetTransform.position - transform.position, Vector3.up);
 
