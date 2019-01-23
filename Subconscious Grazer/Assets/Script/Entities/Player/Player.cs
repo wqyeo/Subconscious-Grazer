@@ -110,8 +110,6 @@ public class Player : Singleton<Player> {
         defaultShooter = GetComponentsInChildren<LinearShooter>(true);
         needleShooters = GetComponentsInChildren<SpreadShooter>(true);
 
-        Debug.Log(needleShooters.Length);
-
         SetFocused(false);
     }
 
@@ -144,7 +142,7 @@ public class Player : Singleton<Player> {
 
         bool focusState = false;
 
-        #region Horizontal Movement
+        #region Movement_Input
 
         // If the user presses the left arrow key.
         if (Input.GetKey(moveLeftKey)) {
@@ -157,10 +155,6 @@ public class Player : Singleton<Player> {
             moveDirection.x += 1f;
         }
 
-        #endregion
-
-        #region Verticle Movement
-
         // If the user presses the up arrow key.
         if (Input.GetKey(moveUpKey)) {
             // Move upwards.
@@ -170,17 +164,6 @@ public class Player : Singleton<Player> {
         if (Input.GetKey(moveDownKey)) {
             // Move downwards
             moveDirection.y += -1f;
-        }
-
-        #endregion
-
-        #region Diagonal Movement
-
-        // If the player moves diagonally.
-        if (moveDirection.x != 0 && moveDirection.y != 0) {
-            // Fix the movement (To prevent the player from moving faster diagonally)
-            moveDirection.x /= 1.75f;
-            moveDirection.y /= 1.75f;
         }
 
         #endregion
@@ -200,7 +183,7 @@ public class Player : Singleton<Player> {
         SetFocused(focusState);
 
         // Move the player respective.
-        playerRB.velocity = moveDirection * finalSpeed;
+        playerRB.velocity = moveDirection.normalized * finalSpeed;
     }
 
     #endregion

@@ -20,16 +20,6 @@ public class SpreadShooter : TargettingShooter {
         }
     }
 
-    public float ShotAngle {
-        get {
-            return shotAngle;
-        }
-
-        set {
-            shotAngle = value;
-        }
-    }
-
     public float ShotWideness {
         get {
             return shotWideness;

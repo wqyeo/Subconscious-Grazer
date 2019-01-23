@@ -29,6 +29,41 @@ public static class ExtensionMethods {
         return firstDot + secondDot;
     }
 
+    public static Vector2 ToVector2(this Direction direction) {
+        Vector2 result = new Vector2();
+
+        switch (direction) {
+            case Direction.Down:
+                result = Vector2.down;
+                break;
+            case Direction.Up:
+                result = Vector2.up;
+                break;
+            case Direction.Left:
+                result = Vector2.left;
+                break;
+            case Direction.Right:
+                result = Vector2.right;
+                break;
+            case Direction.Diagonal_DownLeft:
+                result = new Vector2(-1, -1);
+                break;
+            case Direction.Diagonal_DownRight:
+                result = new Vector2(1, -1);
+                break;
+            case Direction.Diagonal_UpLeft:
+                result = new Vector2(-1, 1);
+                break;
+            case Direction.Diagonal_UpRight:
+                result = new Vector2(1, 1);
+                break;
+        }
+
+        return result.normalized;
+    }
+
+
+
     /// <summary>
     /// Rotates this vector around the given degree.
     /// </summary>

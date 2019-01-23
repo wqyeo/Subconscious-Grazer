@@ -32,15 +32,15 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <typeparam name="T">The type of the component.</typeparam>
     /// <param name="removeFromPool">True if the fetched gameobject needs to be removed from the pool.</param>
     /// <returns>The respective gameobject. (Null if none is found)</returns>
-    public GameObject FetchObjectByComponent<T>(bool removeFromPool = true) where T : MonoBehaviour {
+    public GameObject FetchObjectByComponent<T>(bool removeFromPool = false) where T : MonoBehaviour {
         GameObject fetchedObject = null;
 
-        
+
 
         // Foreach game object in the object pool
         foreach (var gameObj in objectPool) {
             // If this gameobject has the desired component.
-            if (gameObj.GetComponent<T>() != null) {
+            if (gameObj.GetComponent<T>() != null && !gameObj.activeSelf) {
                 // Fetch this object.
                 fetchedObject = gameObj;
                 // End loop (an object with the desired component is found.)
@@ -64,7 +64,7 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <param name="maxSize">The max size of the array returned. (Negative for limitless)</param>
     /// <param name="removeFromPool">True to remove the respective fetched gameobject from the object pool.</param>
     /// <returns>The respective fetched game objects.</returns>
-    public GameObject[] FetchObjectsByComponent<T>(int maxSize = -1, bool removeFromPool = true) where T : MonoBehaviour {
+    public GameObject[] FetchObjectsByComponent<T>(int maxSize = -1, bool removeFromPool = false) where T : MonoBehaviour {
 
         HashSet<GameObject> temp = new HashSet<GameObject>();
 
@@ -78,7 +78,7 @@ public class ObjectPool : Singleton<ObjectPool> {
                 break;
             }
             // If the current object contains the desired component.
-            else if (obj.GetComponent<T>() != null) {
+            else if (obj.GetComponent<T>() != null && !obj.activeSelf) {
                 // Add to the temporary list.
                 temp.Add(obj);
                 // An object has been added.
@@ -103,7 +103,7 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <param name="maxSize">The maximum size of the array returned. (Negative for limitless.)</param>
     /// <param name="removeFromPool">True to remove the respective fetched gameobject from the object pool.</param>
     /// <returns>The respective fetched game objects.</returns>
-    public GameObject[] FetchObjectsByCondition(Func<GameObject, bool> condition, int maxSize = -1, bool removeFromPool = true) {
+    public GameObject[] FetchObjectsByCondition(Func<GameObject, bool> condition, int maxSize = -1, bool removeFromPool = false) {
         HashSet<GameObject> temp = new HashSet<GameObject>();
 
         // For counting how many objects we already have in the temporary list.
@@ -116,7 +116,7 @@ public class ObjectPool : Singleton<ObjectPool> {
                 break;
             }
             // If the current object meets the condition.
-            else if (condition(obj)) {
+            else if (condition(obj) && !obj.activeSelf) {
                 // Add to the temporary list.
                 temp.Add(obj);
                 // An object has been added.
@@ -140,14 +140,14 @@ public class ObjectPool : Singleton<ObjectPool> {
     /// <param name="condition">The condition based on to fetch the gameobject</param>
     /// <param name="removeFromPool">True to remove this gameobject from the object pool.</param>
     /// <returns>The fetched gameobject by the respective condition. (Null if none is found.)</returns>
-    public GameObject FetchObjectByCondition(Func<GameObject, bool> condition, bool removeFromPool = true) {
+    public GameObject FetchObjectByCondition(Func<GameObject, bool> condition, bool removeFromPool = false) {
 
         GameObject fetchedObject = null;
 
         // Loop through the object pool.
         foreach (var obj in objectPool) {
-            // If this object's condition meets the given condition.
-            if (condition(obj)) {
+            // If this object's condition meets the given condition and the object is not active.
+            if (condition(obj) && !obj.activeSelf) {
                 // Fetch this object.
                 fetchedObject = obj;
                 // Stop loop (object is found.)
@@ -156,7 +156,7 @@ public class ObjectPool : Singleton<ObjectPool> {
         }
 
         // Remove this object pool if required.
-        if (removeFromPool && fetchedObject != null){
+        if (removeFromPool && fetchedObject != null) {
             objectPool.Remove(fetchedObject);
         }
 

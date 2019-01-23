@@ -1,5 +1,8 @@
 ﻿
 [System.Serializable]
 public enum AIType {
-    DriveByAI
+    DriveByAI,
+    LinearMoveAI,
+    HitRunAI,
+    TeleportingAI
 }

@@ -6,6 +6,12 @@ public enum BulletType {
 
     #region Player_Bullets
     PlayerBullet_default,
-    PlayerBullet_needle
+    PlayerBullet_needle,
+    #endregion
+
+    #region Enemy_Bullets
+
+    star_Small
+
     #endregion
 }

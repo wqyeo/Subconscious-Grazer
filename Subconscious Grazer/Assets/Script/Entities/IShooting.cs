@@ -9,7 +9,7 @@ public interface IShooting {
     /// <summary>
     /// How long to wait for before this entity can shoot again.
     /// </summary>
-    float ShootCooldown { get; }
+    float ShootCooldown { get; set; }
 
     void Shoot();
 }

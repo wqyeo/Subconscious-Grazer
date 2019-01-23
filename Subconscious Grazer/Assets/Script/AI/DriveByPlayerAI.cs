@@ -5,22 +5,23 @@
 /// </summary>
 public class DriveByPlayerAI : AI {
 
-    private Transform playerTransform;
-    private float shootTimer;
+    private const AIType typeOfAI = AIType.DriveByAI;
 
-    private IShooting shooterEnemy;
+    public override AIType TypeOfAI {
+        get {
+            return typeOfAI;
+        }
+    }
+
+    private Transform playerTransform;
 
     private bool passedPlayer;
 
     public DriveByPlayerAI(Enemy enemyToControl) : base(enemyToControl) {
-        shootTimer = 0f;
         playerTransform = Player.Instance.transform;
 
         // True if the enemy passed by the player.
         passedPlayer = false;
-
-        // Will be null if this enemy cant shoot.
-        shooterEnemy = enemyToControl as IShooting;
     }
 
     public override void SwitchState(AI newAIState) {}
@@ -46,22 +47,6 @@ public class DriveByPlayerAI : AI {
             // check if the enemy has passed by the player.
             if (ControllingEnemy.transform.position.y <= playerTransform.position.y) {
                 passedPlayer = true;
-            }
-        }
-    }
-
-    private void HandleShooting(float time) {
-        // If the controlled enemy can do shooting.
-        if (shooterEnemy != null) {
-
-            shootTimer += time;
-
-            // If the timer is up for shooting.
-            if (shootTimer >= shooterEnemy.ShootCooldown) {
-                // Shoot.
-                shooterEnemy.Shoot();
-                // Reset timer
-                shootTimer = 0f;
             }
         }
     }

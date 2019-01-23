@@ -12,6 +12,9 @@ public class Fairy : Enemy, IShooting {
         get {
             return shootCooldown;
         }
+        set {
+            shootCooldown = value;
+        }
     }
 
     public void Shoot() {

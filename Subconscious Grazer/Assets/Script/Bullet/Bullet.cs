@@ -94,18 +94,18 @@ public class Bullet : MonoBehaviour {
 
     #endregion
 
-    public void Dispose(bool poolBullet = true) {
+    public void Dispose(bool destroyBullet = false) {
 
         if (OnBulletDisposedEvent != null) {
             OnBulletDisposedEvent.Invoke(this, null);
         }
 
-        // If we need to pool this bullet.
-        if (poolBullet) {
-            // Pool it.
-            ObjectPool.Instance.AddToPool(gameObject);
+        // If we do not need to destroy this bullet.
+        if (!destroyBullet) {
             // Empty eventlistener.
             OnBulletDisposedEvent = null;
+            // Set itself to not active
+            gameObject.SetActive(false);
         } else {
             Destroy(gameObject);
         }

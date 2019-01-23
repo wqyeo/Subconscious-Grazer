@@ -17,7 +17,7 @@ public abstract class BaseShooter : MonoBehaviour {
     [MustBeAssigned, SerializeField, Tooltip("Prefab of the bullet that this shooter shoots out")]
     protected GameObject bulletPrefab;
 
-    [SerializeField, Tooltip("The type of the bullet this shooter shoots.")]
+    [SearchableEnum,SerializeField, Tooltip("The type of the bullet this shooter shoots.")]
     private BulletType bulletType;
 
     [Range(0, 360), SerializeField, Tooltip("How much more to rotate the bullet by. (For the sprite to show correctly.)")]
@@ -222,6 +222,8 @@ public abstract class BaseShooter : MonoBehaviour {
         if (newBullet == null) {
             // Instantiate a new bullet.
             newBullet = Instantiate(bulletPrefab);
+            // Add the bullet to the object pool
+            ObjectPool.Instance.AddToPool(newBullet, false);
         } else {
             newBullet.SetActive(true);
         }
