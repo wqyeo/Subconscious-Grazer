@@ -1,87 +1,46 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : Singleton<ObjectPool> {
+public class ObjectPool<T> {
 
-    private Dictionary<BulletType, HashSet<GameObject>> bulletPools;
-    private Dictionary<EnemyType, HashSet<GameObject>> enemyPools;
+    private Dictionary<T, HashSet<GameObject>> objectPools;
 
-    private void Awake() {
-        bulletPools = new Dictionary<BulletType, HashSet<GameObject>>();
-        enemyPools = new Dictionary<EnemyType, HashSet<GameObject>>();
+    public ObjectPool() {
+        objectPools = new Dictionary<T, HashSet<GameObject>>();
     }
 
-    #region BulletPool
-
     /// <summary>
-    /// Add the bullet to the bullet pool
+    /// Add the object to the respective object pool
     /// </summary>
-    /// <param name="type">The type of bullet to add.</param>
-    /// <param name="bulletObj">The bullet object.</param>
+    /// <param name="type">The type of object to add.</param>
+    /// <param name="obj">The object to add into the object pool.</param>
     /// <param name="deactiveObj">True to deactive this object when adding to the pool.</param>
-    public void AddToBulletPool(BulletType type, GameObject bulletObj, bool deactiveObj = false) {
-        // Get the respective bullet pool.
-        var pool = FetchBulletPoolByType(type);
-        // Add the bullet to the pool
-        pool.Add(bulletObj);
+    public void AddToObjectPool(T type, GameObject obj, bool deactiveObj = false) {
+        // Get the respective object pool.
+        var pool = FetchObjectPoolByType(type);
+        // Add the object to the pool
+        pool.Add(obj);
 
-        // If we need to deactive this object
         if (deactiveObj) {
-            bulletObj.SetActive(false);
+            obj.SetActive(false);
         }
     }
 
     /// <summary>
-    /// Fetch the first inactive bullet object in the object pool by bullet type.
+    /// Fetch the first inactive object in the object pool by type.
     /// </summary>
-    /// <param name="type">The type of bullet to fetch.</param>
-    /// <returns>An inactive bullet object based on the given bullet-type. (Null if none was found)</returns>
-    public GameObject FetchBulletObjByType(BulletType type) {
+    /// <param name="type">The type of object to fetch.</param>
+    /// <returns>An inactive object based on the given type. (Null if none was found)</returns>
+    public GameObject FetchObjByType(T type) {
         // Get the respective bullet pool.
-        var pool = FetchBulletPoolByType(type);
+        var pool = FetchObjectPoolByType(type);
 
         return FetchAnyInactiveObjIfExists(pool);
     }
-
-    #endregion
-
-    #region EnemyPool
-
-    /// <summary>
-    /// Add the enemy to the enemy pool
-    /// </summary>
-    /// <param name="type">The type of enemy to add.</param>
-    /// <param name="enemyObj">The enemy object.</param>
-    /// <param name="deactiveObj">True to deactive this object when adding to the pool.</param>
-    public void AddToEnemyPool(EnemyType type, GameObject enemyObj, bool deactiveObj = false) {
-        // Get the respective enemy pool.
-        var pool = FetchEnemyPoolByType(type);
-        // Add the enemy to the pool
-        pool.Add(enemyObj);
-
-        // If we need to deactive this object
-        if (deactiveObj) {
-            enemyObj.SetActive(false);
-        }
-    }
-
-    /// <summary>
-    /// Fetch the first inactive enemy object in the object pool by enemy type.
-    /// </summary>
-    /// <param name="type">The type of enemy to fetch.</param>
-    /// <returns>An inactive enemy object based on the given enemy-type. (Null if none was found)</returns>
-    public GameObject FetchEnemyObjByType(EnemyType type) {
-        // Get the respective enemy pool.
-        var pool = FetchEnemyPoolByType(type);
-
-        return FetchAnyInactiveObjIfExists(pool);
-    }
-
-    #endregion
 
     #region Util
 
-    private GameObject FetchAnyInactiveObjIfExists(HashSet<GameObject> pool) {
+    private static GameObject FetchAnyInactiveObjIfExists(HashSet<GameObject> pool) {
         GameObject fetchObj = null;
 
         // Loop through the pool
@@ -98,26 +57,15 @@ public class ObjectPool : Singleton<ObjectPool> {
         return fetchObj;
     }
 
-    private HashSet<GameObject> FetchBulletPoolByType(BulletType type) {
+    private HashSet<GameObject> FetchObjectPoolByType(T type) {
         // If the pool does not exists yet.
-        if (!bulletPools.ContainsKey(type)) {
-            // Create it.
-            bulletPools.Add(type, new HashSet<GameObject>());
+        if (!objectPools.ContainsKey(type)) {
+            // Create it
+            objectPools.Add(type, new HashSet<GameObject>());
         }
 
-        // Fetch the bullet pool with the given type
-        return bulletPools[type];
-    }
-
-    private HashSet<GameObject> FetchEnemyPoolByType(EnemyType type) {
-        // If the pool does not exists yet.
-        if (!enemyPools.ContainsKey(type)) {
-            // Create it.
-            enemyPools.Add(type, new HashSet<GameObject>());
-        }
-
-        // Fetch the bullet pool with the given type
-        return enemyPools[type];
+        // Return the pool with given type.
+        return objectPools[type];
     }
 
     #endregion

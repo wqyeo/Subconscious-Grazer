@@ -79,7 +79,7 @@ public class SpawnManager : Singleton<SpawnManager> {
                 newEnemy.ShootAfterMoving = spawnPoint.shootAfterMoving;
                 newEnemy.MoveDuration = spawnPoint.moveDuration;
             }
-
+            newEnemy.Invulnerable = true;
             // Initalize this enemy
             newEnemy.InitEnemy(spawnPoint.aiType);
 
@@ -92,13 +92,13 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     private GameObject FetchOrCreateEnemyObject(EnemyType enemyType, GameObject enemyObj) {
         // Fetch an enemy of the similar type from the object pool.
-        var enemy = ObjectPool.Instance.FetchEnemyObjByType(enemyType);
+        var enemy = ObjPoolManager.Instance.EnemyPool.FetchObjByType(enemyType);
         // If there is no avaiable enemy in the object pool.
         if (enemy == null) {
             // Create one.
             enemy = Instantiate(enemyObj);
             // Add it to the object pool
-            ObjectPool.Instance.AddToEnemyPool(enemyType, enemy);
+            ObjPoolManager.Instance.EnemyPool.AddToObjectPool(enemyType, enemy);
         }
 
         // Return the fetched gameobject
