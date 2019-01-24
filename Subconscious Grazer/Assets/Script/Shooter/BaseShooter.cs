@@ -228,14 +228,14 @@ public abstract class BaseShooter : MonoBehaviour {
     /// <returns>The bullet.</returns>
     private GameObject FetchOrCreateBullet() {
         // Attempt to fetch a bullet from the object pool.
-        GameObject newBullet = ObjectPool.Instance.FetchObjectByCondition(IsSameBulletType);
+        GameObject newBullet = ObjectPool.Instance.FetchBulletObjByType(bulletType);
 
         // If the object pool does not contain a bullet.
         if (newBullet == null) {
             // Instantiate a new bullet.
             newBullet = Instantiate(bulletPrefab);
             // Add the bullet to the object pool
-            ObjectPool.Instance.AddToPool(newBullet, false);
+            ObjectPool.Instance.AddToBulletPool(bulletType, newBullet);
         } else {
             newBullet.SetActive(true);
         }
