@@ -26,4 +26,15 @@ public class Fairy : Enemy, IShooting {
             }
         }
     }
+
+    public override void CopyDetails(Enemy enemy) {
+        CopyBaseDetails(enemy);
+
+        // If the enemy we are copying is a fairy
+        if (enemy is Fairy) {
+            Fairy fairyEnemy = enemy as Fairy;
+
+            ShootCooldown = fairyEnemy.ShootCooldown;
+        }
+    }
 }

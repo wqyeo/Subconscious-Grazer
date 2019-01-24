@@ -162,8 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 911da392f2a9e14468d523a62b354028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfEnemy: 1
   speed: 2.5
-  health: 0
+  health: 5
   startAIType: 1
   startDirection: 2
   moveDuration: 1.5
@@ -171,7 +172,7 @@ MonoBehaviour:
   shootAfterMoving: 1
   explodeOnDeath: 0
   onDeathShooters: []
-  shootCooldown: 0.75
+  shootCooldown: 0.7
 --- !u!114 &1044610747
 MonoBehaviour:
   m_ObjectHideFlags: 0

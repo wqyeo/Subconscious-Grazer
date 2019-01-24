@@ -5,6 +5,9 @@ using System;
 public abstract class Enemy : MonoBehaviour {
     [Separator("Base enemy properties", true)]
 
+    [SearchableEnum, SerializeField, Tooltip("The type of this enemy.")]
+    private EnemyType typeOfEnemy;
+
     [SerializeField, Tooltip("The move speed of this enemy.")]
     private float speed;
 
@@ -34,13 +37,17 @@ public abstract class Enemy : MonoBehaviour {
     private bool explodeOnDeath;
 
     [SerializeField, Tooltip("The shooters to invoke when this enemy dies.")]
-    public BaseShooter[] onDeathShooters;
+    protected BaseShooter[] onDeathShooters;
 
     protected Rigidbody2D enemyRB;
 
     protected AI controllingAI;
 
     protected BaseShooter[] shooters;
+
+    protected Animator enemyAnim;
+
+    public bool JustSpawned { get; set; }
 
     public bool CanAct { get; set; }
 
@@ -60,7 +67,7 @@ public abstract class Enemy : MonoBehaviour {
         get {
             return health;
         }
-        private set {
+        protected set {
             health = value;
         }
     }
@@ -68,6 +75,9 @@ public abstract class Enemy : MonoBehaviour {
     public float Speed {
         get {
             return speed;
+        }
+        protected set {
+            speed = value;
         }
     }
 
@@ -133,25 +143,28 @@ public abstract class Enemy : MonoBehaviour {
         }
     }
 
+    public EnemyType TypeOfEnemy {
+        get {
+            return typeOfEnemy;
+        }
+
+        set {
+            typeOfEnemy = value;
+        }
+    }
+
     #endregion
 
     private void Start() {
-
-        CanAct = true;
         enemyRB = GetComponent<Rigidbody2D>();
         shooters = GetComponentsInChildren<BaseShooter>();
-
-        foreach (var shooter in shooters) {
-            // If this shooter requires a target
-            if (shooter is TargettingShooter) {
-                // Target the player.
-                (shooter as TargettingShooter).TargetTransform = Player.Instance.transform;
-            }
-        }
+        enemyAnim = GetComponent<Animator>();
 
         foreach (var deathShooter in onDeathShooters) {
             deathShooter.IsActive = false;
         }
+
+        CanAct = true;
 
         AssignAI(startAIType);
     }
@@ -190,9 +203,8 @@ public abstract class Enemy : MonoBehaviour {
 
         if (controllingAI != null) {
             controllingAI.SwitchState(assignedAI);
-        } else {
-            controllingAI = assignedAI;
         }
+        controllingAI = assignedAI;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -230,20 +242,66 @@ public abstract class Enemy : MonoBehaviour {
             }
 
             // If this enemy has an animator.
-            if (GetComponent<Animator>() != null) {
+            if (enemyAnim != null) {
                 // Play it's death animation.
-                GetComponent<Animator>().Play("DeathClip");
+                enemyAnim.Play("DeathClip");
             } else {
-                // Destroy this enemy.
-                DiposeEnemy();
+                // Set this enemy to inactive.
+                gameObject.SetActive(false);
             }
         }
     }
 
     #region Util
 
+    public void InitEnemy(AIType aIType) {
+        JustSpawned = true;
+        CanAct = true;
+        gameObject.SetActive(true);
+
+        if (enemyRB == null) {
+            enemyRB = GetComponent<Rigidbody2D>();
+        }
+
+        if (shooters == null) {
+            shooters = GetComponentsInChildren<BaseShooter>();
+        }
+
+        if (enemyAnim == null) {
+            enemyAnim = GetComponent<Animator>();
+        }
+
+        // If this enemy has an animator.
+        if (enemyAnim != null) {
+            // Make it play the default animation.
+            enemyAnim.Play("Default");
+        }
+
+        foreach (var shooter in shooters) {
+            // Set the shooters to active
+            shooter.IsActive = true;
+        }
+
+        foreach (var deathShooter in onDeathShooters) {
+            deathShooter.IsActive = false;
+        }
+
+        AssignAI(aIType);
+    }
+
     public void DiposeEnemy() {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+
+        // Make sure the object scales back to normal.
+        var temp = gameObject.transform.localScale;
+        temp.y = 1f;
+        temp.x = 1f;
+        gameObject.transform.localScale = temp;
+
+        // Make sure the object color turns back to normal.
+        var renderTemp = GetComponent<SpriteRenderer>().color;
+        renderTemp.a = 1f;
+        GetComponent<SpriteRenderer>().color = renderTemp;
     }
 
     /// <summary>
@@ -253,6 +311,26 @@ public abstract class Enemy : MonoBehaviour {
     public void ForeachShooter(Action<BaseShooter> foreachAction) {
         foreach (var shooter in shooters) {
             foreachAction(shooter);
+        }
+    }
+
+    /// <summary>
+    /// Copy the detail of the given enemy over to this enemy.
+    /// </summary>
+    /// <param name="enemy">The details of the enemy to copy.</param>
+    public abstract void CopyDetails(Enemy enemy);
+
+    protected void CopyBaseDetails(Enemy enemy, bool copyAIType = false) {
+        Invulnerable = enemy.Invulnerable;
+        Health = enemy.Health;
+        Speed = enemy.Speed;
+        MoveDirection = enemy.MoveDirection;
+        LingerDuration = enemy.LingerDuration;
+        ShootAfterMoving = enemy.ShootAfterMoving;
+        ExplodeOnDeath = enemy.ExplodeOnDeath;
+
+        if (copyAIType) {
+            AssignAI(enemy.controllingAI.TypeOfAI);
         }
     }
 

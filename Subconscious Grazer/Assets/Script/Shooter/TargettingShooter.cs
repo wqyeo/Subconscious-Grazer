@@ -57,6 +57,7 @@ public abstract class TargettingShooter : BaseShooter
         if (lockOn) {
             // If no target was given.
             if (targetTransform == null) {
+                // Target the player.
                 targetTransform = Player.Instance.transform;
             }
 

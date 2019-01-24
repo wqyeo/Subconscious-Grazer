@@ -15,4 +15,7 @@ public interface ITeleport {
     float TeleDuration { get; set; }
 
     void Teleport(Vector2 direction);
+
+    // For animators
+    void Teleport();
 }

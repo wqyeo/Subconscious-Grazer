@@ -1007,6 +1007,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &359652476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 359652477}
+  - component: {fileID: 359652478}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &359652477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359652476}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1302784241}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &359652478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359652476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412540245e4869c4cb3160dc3e2b873d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDetails:
+  - {fileID: 5997808714066866501, guid: e81f19b820440ea4ab277a8cdf014583, type: 3}
+  - {fileID: 5218739716389675206, guid: 7df2bacf835af26468726ca354ee6f26, type: 3}
 --- !u!1 &683986678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,13 +1065,26 @@ GameObject:
   - component: {fileID: 683986682}
   - component: {fileID: 683986681}
   - component: {fileID: 683986680}
-  m_Layer: 14
+  - component: {fileID: 683986679}
+  m_Layer: 15
   m_Name: BottomBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &683986679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683986678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15576519fe057164cbce1205b63129b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &683986680
 Rigidbody2D:
   serializedVersion: 4
@@ -1318,7 +1377,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 36.842937, y: 3.0170012}
+  m_Size: {x: 36.842937, y: 2.1482043}
   m_EdgeRadius: 0
 --- !u!212 &784787175
 SpriteRenderer:
@@ -1553,13 +1612,26 @@ GameObject:
   - component: {fileID: 992632594}
   - component: {fileID: 992632593}
   - component: {fileID: 992632592}
-  m_Layer: 14
+  - component: {fileID: 992632591}
+  m_Layer: 15
   m_Name: RightBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &992632591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992632590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15576519fe057164cbce1205b63129b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &992632592
 Rigidbody2D:
   serializedVersion: 4
@@ -1805,7 +1877,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.4923549, y: 27.525635}
+  m_Size: {x: 2.0751665, y: 27.525635}
   m_EdgeRadius: 0
 --- !u!212 &1122906755
 SpriteRenderer:
@@ -1902,8 +1974,8 @@ MonoBehaviour:
   bottomBorder: {fileID: 110081822}
   leftBorder: {fileID: 1122906751}
   rightBorder: {fileID: 1535001337}
-  xOffset: 2
-  yOffset: 2
+  xOffset: 2.5
+  yOffset: 2.5
 --- !u!4 &1259349194
 Transform:
   m_ObjectHideFlags: 0
@@ -2091,6 +2163,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 143576730}
+  - {fileID: 359652477}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2546,7 +2619,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.8009148, y: 26.149385}
+  m_Size: {x: 2.4985657, y: 26.149385}
   m_EdgeRadius: 0
 --- !u!212 &1535001341
 SpriteRenderer:
@@ -2863,13 +2936,26 @@ GameObject:
   - component: {fileID: 1706335932}
   - component: {fileID: 1706335931}
   - component: {fileID: 1706335930}
-  m_Layer: 14
+  - component: {fileID: 1706335929}
+  m_Layer: 15
   m_Name: LeftBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1706335929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706335928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15576519fe057164cbce1205b63129b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1706335930
 Rigidbody2D:
   serializedVersion: 4
@@ -2991,13 +3077,26 @@ GameObject:
   - component: {fileID: 1756623358}
   - component: {fileID: 1756623357}
   - component: {fileID: 1756623356}
-  m_Layer: 14
+  - component: {fileID: 1756623355}
+  m_Layer: 15
   m_Name: TopBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1756623355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756623354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15576519fe057164cbce1205b63129b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1756623356
 Rigidbody2D:
   serializedVersion: 4
@@ -3759,8 +3858,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2119540398}
   - component: {fileID: 2119540397}
-  m_Layer: 14
-  m_Name: BulletTriggerBorder
+  m_Layer: 15
+  m_Name: EnemyTriggerBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3782,8 +3881,8 @@ MonoBehaviour:
   bottomBorder: {fileID: 683986678}
   leftBorder: {fileID: 1706335928}
   rightBorder: {fileID: 992632590}
-  xOffset: 0
-  yOffset: 0
+  xOffset: 0.5
+  yOffset: 0.5
 --- !u!4 &2119540398
 Transform:
   m_ObjectHideFlags: 0
