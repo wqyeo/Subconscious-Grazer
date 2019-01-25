@@ -10,10 +10,10 @@ TextureImporter:
     21300010: Enemy_5
     21300012: redSpirit_1
     21300014: redSpirit_4
-    21300016: Enemy_8
-    21300018: Enemy_9
-    21300020: Enemy_10
-    21300022: Enemy_11
+    21300016: blueSpirit_2
+    21300018: blueSpirit_3
+    21300020: blueSpirit_4
+    21300022: blueSpirit_5
     21300024: redFairyIdle_00
     21300026: redFairyIdle_01
     21300028: redFairyIdle_02
@@ -138,6 +138,10 @@ TextureImporter:
     21300266: Enemy_133
     21300268: Enemy_134
     21300270: Enemy_135
+    21300272: blueSpirit_0
+    21300274: blueSpirit_1
+    21300276: blueSpirit_6
+    21300278: blueSpirit_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -465,8 +469,8 @@ TextureImporter:
       name: redFairyIdle_05
       rect:
         serializedVersion: 2
-        x: 160
-        y: 450
+        x: 161
+        y: 449
         width: 31
         height: 29
       alignment: 0
@@ -942,106 +946,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_59
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 320
-        width: 29
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 77fa0d310f89a794db43734a8f6c453c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_60
-      rect:
-        serializedVersion: 2
-        x: 354
-        y: 320
-        width: 62
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09c5277f729078c48920cc43301bf2d9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_61
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 320
-        width: 30
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae0ae7929c35e63439875e322d06b934
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_62
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 320
-        width: 28
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b646f9078d850b049bf491ea45195de8
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_63
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 321
-        width: 29
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8a6efa64c72124a4e9e451ec636e59b1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Enemy_64
       rect:
         serializedVersion: 2
@@ -1097,106 +1001,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: af87e993b316d6142b4b4e0fd4a72308
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_67
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 288
-        width: 29
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 191884667fc799845b5190d352bbb92f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_68
-      rect:
-        serializedVersion: 2
-        x: 354
-        y: 288
-        width: 62
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 678f516e618d92a47912e79c6e0264b4
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_69
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 288
-        width: 30
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fbe895209f7455841888bc7a9d11aa1d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_70
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 288
-        width: 28
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f53d8b10455a3e345ba5aa1b60e0f0c7
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_71
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 289
-        width: 29
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0718f8a4b8512754fa128b45d8b8e0b6
       vertices: []
       indices: 
       edges: []
@@ -1277,106 +1081,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: d91ace2b299052e4489136dbf971f551
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_76
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 256
-        width: 29
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 60630a16e1feb0d479a2cac45fb78945
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_77
-      rect:
-        serializedVersion: 2
-        x: 354
-        y: 256
-        width: 62
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c80ffa13e7dc9914284e15d9b39404d1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_78
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 256
-        width: 30
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 213bbc9e21feb1d46be7d9972c7355cc
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_79
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 253
-        width: 28
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 384a34db5336a404896e9da72925d05e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy_80
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 257
-        width: 29
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e4f8953200b2fe4288be7ef508cf152
       vertices: []
       indices: 
       edges: []
@@ -2517,6 +2221,166 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f1457a2167eba904490e26755ab2e4cd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_0
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 319
+        width: 32
+        height: 33
+      alignment: 9
+      pivot: {x: 0.48329735, y: 0.48787528}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63576e4da29281c4aa7ab3cd4e6dbdc1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_1
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 319
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5160617, y: 0.49099824}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b43241bc9973bd4ebd4195fdf6b1794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_2
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 319
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4738559, y: 0.49363568}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fed610d88ca5b4f4389e93ecde57b098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_3
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 319
+        width: 30
+        height: 33
+      alignment: 9
+      pivot: {x: 0.54886883, y: 0.43833598}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec46924ea79fac540a6c42e921ceeaf4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_4
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 319
+        width: 30
+        height: 33
+      alignment: 9
+      pivot: {x: 0.56668496, y: 0.5182782}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86bdd9256355fe340b2116ffc91c62be
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_5
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 320
+        width: 30
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5122925, y: 0.49541932}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c82c134cab860af4ab4767078f7e3f25
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_6
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 320
+        width: 28
+        height: 31
+      alignment: 9
+      pivot: {x: 0.50346375, y: 0.52793247}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2304aa4d569d164a9359a96befbcb6c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueSpirit_7
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 322
+        width: 29
+        height: 27
+      alignment: 9
+      pivot: {x: 0.57125014, y: 0.53068596}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0d39611f8fd43a4f8610cf99928b59c
       vertices: []
       indices: 
       edges: []

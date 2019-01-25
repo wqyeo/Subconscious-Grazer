@@ -49,6 +49,19 @@ public abstract class BaseShooter : MonoBehaviour {
     [SerializeField, ConditionalField("rotateBulletToDirection", false), Tooltip("Rotation acceleration value for the bullet.")]
     private float rotationAcceleration;
 
+    [Separator("Batched shooting options.")]
+
+    [SerializeField, Tooltip("True if this shooter shoots in batches.")]
+    private bool batchShooting = false;
+
+    [ConditionalField("batchShooting", true), SerializeField, Tooltip("The cooldown between each shot.")]
+    private float shotCooldown;
+
+    [ConditionalField("batchShooting", true), SerializeField, Tooltip("The number of shots to fire per batch.")]
+    private int batchShotCount;
+
+    private HashSet<Bullet> shotBullets;
+
     #region Property
 
     public bool IsActive {
@@ -161,9 +174,28 @@ public abstract class BaseShooter : MonoBehaviour {
     #endregion
 
     /// <summary>
-    /// Shoot a bullet.
+    /// Fires a batch of shot.
     /// </summary>
-    public abstract void Shoot();
+    public void Shoot() {
+        if (shotBullets == null) { shotBullets = new HashSet<Bullet>(); }
+
+        if (batchShooting) {
+            StartCoroutine(ShootBatches());
+        } else {
+            OnShootInvoked();
+        }
+    }
+
+    protected abstract void OnShootInvoked();
+
+    private IEnumerator ShootBatches() {
+        for (int i = 0; i < batchShotCount; ++i) {
+            OnShootInvoked();
+            yield return new WaitForSeconds(shotCooldown);
+        }
+
+        yield return null;
+    }
 
     protected Bullet InitBullet(Vector2 direction) {
         var newBullet = FetchOrCreateBullet();
@@ -172,13 +204,15 @@ public abstract class BaseShooter : MonoBehaviour {
 
         var bullet = newBullet.GetComponent<Bullet>();
 
+        shotBullets.Add(bullet);
+
         // If we need to rotate the bullet to the flying direction.
         if (rotateBulletToDirection) {
             // Create a bullet that constantly rotates to the flying direction.
-            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotateBulletToDirection);
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotateBulletToDirection);
         } else {
             // Create a bullet, giving desired rotation and rotation acceleration.
-            bullet.Initalize(bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration);
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration);
         }
 
         // If there are listeners to add.
@@ -252,7 +286,6 @@ public abstract class BaseShooter : MonoBehaviour {
         }
 
         return bullet.Type == bulletType;
-
     }
 
     private void OnBulletDestroyedEvent(object sender, EventArgs e) {
@@ -294,7 +327,17 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
+    public void RemoveBullet(Bullet bullet) {
+        shotBullets.Remove(bullet);
+    }
+
     public void ClearAllOnBulletDestroyedListener() {
         onBulletDestroy = null;
+    }
+
+    public void InvokeOnAllShotBullets(Action<Bullet> invokeAction) {
+        foreach (var bullet in shotBullets) {
+            invokeAction(bullet);
+        }
     }
 }

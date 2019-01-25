@@ -40,7 +40,7 @@ public class SpreadShooter : TargettingShooter {
         }
     }
 
-    public override void Shoot() {
+    protected override void OnShootInvoked() {
 
         // Get the initial direction to shoot at
         Vector2 initalDirection = FindShootDirection();

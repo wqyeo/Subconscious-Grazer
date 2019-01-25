@@ -26,6 +26,7 @@ TextureImporter:
     21300042: spiritBullet_Red_1
     21300044: spiritBullet_Red_2
     21300046: spiritBullet_Red_3
+    21300048: ringBall_Black
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -594,6 +595,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 81fcfdd1842dca546989c292d914609d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ringBall_Black
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3803bed17742444891aa8e9651007e
       vertices: []
       indices: 
       edges: []

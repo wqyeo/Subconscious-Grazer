@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator)), DisallowMultipleComponent]
 public class Player : Singleton<Player> {
 
+    [SerializeField, Tooltip("True if this player is invicible at the start.")]
+    private bool IsInvulerable;
+
     [Separator("Player Input Keycodes", true)]
 
     [MustBeAssigned, SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
@@ -188,6 +191,20 @@ public class Player : Singleton<Player> {
 
     #endregion
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        // If this player is invulnerable, exit.
+        if (IsInvulerable) { return; }
+
+        // If the player touched the enemy's bullet.
+        if (other.CompareTag("EnemyBullet")) {
+            var hitBullet = other.gameObject.GetComponent<Bullet>();
+
+            StartCoroutine(HandleHitAnim());
+
+            hitBullet.Dispose();
+        }
+    }
+
     private void Shoot() {
         // Reset shoot timer
         cooldownTimer = 0f;
@@ -367,4 +384,35 @@ public class Player : Singleton<Player> {
     }
 
     #endregion
+
+    private IEnumerator HandleHitAnim() {
+
+        IsInvulerable = true;
+
+        float timeTaken = 0f;
+
+        Color32 temp = GetComponent<SpriteRenderer>().color;
+
+        while (timeTaken < 1.25f) {
+
+            // Change the color of the sprite from red back to normal, vice versa.
+            temp.g = (byte)((temp.g == 255) ? 0 : 255);
+            temp.b = (byte)((temp.b == 255) ? 0 : 255);
+
+            GetComponent<SpriteRenderer>().color = temp;
+
+            yield return new WaitForSeconds(0.125f);
+            timeTaken += 0.125f;
+        }
+
+        // Change the color back to normal at the end.
+        temp.g = 255;
+        temp.b = 255;
+
+        GetComponent<SpriteRenderer>().color = temp;
+
+        IsInvulerable = false;
+
+        yield return null;
+    }
 }

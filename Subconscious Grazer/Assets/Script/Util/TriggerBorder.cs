@@ -32,15 +32,10 @@ public class TriggerBorder : MonoBehaviour {
 
         enemy.JustSpawned = false;
         enemy.Invulnerable = false;
-
-        Debug.Log("Entering Field!");
     }
 
     private void DisableEnemyIfExiting(Enemy enemy) {
         if (enemy.JustSpawned) { return; }
-
-        Debug.Log("Exiting Field!");
-
 
         enemy.CanAct = false;
         if (enemy.ControllingAI.TypeOfAI == AIType.TeleportingAI) {

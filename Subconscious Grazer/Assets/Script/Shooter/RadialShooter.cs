@@ -22,7 +22,7 @@ public class RadialShooter : TargettingShooter {
 
     #endregion
 
-    public override void Shoot() {
+    protected override void OnShootInvoked() {
         // Find the initial direction to shoot for the first bullet.
         Vector2 initialDirection = FindShootDirection();
         // How much to rotate by after each shot.

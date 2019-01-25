@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LinearShooter : TargettingShooter {
 
-    public override void Shoot() {
+    protected override void OnShootInvoked() {
         InitBullet(FindShootDirection());
     }
 }

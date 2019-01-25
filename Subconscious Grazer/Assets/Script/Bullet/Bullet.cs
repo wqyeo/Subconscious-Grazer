@@ -41,6 +41,8 @@ public class Bullet : MonoBehaviour {
     /// </summary>
     public int Damage { get; set; }
 
+    private BaseShooter parentShooter;
+
     public void Update() {
 
         // Change speed based on acceleration.
@@ -78,7 +80,7 @@ public class Bullet : MonoBehaviour {
     #region Initalize_Overloads
 
     // Rotates bullet to the direction it is travelling at.
-    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true) {
+    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -86,10 +88,11 @@ public class Bullet : MonoBehaviour {
         RotationSpeed = 0;
         RotationAccelerationSpeed = 0f;
         Damage = damage;
+        parentShooter = shooter;
     }
 
     // Constantly rotates the bullet at the given speed.
-    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
+    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -97,6 +100,7 @@ public class Bullet : MonoBehaviour {
         RotationSpeed = rotationSpeed;
         RotationAccelerationSpeed = rotationAcceleration;
         Damage = damage;
+        parentShooter = shooter;
     }
 
     #endregion
@@ -106,6 +110,9 @@ public class Bullet : MonoBehaviour {
         if (OnBulletDisposedEvent != null) {
             OnBulletDisposedEvent.Invoke(this, null);
         }
+
+        parentShooter.RemoveBullet(this);
+        parentShooter = null;
 
         // If we do not need to destroy this bullet.
         if (!destroyBullet) {

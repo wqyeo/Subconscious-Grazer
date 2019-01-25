@@ -12,7 +12,8 @@ public enum BulletType {
     #region Enemy_Bullets
 
     star_Small,
-    ball_Small
+    ball_Small,
 
+    ringBall_Effect
     #endregion
 }
