@@ -34,6 +34,8 @@ public class Bullet : MonoBehaviour {
     /// </summary>
     public float AccelerationSpeed { get; set; }
 
+    public float RotationalOffset { get; set; }
+
     /// <summary>
     /// True if we want the bullet to rotate towards the direction it is travelling to. (Overrides constant rotation)
     /// </summary>
@@ -104,7 +106,7 @@ public class Bullet : MonoBehaviour {
             // Set a rotation where it looks at the new position from the current position.
             Quaternion rotation = Quaternion.LookRotation(newPos - transform.position, transform.TransformDirection(Vector3.up));
             // Rotate respectively.
-            transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+            transform.rotation = new Quaternion(0, 0, rotation.z + RotationalOffset, rotation.w);
         } 
         // If we need to constantly rotate this bullet.
         else if (RotationSpeed != 0) {
@@ -117,7 +119,7 @@ public class Bullet : MonoBehaviour {
     #region Initalize_Overloads
 
     // Rotates bullet to the direction it is travelling at.
-    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true) {
+    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationalOffset = 0f) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -126,10 +128,11 @@ public class Bullet : MonoBehaviour {
         RotationAccelerationSpeed = 0f;
         Damage = damage;
         parentShooter = shooter;
+        RotationalOffset = rotationalOffset;
     }
 
     // Constantly rotates the bullet at the given speed.
-    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
+    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f, float rotationalOffset = 0f) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -138,19 +141,21 @@ public class Bullet : MonoBehaviour {
         RotationAccelerationSpeed = rotationAcceleration;
         Damage = damage;
         parentShooter = shooter;
+        RotationalOffset = rotationalOffset;
     }
 
     // Initalize a bullet not controlled by a shooter.
-    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
+    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationSpeed = 0f, float rotationAcceleration = 0f, float rotationalOffset = 0f) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
-        RotateBulletToDirection = false;
+        RotateBulletToDirection = rotateBulletToDirection;
         RotationSpeed = rotationSpeed;
         RotationAccelerationSpeed = rotationAcceleration;
         Damage = damage;
         RotationSpeed = 0;
         RotationAccelerationSpeed = 0f;
+        RotationalOffset = rotationalOffset;
     }
 
     #endregion

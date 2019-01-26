@@ -27,6 +27,10 @@ TextureImporter:
     21300044: spiritBullet_Red_2
     21300046: spiritBullet_Red_3
     21300048: ringBall_Black
+    21300050: arrow_Cyan
+    21300052: arrow_Red
+    21300054: arrow_Orange
+    21300056: arrow_Yellow
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -608,13 +612,93 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: cf3803bed17742444891aa8e9651007e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrow_Cyan
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 279
+        width: 12
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6389b2b65130fa04b9fba2626cea2a17
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrow_Red
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 279
+        width: 12
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1646b264fb62ff40ba82c6f50448357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrow_Orange
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 279
+        width: 12
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca2ef08914aaacd499fbcb1af5d5525d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrow_Yellow
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 279
+        width: 12
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30c99f79401ba9848ac910b54c6abfdd
       vertices: []
       indices: 
       edges: []

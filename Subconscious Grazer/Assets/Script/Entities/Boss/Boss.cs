@@ -53,6 +53,10 @@ public abstract class Boss : MonoBehaviour {
         Health = maxHealth;
     }
 
+    private void Start() {
+        Initalize(0);
+    }
+
     public void Initalize(int lifeCount) {
         foreach (var spellCard in spellCards) {
             spellCard.Initalize();
@@ -95,6 +99,10 @@ public abstract class Boss : MonoBehaviour {
         // Boss has no life left.
         else if (Health <= 0 && Life <= 0) {
 
+            currentSpell.EndSpell();
+
+            Destroy(gameObject);
+
         } else {
             currentSpell.ScaleSpell(damage);
         }
@@ -103,6 +111,6 @@ public abstract class Boss : MonoBehaviour {
     protected void PickSpellCard() {
         do {
             currentSpell = spellCards[Random.Range(0, spellCards.Length - 1)];
-        } while (!currentSpell.Invoked);
+        } while (currentSpell.Invoked);
     }
 }

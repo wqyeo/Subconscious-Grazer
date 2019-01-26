@@ -43,13 +43,16 @@ public class SpellCard : MonoBehaviour {
         foreach (var spellOption in spellOptions) {
             // If we need to scale this spell option by health.
             if (spellOption.scaleByHealth) {
+
+                float lossScale = healthLoss / 10f;
+
                 // Scale the fire rates.
-                spellOption.fireRate += (healthLoss * spellOption.fireRateScale);
+                spellOption.fireRate += (lossScale * spellOption.fireRateScale);
 
                 // Scale the shooters
                 foreach (var shooter in spellOption.shooters) {
-                    shooter.BulletSpeed += (healthLoss * spellOption.bulletSpeedScale);
-                    shooter.BulletAcceleration += (healthLoss * spellOption.bulletAccelerationScale);
+                    shooter.BulletSpeed += (lossScale * spellOption.bulletSpeedScale);
+                    shooter.BulletAcceleration += (lossScale * spellOption.bulletAccelerationScale);
                 }
             }
         }

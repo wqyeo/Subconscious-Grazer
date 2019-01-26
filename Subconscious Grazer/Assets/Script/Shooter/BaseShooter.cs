@@ -211,11 +211,13 @@ public abstract class BaseShooter : MonoBehaviour {
         // If we need to rotate the bullet to the flying direction.
         if (rotateBulletToDirection) {
             // Create a bullet that constantly rotates to the flying direction.
-            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotateBulletToDirection);
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotateBulletToDirection, bulletRotationOffset);
         } else {
             // Create a bullet, giving desired rotation and rotation acceleration.
-            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration);
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration, bulletRotationOffset);
         }
+
+        bullet.GravityAffected = bulletPrefab.GetComponent<Bullet>().GravityAffected;
 
         // If there are listeners to add.
         if (onBulletDestroy != null) {

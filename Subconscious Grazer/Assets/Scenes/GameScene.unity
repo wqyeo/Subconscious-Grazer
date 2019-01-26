@@ -1062,6 +1062,70 @@ MonoBehaviour:
   spawnDetails:
   - {fileID: 5997808714066866501, guid: e81f19b820440ea4ab277a8cdf014583, type: 3}
   - {fileID: 5218739716389675206, guid: 7df2bacf835af26468726ca354ee6f26, type: 3}
+--- !u!1 &457044312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457044313}
+  - component: {fileID: 457044314}
+  m_Layer: 17
+  m_Name: SpreadShooter_Down
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457044313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457044312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1536443118}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &457044314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457044312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12d483c1e9e9244987ea4270f278f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 4725296189212582574, guid: 02e2d1bde81435a4abade52d045e3e46,
+    type: 3}
+  damage: 1
+  bulletType: 5
+  bulletRotationOffset: 180
+  bulletDefaultSprite: {fileID: 0}
+  bulletSpeed: 4
+  bulletAcceleration: 0
+  initalRotateToDirection: 1
+  rotateBulletToDirection: 1
+  rotation: 0
+  rotationAcceleration: 0
+  batchShooting: 1
+  shotCooldown: 0.1
+  batchShotCount: 3
+  lockOn: 0
+  shotAngle: 180
+  targetTransform: {fileID: 0}
+  bulletCount: 10
+  shotWideness: 120
 --- !u!1 &683986678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2695,6 +2759,69 @@ Transform:
   m_Father: {fileID: 1259349194}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1536443117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1536443118}
+  - component: {fileID: 1536443119}
+  m_Layer: 17
+  m_Name: ArrowStorm_SpellCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1536443118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536443117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1917758931}
+  - {fileID: 457044313}
+  m_Father: {fileID: 2073493341}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1536443119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536443117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9668302368eda144eaa39116ec2929c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellCardName: 1
+  spellOptions:
+  - shooters:
+    - {fileID: 1917758932}
+    fireRate: 5.1
+    activationDelay: 2
+    scaleByHealth: 1
+    fireRateScale: 0.1
+    bulletSpeedScale: 0.05
+    bulletAccelerationScale: 0.05
+  - shooters:
+    - {fileID: 457044314}
+    fireRate: 1
+    activationDelay: 5
+    scaleByHealth: 0
+    fireRateScale: 0
+    bulletSpeedScale: 0
+    bulletAccelerationScale: 0
 --- !u!1 &1606452607
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,6 +3698,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ca2b9c171335f409a478a50b0b5dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1917758930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1917758931}
+  - component: {fileID: 1917758932}
+  m_Layer: 17
+  m_Name: RadialShooter_Aimed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1917758931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917758930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1536443118}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1917758932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917758930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbc80f2445ffee408295e947723a7e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 2135438384845879402, guid: f0d558a4e8a16344fb2c8e88c816756e,
+    type: 3}
+  damage: 1
+  bulletType: 6
+  bulletRotationOffset: 180
+  bulletDefaultSprite: {fileID: 0}
+  bulletSpeed: 5
+  bulletAcceleration: 0
+  initalRotateToDirection: 1
+  rotateBulletToDirection: 1
+  rotation: 0
+  rotationAcceleration: 0
+  batchShooting: 0
+  shotCooldown: 0
+  batchShotCount: 0
+  lockOn: 1
+  shotAngle: 0
+  targetTransform: {fileID: 0}
+  bulletCount: 25
 --- !u!1 &2017423922
 GameObject:
   m_ObjectHideFlags: 0
@@ -3836,9 +4026,12 @@ GameObject:
   - component: {fileID: 2073493341}
   - component: {fileID: 2073493340}
   - component: {fileID: 2073493339}
-  m_Layer: 0
+  - component: {fileID: 2073493343}
+  - component: {fileID: 2073493342}
+  - component: {fileID: 2073493344}
+  m_Layer: 17
   m_Name: Rakuki
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3920,10 +4113,77 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.01, y: 3.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1536443118}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2073493342
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073493338}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.73333335, y: 1.25}
+    newSize: {x: 0.44, y: 0.75}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6535944, y: 1.25}
+  m_EdgeRadius: 0
+--- !u!50 &2073493343
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073493338}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &2073493344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073493338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bc1779dfd507e49a2d6c2516e31b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5000
+  speed: 2
+  spellCards:
+  - {fileID: 1536443119}
+  arrowRainFireRate: 0.05
+  arrowRainPrefab: {fileID: 4864671057777329638, guid: 31151903b0771c043980cb3274f5cacb,
+    type: 3}
 --- !u!1 &2092203499
 GameObject:
   m_ObjectHideFlags: 0
