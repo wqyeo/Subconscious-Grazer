@@ -5,9 +5,11 @@ using System;
 
 public abstract class BaseShooter : MonoBehaviour {
 
-    public delegate void OnBulletDestroyed(Bullet destroyedBullet);
+    public delegate void BulletDelegate(Bullet bullet);
 
-    public OnBulletDestroyed onBulletDestroy;
+    public BulletDelegate onBulletDestroy;
+
+    public BulletDelegate onBulletCreated;
 
     [SerializeField, Tooltip("True if this is active on start.")]
     private bool activeOnStart = true;
@@ -221,6 +223,10 @@ public abstract class BaseShooter : MonoBehaviour {
             bullet.OnBulletDisposedEvent += OnBulletDestroyedEvent;
         }
 
+        if (onBulletCreated != null) {
+            onBulletCreated(bullet);
+        }
+
         return bullet;
     }
 
@@ -319,7 +325,7 @@ public abstract class BaseShooter : MonoBehaviour {
         return (bulletDirection - (Vector2)transform.position).normalized;
     }
 
-    public void AddOnBulletDestroyedListener(OnBulletDestroyed listener) {
+    public void AddOnBulletDestroyedListener(BulletDelegate listener) {
         if (onBulletDestroy == null) {
             onBulletDestroy = listener;
         } else {

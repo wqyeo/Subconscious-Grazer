@@ -13,7 +13,9 @@ public enum BulletType {
 
     star_Small,
     ball_Small,
+    arrow,
 
+    arrow_Effect,
     ringBall_Effect
     #endregion
 }

@@ -6,6 +6,19 @@ public class Bullet : MonoBehaviour {
 
     public event EventHandler OnBulletDisposedEvent;
 
+    [Separator("Base Bullet Properties", true)]
+
+    [SerializeField, Tooltip("True if this bullet is affected by gravity.")]
+    private bool gravityAffected = false;
+
+    [SerializeField, Tooltip("True if this bullet has an lifespan")]
+    private bool hasLifeSpan = false;
+
+    [ConditionalField("hasLifeSpan", true), SerializeField, Tooltip("The lifespan of this bullet")]
+    private float bulletLifeSpan;
+
+    private float lifetime;
+
     /// <summary>
     /// The type of this bullet.
     /// </summary>
@@ -41,6 +54,16 @@ public class Bullet : MonoBehaviour {
     /// </summary>
     public int Damage { get; set; }
 
+    public bool GravityAffected {
+        get {
+            return gravityAffected;
+        }
+
+        set {
+            gravityAffected = value;
+        }
+    }
+
     private BaseShooter parentShooter;
 
     public void Update() {
@@ -48,12 +71,26 @@ public class Bullet : MonoBehaviour {
         // Change speed based on acceleration.
         Velocity += (Velocity.normalized * (AccelerationSpeed * Time.deltaTime));
 
+        // If this bullet is affected by gravity.
+        if (gravityAffected) {
+            Velocity += ((9.81f * Time.deltaTime) * Vector2.down);
+        }
+
         Vector3 newPosition = (transform.position) + ((Vector3) (Velocity * Time.deltaTime));
 
         HandleRotation(newPosition, Time.deltaTime);
 
         // Set new position
         transform.position = (newPosition);
+
+        // If this bullet has a life span.
+        if (hasLifeSpan) {
+            lifetime += Time.deltaTime;
+            // If this bullet's lifespan is up
+            if (lifetime >= bulletLifeSpan) {
+                Dispose();
+            }
+        }
     }
 
     /// <summary>
@@ -103,6 +140,19 @@ public class Bullet : MonoBehaviour {
         parentShooter = shooter;
     }
 
+    // Initalize a bullet not controlled by a shooter.
+    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationSpeed = 0f, float rotationAcceleration = 0f) {
+        Velocity = velocity;
+        AccelerationSpeed = accelerationSpeed;
+        Type = bulletType;
+        RotateBulletToDirection = false;
+        RotationSpeed = rotationSpeed;
+        RotationAccelerationSpeed = rotationAcceleration;
+        Damage = damage;
+        RotationSpeed = 0;
+        RotationAccelerationSpeed = 0f;
+    }
+
     #endregion
 
     public void Dispose(bool destroyBullet = false) {
@@ -111,8 +161,10 @@ public class Bullet : MonoBehaviour {
             OnBulletDisposedEvent.Invoke(this, null);
         }
 
-        parentShooter.RemoveBullet(this);
-        parentShooter = null;
+        if (parentShooter != null) {
+            parentShooter.RemoveBullet(this);
+            parentShooter = null;
+        }
 
         // If we do not need to destroy this bullet.
         if (!destroyBullet) {

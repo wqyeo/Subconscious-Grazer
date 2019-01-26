@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
 [DisallowMultipleComponent]
-public class BulletTrigger : Bullet, ITriggerable
-{
+public class BulletTrigger : Bullet, ITriggerable {
+
+    public delegate void OnBulletTrigger(BulletTrigger bullet);
+
+    public OnBulletTrigger onEnterTriger;
+
     [SerializeField, Tooltip("True if this bullet trigger can only be invoked once")]
     private bool oneTimeEffect = true;
 
@@ -44,6 +48,10 @@ public class BulletTrigger : Bullet, ITriggerable
         invoked = true;
 
         ApplyEffects(onTriggerEnterEff);
+
+        if (onEnterTriger != null) {
+            onEnterTriger(this);
+        }
     }
 
     public void InvokeExit() {
@@ -91,7 +99,7 @@ public class BulletTrigger : Bullet, ITriggerable
             // If we need to rotate the bullet to it's flying direction
             if (effect.RotateToNewDirection) {
                 // Set a rotation where it looks at the new position from the current position.
-                Quaternion rotation = Quaternion.LookRotation(((Vector3) direction + transform.position) - transform.position, transform.TransformDirection(Vector3.up));
+                Quaternion rotation = Quaternion.LookRotation(((Vector3)direction + transform.position) - transform.position, transform.TransformDirection(Vector3.up));
                 // Rotate respectively.
                 transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
             }
