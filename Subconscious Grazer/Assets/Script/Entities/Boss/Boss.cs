@@ -61,7 +61,7 @@ public abstract class Boss : MonoBehaviour {
     private void Start() {
 
         OnStart();
-        Initalize(0);
+        Initalize(1);
     }
 
     protected abstract void OnStart();
@@ -124,7 +124,7 @@ public abstract class Boss : MonoBehaviour {
 
     protected void PickSpellCard() {
         do {
-            currentSpell = spellCards[Random.Range(0, spellCards.Length - 1)];
+            currentSpell = spellCards[Random.Range(0, spellCards.Length)];
         } while (currentSpell.Invoked);
     }
 }

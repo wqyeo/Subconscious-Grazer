@@ -127,12 +127,12 @@ MonoBehaviour:
   oneTimeEffect: 1
   invokeOnTriggerEnterEff: 1
   onTriggerEnterEff:
-    applyAcceleration: 1
-    triggerAcceleration: -0.1
+    applyAcceleration: 0
+    triggerAcceleration: 0
     applyRotationalAcceleration: 0
     triggerRotationalAcceleration: 0
-    applySpeed: 0
-    triggeredSpeed: 0
+    applySpeed: 1
+    triggeredSpeed: 1.5
     applyRotation: 0
     triggerRotationSpeed: 0
     changeDirection: 1
@@ -140,14 +140,14 @@ MonoBehaviour:
       targetPlayer: 1
       newDirection: {x: 0, y: 0}
       rotateToNewDirection: 1
-  invokeOnTriggerExitEff: 1
+  invokeOnTriggerExitEff: 0
   onTriggerExitEff:
     applyAcceleration: 1
-    triggerAcceleration: 5
+    triggerAcceleration: 0
     applyRotationalAcceleration: 0
     triggerRotationalAcceleration: 0
-    applySpeed: 0
-    triggeredSpeed: 0
+    applySpeed: 1
+    triggeredSpeed: 7.5
     applyRotation: 0
     triggerRotationSpeed: 0
     changeDirection: 0

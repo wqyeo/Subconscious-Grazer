@@ -24,7 +24,8 @@ public class BulletTrigger : Bullet, ITriggerable {
     [ConditionalField("invokeOnTriggerExitEff", true), SerializeField, Tooltip("Effects when bullet exits the trigger.")]
     private BulletTriggerEffect onTriggerExitEff;
 
-    private bool invoked = false;
+    [ReadOnly]
+    public bool invoked = false;
 
     public BulletTriggerEffect OnTriggerEnterEff {
         get {
@@ -38,6 +39,14 @@ public class BulletTrigger : Bullet, ITriggerable {
         }
     }
 
+    private void Start() {
+        invoked = false;
+    }
+
+    private void OnEnable() {
+        invoked = false;
+    }
+
     public void InvokeEnter() {
 
         // If we do not need to invoke, exit
@@ -48,19 +57,11 @@ public class BulletTrigger : Bullet, ITriggerable {
 
         invoked = true;
 
-        if (oneTimeEffect) {
-            OnBulletDisposedEvent += BulletTrigger_OnBulletDisposedEvent;
-        }
-
         ApplyEffects(onTriggerEnterEff);
 
         if (onEnterTriger != null) {
             onEnterTriger(this);
         }
-    }
-
-    private void BulletTrigger_OnBulletDisposedEvent(object sender, System.EventArgs e) {
-        invoked = false;
     }
 
     public void InvokeExit() {

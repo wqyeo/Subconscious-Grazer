@@ -1876,6 +1876,70 @@ MonoBehaviour:
   lockOn: 0
   shotAngle: 0
   targetTransform: {fileID: 0}
+--- !u!1 &1118930499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118930500}
+  - component: {fileID: 1118930501}
+  m_Layer: 17
+  m_Name: SpreadShooter_Aimed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118930500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118930499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1656006465}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118930501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118930499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12d483c1e9e9244987ea4270f278f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 2135438384845879402, guid: f0d558a4e8a16344fb2c8e88c816756e,
+    type: 3}
+  damage: 1
+  bulletType: 6
+  bulletRotationOffset: 270
+  bulletDefaultSprite: {fileID: 0}
+  bulletSpeed: 7.5
+  bulletAcceleration: 0
+  initalRotateToDirection: 1
+  rotateBulletToDirection: 0
+  rotation: 0
+  rotationAcceleration: 0
+  batchShooting: 0
+  shotCooldown: 0
+  batchShotCount: 0
+  lockOn: 1
+  shotAngle: 0
+  targetTransform: {fileID: 0}
+  bulletCount: 3
+  shotWideness: 45
 --- !u!1 &1122906751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,6 +2448,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ca2b9c171335f409a478a50b0b5dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1389231964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1389231965}
+  - component: {fileID: 1389231966}
+  m_Layer: 0
+  m_Name: RadialShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1389231965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389231964}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1656006465}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1389231966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389231964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbc80f2445ffee408295e947723a7e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 4725296189212582574, guid: 02e2d1bde81435a4abade52d045e3e46,
+    type: 3}
+  damage: 1
+  bulletType: 5
+  bulletRotationOffset: 270
+  bulletDefaultSprite: {fileID: 0}
+  bulletSpeed: 3
+  bulletAcceleration: 0
+  initalRotateToDirection: 1
+  rotateBulletToDirection: 0
+  rotation: 0
+  rotationAcceleration: 0
+  batchShooting: 0
+  shotCooldown: 0
+  batchShotCount: 0
+  lockOn: 0
+  shotAngle: 0
+  targetTransform: {fileID: 0}
+  bulletCount: 30
 --- !u!1 &1468397380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,6 +3195,69 @@ MonoBehaviour:
   lockOn: 0
   shotAngle: 0
   targetTransform: {fileID: 0}
+--- !u!1 &1656006464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1656006465}
+  - component: {fileID: 1656006466}
+  m_Layer: 17
+  m_Name: ArrowSeeker_SpellCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1656006465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656006464}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1389231965}
+  - {fileID: 1118930500}
+  m_Father: {fileID: 2073493341}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1656006466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656006464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9668302368eda144eaa39116ec2929c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellCardName: 0
+  spellOptions:
+  - shooters:
+    - {fileID: 1389231966}
+    fireRate: 0.25
+    activationDelay: 2
+    scaleByHealth: 1
+    fireRateScale: 0
+    bulletSpeedScale: 2
+    bulletAccelerationScale: -0.05
+  - shooters:
+    - {fileID: 1118930501}
+    fireRate: 0.75
+    activationDelay: 1
+    scaleByHealth: 0
+    fireRateScale: 0
+    bulletSpeedScale: 0
+    bulletAccelerationScale: 0
 --- !u!1 &1706335928
 GameObject:
   m_ObjectHideFlags: 0
@@ -3505,7 +3695,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.25
 --- !u!50 &1863083476
 Rigidbody2D:
   serializedVersion: 4
@@ -4111,10 +4301,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073493338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.99, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1536443118}
+  - {fileID: 1656006465}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4181,6 +4372,7 @@ MonoBehaviour:
   speed: 2
   spellCards:
   - {fileID: 1536443119}
+  - {fileID: 1656006466}
   arrowRainFireRate: 0.05
   arrowRainPrefab: {fileID: 4864671057777329638, guid: 31151903b0771c043980cb3274f5cacb,
     type: 3}

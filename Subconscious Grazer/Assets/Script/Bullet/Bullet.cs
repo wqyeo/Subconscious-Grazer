@@ -164,6 +164,7 @@ public class Bullet : MonoBehaviour {
 
         if (OnBulletDisposedEvent != null) {
             OnBulletDisposedEvent.Invoke(this, null);
+            Debug.Log("Called!");
         }
 
         if (parentShooter != null) {

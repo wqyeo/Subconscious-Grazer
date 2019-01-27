@@ -199,6 +199,9 @@ public class Player : Singleton<Player> {
         if (other.CompareTag("EnemyBullet")) {
             var hitBullet = other.gameObject.GetComponent<Bullet>();
 
+            // Dumping ground. (To prevent interaction when it gets set back to active.)
+            hitBullet.gameObject.transform.position = new Vector2(5f, 5f);
+
             StartCoroutine(HandleHitAnim());
 
             hitBullet.Dispose();

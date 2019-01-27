@@ -31,6 +31,7 @@ TextureImporter:
     21300052: arrow_Red
     21300054: arrow_Orange
     21300056: arrow_Yellow
+    21300058: fadeBall_Cyan
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -672,7 +673,7 @@ TextureImporter:
         width: 12
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -692,13 +693,33 @@ TextureImporter:
         width: 12
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 30c99f79401ba9848ac910b54c6abfdd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fadeBall_Cyan
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 180
+        width: 64
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72dab257c34f8394daaded11fb631934
       vertices: []
       indices: 
       edges: []

@@ -88,13 +88,13 @@ public class SpellCard : MonoBehaviour {
     }
 
     private void SetSpellState(bool isActive) {
-        gameObject.SetActive(isActive);
-
         // Set the shooter active states.
         foreach (var spellOption in spellOptions) {
             foreach (var shooter in spellOption.shooters) {
                 shooter.IsActive = isActive;
             }
         }
+
+        gameObject.SetActive(isActive);
     }
 }
