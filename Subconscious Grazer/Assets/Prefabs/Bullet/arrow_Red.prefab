@@ -128,7 +128,7 @@ MonoBehaviour:
   invokeOnTriggerEnterEff: 1
   onTriggerEnterEff:
     applyAcceleration: 1
-    triggerAcceleration: 0.1
+    triggerAcceleration: -0.1
     applyRotationalAcceleration: 0
     triggerRotationalAcceleration: 0
     applySpeed: 0

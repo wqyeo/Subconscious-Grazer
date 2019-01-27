@@ -39,6 +39,7 @@ public class BulletTrigger : Bullet, ITriggerable {
     }
 
     public void InvokeEnter() {
+
         // If we do not need to invoke, exit
         if (!invokeOnTriggerEnterEff) { return; }
 
@@ -47,11 +48,19 @@ public class BulletTrigger : Bullet, ITriggerable {
 
         invoked = true;
 
+        if (oneTimeEffect) {
+            OnBulletDisposedEvent += BulletTrigger_OnBulletDisposedEvent;
+        }
+
         ApplyEffects(onTriggerEnterEff);
 
         if (onEnterTriger != null) {
             onEnterTriger(this);
         }
+    }
+
+    private void BulletTrigger_OnBulletDisposedEvent(object sender, System.EventArgs e) {
+        invoked = false;
     }
 
     public void InvokeExit() {
@@ -99,7 +108,7 @@ public class BulletTrigger : Bullet, ITriggerable {
             // If we need to rotate the bullet to it's flying direction
             if (effect.RotateToNewDirection) {
                 // Set a rotation where it looks at the new position from the current position.
-                Quaternion rotation = Quaternion.LookRotation(((Vector3)direction + transform.position) - transform.position, transform.TransformDirection(Vector3.up));
+                Quaternion rotation = Quaternion.LookRotation(direction, transform.TransformDirection(Vector3.up + new Vector3(0, 0, -RotationalOffset)));
                 // Rotate respectively.
                 transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
             }

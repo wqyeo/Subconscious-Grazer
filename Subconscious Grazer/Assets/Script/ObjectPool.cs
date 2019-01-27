@@ -10,6 +10,21 @@ public class ObjectPool<T> {
     }
 
     /// <summary>
+    /// Clear an object pool of the given type.
+    /// </summary>
+    /// <param name="type">The type of the object pool to clear.</param>
+    public void ClearObjectPoolOfType(T type) {
+        // If the pool does exists.
+        if (objectPools.ContainsKey(type)) {
+            foreach (var obj in objectPools[type]) {
+                Object.Destroy(obj);
+            }
+
+            objectPools[type] = new HashSet<GameObject>();
+        }
+    }
+
+    /// <summary>
     /// Add the object to the respective object pool
     /// </summary>
     /// <param name="type">The type of object to add.</param>

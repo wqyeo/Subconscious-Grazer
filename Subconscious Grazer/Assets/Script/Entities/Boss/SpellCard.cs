@@ -15,6 +15,8 @@ public class SpellCard : MonoBehaviour {
     public bool Invoked { get; private set; }
     public bool Invoking { get; private set; }
 
+    public Boss SpellOwner { get; set; }
+
     public SpellCardName SpellCardName {
         get {
             return spellCardName;
@@ -23,6 +25,15 @@ public class SpellCard : MonoBehaviour {
 
     public void Initalize() {
         Invoked = Invoking = false;
+
+        foreach (var spellOption in spellOptions) {
+            spellOption.OriginalFireRate = spellOption.fireRate;
+
+            foreach (var shooter in spellOption.shooters) {
+                shooter.OriginalBulletAcceleration = shooter.BulletAcceleration;
+                shooter.OriginalBulletSpeed = shooter.BulletSpeed;
+            }
+        }
     }
 
     public void InvokeSpell() {
@@ -30,6 +41,7 @@ public class SpellCard : MonoBehaviour {
         Invoked = Invoking = true;
 
         foreach (var spellOption in spellOptions) {
+
             StartCoroutine(HandleSpellOption(spellOption));
         }
     }
@@ -44,15 +56,15 @@ public class SpellCard : MonoBehaviour {
             // If we need to scale this spell option by health.
             if (spellOption.scaleByHealth) {
 
-                float lossScale = healthLoss / 10f;
+                float t = (float)(SpellOwner.MaxHealth - SpellOwner.Health) / SpellOwner.MaxHealth;
 
                 // Scale the fire rates.
-                spellOption.fireRate += (lossScale * spellOption.fireRateScale);
+                spellOption.fireRate = Mathf.Lerp(spellOption.OriginalFireRate, spellOption.OriginalFireRate + spellOption.fireRateScale, t);
 
                 // Scale the shooters
                 foreach (var shooter in spellOption.shooters) {
-                    shooter.BulletSpeed += (lossScale * spellOption.bulletSpeedScale);
-                    shooter.BulletAcceleration += (lossScale * spellOption.bulletAccelerationScale);
+                    shooter.BulletSpeed = Mathf.Lerp(shooter.OriginalBulletSpeed, shooter.OriginalBulletSpeed + spellOption.bulletSpeedScale, t);
+                    shooter.BulletAcceleration = Mathf.Lerp(shooter.OriginalBulletAcceleration, shooter.OriginalBulletAcceleration + spellOption.bulletAccelerationScale, t);
                 }
             }
         }

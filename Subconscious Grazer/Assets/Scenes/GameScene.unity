@@ -540,7 +540,7 @@ MonoBehaviour:
     type: 3}
   damage: 2
   bulletType: 2
-  bulletRotationOffset: 90
+  bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   bulletSpeed: 15
   bulletAcceleration: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
     type: 3}
   damage: 2
   bulletType: 2
-  bulletRotationOffset: 90
+  bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   bulletSpeed: 15
   bulletAcceleration: 0
@@ -881,7 +881,7 @@ MonoBehaviour:
     type: 3}
   damage: 2
   bulletType: 2
-  bulletRotationOffset: 90
+  bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   bulletSpeed: 15
   bulletAcceleration: 0
@@ -1110,12 +1110,12 @@ MonoBehaviour:
     type: 3}
   damage: 1
   bulletType: 5
-  bulletRotationOffset: 180
+  bulletRotationOffset: 270
   bulletDefaultSprite: {fileID: 0}
   bulletSpeed: 4
   bulletAcceleration: 0
   initalRotateToDirection: 1
-  rotateBulletToDirection: 1
+  rotateBulletToDirection: 0
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 1
@@ -2808,15 +2808,15 @@ MonoBehaviour:
   spellOptions:
   - shooters:
     - {fileID: 1917758932}
-    fireRate: 5.1
+    fireRate: 5
     activationDelay: 2
     scaleByHealth: 1
-    fireRateScale: 0.1
-    bulletSpeedScale: 0.05
-    bulletAccelerationScale: 0.05
+    fireRateScale: -4.5
+    bulletSpeedScale: 0
+    bulletAccelerationScale: 0
   - shooters:
     - {fileID: 457044314}
-    fireRate: 1
+    fireRate: 1.25
     activationDelay: 5
     scaleByHealth: 0
     fireRateScale: 0
@@ -3742,16 +3742,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
-  bulletPrefab: {fileID: 2135438384845879402, guid: f0d558a4e8a16344fb2c8e88c816756e,
+  bulletPrefab: {fileID: 9156564843100477171, guid: 350e8b0e38cc3964f819ccf25dd9ce4e,
     type: 3}
   damage: 1
-  bulletType: 6
-  bulletRotationOffset: 180
+  bulletType: 5
+  bulletRotationOffset: 270
   bulletDefaultSprite: {fileID: 0}
   bulletSpeed: 5
   bulletAcceleration: 0
   initalRotateToDirection: 1
-  rotateBulletToDirection: 1
+  rotateBulletToDirection: 0
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 0
@@ -4111,7 +4111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073493338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 3.99, z: 0}
+  m_LocalPosition: {x: 0, y: 3.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1536443118}
@@ -4299,7 +4299,7 @@ MonoBehaviour:
     type: 3}
   damage: 2
   bulletType: 2
-  bulletRotationOffset: 90
+  bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   bulletSpeed: 15
   bulletAcceleration: 0

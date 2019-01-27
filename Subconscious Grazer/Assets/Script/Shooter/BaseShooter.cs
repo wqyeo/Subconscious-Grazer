@@ -173,6 +173,9 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
+    public float OriginalBulletSpeed { get; set; }
+    public float OriginalBulletAcceleration { get; set; }
+
     #endregion
 
     /// <summary>
@@ -247,15 +250,12 @@ public abstract class BaseShooter : MonoBehaviour {
             bulletObj.GetComponent<SpriteRenderer>().sprite = bulletPrefab.GetComponent<SpriteRenderer>().sprite;
         }
 
-        // Rotate the bullet to the offset.
-        var tempRotation = new Vector3();
-        tempRotation.z += bulletRotationOffset;
-        bulletObj.transform.eulerAngles = tempRotation;
+        bulletObj.transform.Rotate(new Vector3(0, 0, bulletRotationOffset));
 
         // If we initally need to rotate this bullet to the shooting direction.
         if (initalRotateToDirection) {
             // Set a rotation where it looks at the new position from the current position.
-            Quaternion rotation = Quaternion.LookRotation(((Vector3)direction + transform.position) - transform.position, transform.TransformDirection(Vector3.up));
+            Quaternion rotation = Quaternion.LookRotation(direction, transform.TransformDirection(Vector3.up + new Vector3(0, 0, -bulletRotationOffset)));
             // Rotate respectively.
             bulletObj.transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
         }

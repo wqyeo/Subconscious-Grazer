@@ -47,10 +47,16 @@ public class Rakuki : Boss {
 
         newBullet.GetComponent<SpriteRenderer>().sprite = arrowRainPrefab.GetComponent<SpriteRenderer>().sprite;
 
-        newBullet.GetComponent<Bullet>().Initalize(Vector2.zero, -1f, 1, bulletType: BulletType.arrow, rotateBulletToDirection: true, rotationalOffset: 180);
+        newBullet.GetComponent<Bullet>().Initalize(Vector2.zero, -1f, 1, bulletType: BulletType.arrow, rotateBulletToDirection: false, rotationalOffset: 0);
         newBullet.GetComponent<Bullet>().GravityAffected = true;
 
-        newBullet.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(new Vector2(xFirePos, Screen.height + 1f));
+        newBullet.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(new Vector2(xFirePos, Screen.height + 10f));
     }
 
+    protected override void OnStart() {
+        onBossDeath += delegate {
+            ObjPoolManager.Instance.BulletPool.ClearObjectPoolOfType(BulletType.arrow);
+            ObjPoolManager.Instance.BulletPool.ClearObjectPoolOfType(BulletType.arrow_Effect);
+        };
+    }
 }

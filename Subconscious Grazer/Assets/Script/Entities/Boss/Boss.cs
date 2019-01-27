@@ -4,6 +4,11 @@ using UnityEngine;
 
 [DisallowMultipleComponent, RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public abstract class Boss : MonoBehaviour {
+
+    protected delegate void OnBossDeathDelegate();
+
+    protected OnBossDeathDelegate onBossDeath;
+
     [Separator("Base Boss Properties", true)]
 
     [SerializeField, Tooltip("The max amount of health this boss has.")]
@@ -54,11 +59,16 @@ public abstract class Boss : MonoBehaviour {
     }
 
     private void Start() {
+
+        OnStart();
         Initalize(0);
     }
 
+    protected abstract void OnStart();
+
     public void Initalize(int lifeCount) {
         foreach (var spellCard in spellCards) {
+            spellCard.SpellOwner = this;
             spellCard.Initalize();
         }
 
@@ -100,6 +110,10 @@ public abstract class Boss : MonoBehaviour {
         else if (Health <= 0 && Life <= 0) {
 
             currentSpell.EndSpell();
+
+            if (onBossDeath != null) {
+                onBossDeath();
+            }
 
             Destroy(gameObject);
 
