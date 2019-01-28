@@ -10,6 +10,7 @@ TagManager:
   - BulletTriggerZone
   - Boss
   - Collectable
+  - CollectableTriggerZone
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - BulletTriggerZone
   - Boss
   - Collectable
-  - 
+  - CollectableTriggerZone
   - 
   - 
   - 

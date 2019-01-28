@@ -6,23 +6,78 @@ public class SpawnManager : Singleton<SpawnManager> {
     [SerializeField, Tooltip("The spawn details to randomly select from when spawning enemies.")]
     private SpawnDetail[] spawnDetails;
 
+    [SerializeField, Tooltip("The bosses that are spawnable.")]
+    private Boss[] bosses;
+
+    [SerializeField, Tooltip("The chance increase to spawn a boss whenever a boss is not spawned.")]
+    private float stackChanceAmt;
+
     private float waveTimer;
+
+    private float chanceToSpawnBoss;
 
     private SpawnDetail currentSpawnWave;
 
+    public bool BossFight { get; set; }
+
     private void Start() {
+        chanceToSpawnBoss = 0f;
+        BossFight = false;
         SpawnWave();
     }
 
     private void Update() {
         waveTimer += Time.deltaTime;
+
+        if (!BossFight) {
+            UpdateSpawner();
+        }
+    }
+
+    private void UpdateSpawner() {
         // If this wave timer is up.
         if (currentSpawnWave.SpawnWaveDuration <= waveTimer) {
-            // Spawn a new wave.
-            SpawnWave();
+            // If the chance to spawn a boss is generated, spawn.
+            if (Random.Range(0, 100) <= chanceToSpawnBoss) {
+                BossFight = true;
+                chanceToSpawnBoss = 0f;
+                SpawnBoss();
+            } else {
+                // Spawn a new wave.
+                SpawnWave();
+                chanceToSpawnBoss += stackChanceAmt;
+            }
             // Reset wave timer
             waveTimer = 0f;
         }
+    }
+
+    private void SpawnBoss() {
+        var bossToSpawn = bosses[Random.Range(0, bosses.Length)];
+        StartCoroutine(HandleBossSpawning(bossToSpawn));
+    }
+
+    private IEnumerator HandleBossSpawning(Boss bossToSpawn) {
+        // Create a new boss.
+        var newBossObj = Instantiate(bossToSpawn.gameObject, new Vector2(0, 8), Quaternion.identity);
+
+        float from = 8;
+        float to = 4;
+
+        float progress = 0f;
+
+        // Move the boss to its starting position.
+        while (progress <= 1) {
+            var temp = newBossObj.transform.position;
+            temp.y = Mathf.Lerp(from, to, progress);
+
+            progress += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        // Initalize the boss.
+        newBossObj.GetComponent<Boss>().Initalize(Random.Range(0, newBossObj.GetComponent<Boss>().NoOfSpells));
+
+        yield return null;
     }
 
     private void SpawnWave() {
@@ -52,7 +107,7 @@ public class SpawnManager : Singleton<SpawnManager> {
                 StartCoroutine(HandleSpawnPoint(opSpawnPoint.spawnPoint));
             }
         }
-        
+
     }
 
     private IEnumerator HandleSpawnPoint(SpawnDetail.SpawnPoint spawnPoint) {

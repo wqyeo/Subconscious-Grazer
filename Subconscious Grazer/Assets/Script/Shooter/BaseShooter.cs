@@ -33,6 +33,9 @@ public abstract class BaseShooter : MonoBehaviour {
     [SerializeField, Tooltip("The default sprite for the bullets. (Null to just use what was given from prefab or object pool)")]
     private Sprite bulletDefaultSprite;
 
+    [SerializeField, Tooltip("True if the bullets are affected by gravity.")]
+    private bool gravityAffected;
+
     [Separator("Initalized Bullet properties", true)]
 
     [SerializeField, Tooltip("The default speed of all the bullets shot out")]
@@ -178,6 +181,16 @@ public abstract class BaseShooter : MonoBehaviour {
     public float OriginalBulletSpeed { get; set; }
     public float OriginalBulletAcceleration { get; set; }
 
+    public bool GravityAffected {
+        get {
+            return gravityAffected;
+        }
+
+        set {
+            gravityAffected = value;
+        }
+    }
+
     #endregion
 
     /// <summary>
@@ -217,14 +230,20 @@ public abstract class BaseShooter : MonoBehaviour {
         // If we need to rotate the bullet to the flying direction.
         if (rotateBulletToDirection) {
             // Create a bullet that constantly rotates to the flying direction.
-            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotateBulletToDirection, bulletRotationOffset);
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotateBulletToDirection, bulletRotationOffset, gravityAffected);
         } else {
             // Create a bullet, giving desired rotation and rotation acceleration.
-            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration, bulletRotationOffset);
+            bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration, bulletRotationOffset, gravityAffected);
         }
 
         bullet.GravityAffected = bulletPrefab.GetComponent<Bullet>().GravityAffected;
 
+        SetBulletEventListeners(bullet);
+
+        return bullet;
+    }
+
+    private void SetBulletEventListeners(Bullet bullet) {
         // If there are listeners to add.
         if (onBulletDestroy != null) {
             // Add them.
@@ -234,8 +253,6 @@ public abstract class BaseShooter : MonoBehaviour {
         if (onBulletCreated != null) {
             onBulletCreated(bullet);
         }
-
-        return bullet;
     }
 
     /// <summary>
@@ -348,6 +365,8 @@ public abstract class BaseShooter : MonoBehaviour {
     }
 
     public void InvokeOnAllShotBullets(Action<Bullet> invokeAction) {
+        if (shotBullets == null) { shotBullets = new HashSet<Bullet>(); }
+
         foreach (var bullet in shotBullets.ToArray()) {
             invokeAction(bullet);
         }

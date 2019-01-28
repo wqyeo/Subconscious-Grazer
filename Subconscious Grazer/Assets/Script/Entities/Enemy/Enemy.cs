@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D)), DisallowMultipleComponent]
 public abstract class Enemy : MonoBehaviour {
@@ -241,6 +240,21 @@ public abstract class Enemy : MonoBehaviour {
                 }
             }
 
+            // Generate a random number of power points and blue points to spawn.
+            int powerPointSpawnCount = Random.Range(0, 2);
+            int bluePointSpawnCount = Random.Range(2, 10);
+
+            // Spawn those collectable around the enemy.
+            while (powerPointSpawnCount > 0) {
+                CollectableManager.Instance.CreateCollectableAtPos((Random.insideUnitSphere * 0.15f) + transform.position, CollectableType.PowerPoint);
+                --powerPointSpawnCount;
+            }
+
+            while (bluePointSpawnCount > 0) {
+                CollectableManager.Instance.CreateCollectableAtPos((Random.insideUnitSphere * 0.15f) + transform.position, CollectableType.BluePoint);
+                --bluePointSpawnCount;
+            }
+
             // If this enemy has an animator.
             if (enemyAnim != null) {
                 // Play it's death animation.
@@ -308,7 +322,7 @@ public abstract class Enemy : MonoBehaviour {
     /// Invoke an action on all shooters.
     /// </summary>
     /// <param name="foreachAction"></param>
-    public void ForeachShooter(Action<BaseShooter> foreachAction) {
+    public void ForeachShooter(System.Action<BaseShooter> foreachAction) {
         foreach (var shooter in shooters) {
             foreachAction(shooter);
         }

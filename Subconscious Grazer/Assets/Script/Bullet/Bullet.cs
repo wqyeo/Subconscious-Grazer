@@ -119,7 +119,7 @@ public class Bullet : MonoBehaviour {
     #region Initalize_Overloads
 
     // Rotates bullet to the direction it is travelling at.
-    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationalOffset = 0f) {
+    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationalOffset = 0f, bool gravityAffected = false) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -129,10 +129,11 @@ public class Bullet : MonoBehaviour {
         Damage = damage;
         parentShooter = shooter;
         RotationalOffset = rotationalOffset;
+        GravityAffected = gravityAffected;
     }
 
     // Constantly rotates the bullet at the given speed.
-    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f, float rotationalOffset = 0f) {
+    public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, float rotationSpeed = 0f, float rotationAcceleration = 0f, float rotationalOffset = 0f, bool gravityAffected = false) {
         Velocity = velocity;
         AccelerationSpeed = accelerationSpeed;
         Type = bulletType;
@@ -142,42 +143,36 @@ public class Bullet : MonoBehaviour {
         Damage = damage;
         parentShooter = shooter;
         RotationalOffset = rotationalOffset;
-    }
-
-    // Initalize a bullet not controlled by a shooter.
-    public void Initalize(Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationSpeed = 0f, float rotationAcceleration = 0f, float rotationalOffset = 0f) {
-        Velocity = velocity;
-        AccelerationSpeed = accelerationSpeed;
-        Type = bulletType;
-        RotateBulletToDirection = rotateBulletToDirection;
-        RotationSpeed = rotationSpeed;
-        RotationAccelerationSpeed = rotationAcceleration;
-        Damage = damage;
-        RotationSpeed = 0;
-        RotationAccelerationSpeed = 0f;
-        RotationalOffset = rotationalOffset;
+        GravityAffected = gravityAffected;
     }
 
     #endregion
+
+    public void DetachFromShooter() {
+        if (parentShooter != null) {
+            parentShooter.RemoveBullet(this);
+            parentShooter = null;
+        }
+    }
+
+    private void PoolBackBullet() {
+        // Empty eventlistener.
+        OnBulletDisposedEvent = null;
+        // Set itself to not active
+        gameObject.SetActive(false);
+    }
 
     public void Dispose(bool destroyBullet = false) {
 
         if (OnBulletDisposedEvent != null) {
             OnBulletDisposedEvent.Invoke(this, null);
-            Debug.Log("Called!");
         }
 
-        if (parentShooter != null) {
-            parentShooter.RemoveBullet(this);
-            parentShooter = null;
-        }
+        DetachFromShooter();
 
         // If we do not need to destroy this bullet.
         if (!destroyBullet) {
-            // Empty eventlistener.
-            OnBulletDisposedEvent = null;
-            // Set itself to not active
-            gameObject.SetActive(false);
+            PoolBackBullet();
         } else {
             Destroy(gameObject);
         }

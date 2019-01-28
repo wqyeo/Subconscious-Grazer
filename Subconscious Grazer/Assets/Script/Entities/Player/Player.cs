@@ -393,6 +393,22 @@ public class Player : Singleton<Player> {
 
     #endregion
 
+    public void HandlePowerState() {
+        int activeRoseCount = Mathf.FloorToInt(GameManager.Instance.PowerPoints);
+
+        // Activate respective shooters.
+        foreach (var shooter in needleShooters) {
+            if (activeRoseCount > 0) {
+                shooter.IsActive = true;
+            } else {
+                shooter.IsActive = false;
+            }
+            --activeRoseCount;
+        }
+
+        HandleRosePosition();
+    }
+
     private IEnumerator HandleHitAnim() {
 
         IsInvulerable = true;

@@ -59,13 +59,18 @@ public abstract class Boss : MonoBehaviour {
 
     protected SpellCard currentSpell;
 
+    public int NoOfSpells {
+        get {
+            return spellCards.Length;
+        }
+    }
+
     private void Awake() {
         Health = maxHealth;
     }
 
     private void Start() {
         OnStart();
-        Initalize(1);
     }
 
     protected abstract void OnStart();
@@ -115,6 +120,8 @@ public abstract class Boss : MonoBehaviour {
 
             currentSpell.EndSpell();
             if (onSpellEnd != null) { onSpellEnd(); }
+
+            SpawnManager.Instance.BossFight = false;
 
             deathParticleSystem.Play();
         } else {

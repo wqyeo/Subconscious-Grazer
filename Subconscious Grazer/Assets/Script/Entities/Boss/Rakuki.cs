@@ -1,72 +1,82 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using System.Linq;
+﻿using UnityEngine;
 
 public class Rakuki : Boss {
 
     [Separator("Rakuki Boss Properties", true)]
+
+    [Header("Arrow Rain")]
     [SerializeField, Tooltip("Firerate for the arrow rain.")]
     private float arrowRainFireRate;
 
-    [SerializeField, Tooltip("Prefab for the arrow rain.")]
-    private GameObject arrowRainPrefab;
+    [SerializeField, Tooltip("The shooter for the arrow rain.")]
+    private BaseShooter arrowRainShooter;
+
+    [Header("Returning Arrow")]
+    [SerializeField, Tooltip("Firate for the returning arrow")]
+    private float returningArrowFireRate;
+
+    [SerializeField, Tooltip("The shooter for the returning arrow")]
+    private BaseShooter returningArrowShooter; 
 
     private float timer;
-
-    private HashSet<Bullet> activeRainArrows;
 
     private void Update() {
         if (currentSpell != null) {
             if (currentSpell.SpellCardName == SpellCardName.Arrow_Storm) {
-                timer += Time.deltaTime;
-
-                if (timer >= arrowRainFireRate) {
-                    FireArrowRain();
-                    timer = 0f;
-                }
+                UpdateArrowStormSpell(Time.deltaTime);
+            } else if (currentSpell.SpellCardName == SpellCardName.Returning_Arrow) {
+                UpdateReturningArrowSpell(Time.deltaTime);
             }
         }
     }
 
-    private void FireArrowRain() {
+    private void UpdateReturningArrowSpell(float deltaTime) {
+        timer += deltaTime;
 
-        // Find a random x position to fire
-        float xFirePos = Random.Range(0f, Screen.width);
-
-        // Fetch or create bullet
-        GameObject newBullet = ObjPoolManager.Instance.BulletPool.FetchObjByType(BulletType.arrow);
-        if (newBullet == null) {
-            newBullet = Instantiate(arrowRainPrefab);
-            ObjPoolManager.Instance.BulletPool.AddToObjectPool(BulletType.arrow, newBullet);
+        if (timer >= returningArrowFireRate) {
+            ReturnExisitingArrows();
+            returningArrowShooter.Shoot();
+            timer = 0f;
         }
-
-        newBullet.SetActive(true);
-
-        // Rotate the bullet to the offset.
-        var tempRotation = new Vector3();
-        tempRotation.z += 180;
-        newBullet.transform.eulerAngles = tempRotation;
-
-        newBullet.GetComponent<SpriteRenderer>().sprite = arrowRainPrefab.GetComponent<SpriteRenderer>().sprite;
-
-        newBullet.GetComponent<Bullet>().Initalize(Vector2.zero, -1f, 1, bulletType: BulletType.arrow, rotateBulletToDirection: false, rotationalOffset: 0);
-        newBullet.GetComponent<Bullet>().GravityAffected = true;
-
-        activeRainArrows.Add(newBullet.GetComponent<Bullet>());
-        newBullet.GetComponent<Bullet>().OnBulletDisposedEvent += OnRainBulletDisposed;
-
-        newBullet.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(new Vector2(xFirePos, Screen.height + 10f));
     }
 
-    private void OnRainBulletDisposed(object sender, System.EventArgs e) {
-        activeRainArrows.Remove(sender as Bullet);
+    private void ReturnExisitingArrows() {
+        returningArrowShooter.InvokeOnAllShotBullets(SeekBulletToBoss);
+    }
+
+    private void SeekBulletToBoss(Bullet bullet) {
+        // Make the bullet move towards the boss faster.
+        bullet.Velocity = 5f * (transform.position - bullet.gameObject.transform.position).normalized;
+        bullet.AccelerationSpeed = 1f;
+
+        // Rotate the bullet to face the boss.
+        bullet.RotateBulletToDirection = true;
+        // Detach from shooter. (Prevent further calls to this bullet from the shooter.)
+        bullet.DetachFromShooter();
+    }
+
+    private void UpdateArrowStormSpell(float deltaTime) {
+        timer += deltaTime;
+
+        if (timer >= arrowRainFireRate) {
+            // Set where to fire the arrow and fire it.
+            SetArrowRainPos();
+            FireArrowRain();
+            timer = 0f;
+        }
+    }
+
+    private void SetArrowRainPos() {
+        float xFirePos = Random.Range(50f, Screen.width + 50f);
+
+        arrowRainShooter.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(new Vector2(xFirePos, Screen.height + 10f));
+    }
+
+    private void FireArrowRain() {
+        arrowRainShooter.Shoot();
     }
 
     protected override void OnStart() {
-        activeRainArrows = new HashSet<Bullet>();
-
         onSpellEnd += delegate {
             ArrowRainToBonusPoints();
         };
@@ -79,14 +89,12 @@ public class Rakuki : Boss {
 
     private void ArrowRainToBonusPoints() {
         if (currentSpell.SpellCardName != SpellCardName.Arrow_Storm) {
-            foreach (var bullet in activeRainArrows) {
-                CollectableManager.Instance.CreateCollectableAtPos(bullet.transform.position, CollectableType.BonusPoint);
-                bullet.OnBulletDisposedEvent -= OnRainBulletDisposed;
-
-                bullet.gameObject.SetActive(false);
-            }
-
-            activeRainArrows = new HashSet<Bullet>();
+            arrowRainShooter.InvokeOnAllShotBullets(CreateBonusPointOnBulletAndDisposeBullet);
         }
+    }
+
+    private void CreateBonusPointOnBulletAndDisposeBullet(Bullet bullet) {
+        CollectableManager.Instance.CreateCollectableAtPos(bullet.transform.position, CollectableType.BonusPoint);
+        bullet.Dispose();
     }
 }

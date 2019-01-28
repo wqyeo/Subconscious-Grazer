@@ -75,6 +75,9 @@ public class Collectable : MonoBehaviour {
             OnCollectableCollected();
         }
 
+        GameManager.Instance.AddPoints(scoreReward);
+        GameManager.Instance.AddPowerPoints(powerReward);
+
         gameObject.SetActive(false);
     }
 

@@ -61,9 +61,6 @@ public abstract class TargettingShooter : BaseShooter
                 targetTransform = Player.Instance.transform;
             }
 
-            // Find out how much this bullet would have to rotate.
-            Quaternion rotation = Quaternion.LookRotation(targetTransform.position - transform.position, Vector3.up);
-
             return (targetTransform.position - transform.position).normalized;
 
         } else {
