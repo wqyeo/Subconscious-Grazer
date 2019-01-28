@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+using System.Linq;
+
 public abstract class BaseShooter : MonoBehaviour {
 
     public delegate void BulletDelegate(Bullet bullet);
@@ -204,6 +206,7 @@ public abstract class BaseShooter : MonoBehaviour {
 
     protected Bullet InitBullet(Vector2 direction) {
         var newBullet = FetchOrCreateBullet();
+        newBullet.SetActive(true);
 
         HandleBulletObject(newBullet, direction, initalRotateToDirection);
 
@@ -250,6 +253,9 @@ public abstract class BaseShooter : MonoBehaviour {
             bulletObj.GetComponent<SpriteRenderer>().sprite = bulletPrefab.GetComponent<SpriteRenderer>().sprite;
         }
 
+        // Set back to the default rotation place.
+        bulletObj.transform.rotation = Quaternion.identity;
+
         bulletObj.transform.Rotate(new Vector3(0, 0, bulletRotationOffset));
 
         // If we initally need to rotate this bullet to the shooting direction.
@@ -278,8 +284,6 @@ public abstract class BaseShooter : MonoBehaviour {
             newBullet = Instantiate(bulletPrefab);
             // Add the bullet to the object pool
             ObjPoolManager.Instance.BulletPool.AddToObjectPool(bulletType, newBullet);
-        } else {
-            newBullet.SetActive(true);
         }
 
         return newBullet;
@@ -344,7 +348,7 @@ public abstract class BaseShooter : MonoBehaviour {
     }
 
     public void InvokeOnAllShotBullets(Action<Bullet> invokeAction) {
-        foreach (var bullet in shotBullets) {
+        foreach (var bullet in shotBullets.ToArray()) {
             invokeAction(bullet);
         }
     }

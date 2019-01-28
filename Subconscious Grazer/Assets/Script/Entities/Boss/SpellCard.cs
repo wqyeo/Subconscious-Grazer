@@ -41,14 +41,29 @@ public class SpellCard : MonoBehaviour {
         Invoked = Invoking = true;
 
         foreach (var spellOption in spellOptions) {
-
             StartCoroutine(HandleSpellOption(spellOption));
         }
     }
 
     public void EndSpell() {
         Invoking = false;
+
+        GenerateBonusPoints();
+
         SetSpellState(false);
+    }
+
+    private void GenerateBonusPoints() {
+        foreach (var spellOption in spellOptions) {
+            foreach (var shooter in spellOption.shooters) {
+                shooter.InvokeOnAllShotBullets(CreateBonusPointOnBullet);
+            }
+        }
+    }
+
+    private void CreateBonusPointOnBullet(Bullet bullet) {
+        CollectableManager.Instance.CreateCollectableAtPos(bullet.transform.position, CollectableType.BonusPoint);
+        bullet.Dispose();
     }
 
     public void ScaleSpell(int healthLoss = 1) {

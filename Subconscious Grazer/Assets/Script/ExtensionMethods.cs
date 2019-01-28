@@ -29,6 +29,10 @@ public static class ExtensionMethods {
         return firstDot + secondDot;
     }
 
+    public static Vector3 DirectionToVector(this Vector3 from, Vector3 to) {
+        return (to - from);
+    }
+
     public static Vector2 ToVector2(this Direction direction) {
         Vector2 result = new Vector2();
 

@@ -6,7 +6,9 @@ using UnityEngine;
 public abstract class Boss : MonoBehaviour {
 
     protected delegate void OnBossDeathDelegate();
+    protected delegate void OnSpellEndDelegate();
 
+    protected OnSpellEndDelegate onSpellEnd;
     protected OnBossDeathDelegate onBossDeath;
 
     [Separator("Base Boss Properties", true)]
@@ -18,7 +20,10 @@ public abstract class Boss : MonoBehaviour {
     private float speed;
 
     [SerializeField, Tooltip("The spell-cards that this boss possess.")]
-    private SpellCard[] spellCards;
+    protected SpellCard[] spellCards;
+
+    [SerializeField, Tooltip("The respective particle emitters for the boss.")]
+    private ParticleSystem transitionParticleSystem, deathParticleSystem;
 
     #region Properties
 
@@ -59,7 +64,6 @@ public abstract class Boss : MonoBehaviour {
     }
 
     private void Start() {
-
         OnStart();
         Initalize(1);
     }
@@ -104,19 +108,15 @@ public abstract class Boss : MonoBehaviour {
             --Life;
             Health = maxHealth;
 
-            currentSpell.InvokeSpell();
+            transitionParticleSystem.Play();
         }
         // Boss has no life left.
         else if (Health <= 0 && Life <= 0) {
 
             currentSpell.EndSpell();
+            if (onSpellEnd != null) { onSpellEnd(); }
 
-            if (onBossDeath != null) {
-                onBossDeath();
-            }
-
-            Destroy(gameObject);
-
+            deathParticleSystem.Play();
         } else {
             currentSpell.ScaleSpell(damage);
         }
@@ -126,5 +126,19 @@ public abstract class Boss : MonoBehaviour {
         do {
             currentSpell = spellCards[Random.Range(0, spellCards.Length)];
         } while (currentSpell.Invoked);
+    }
+
+    public void TransitionToNextSpell() {
+        if (currentSpell.Invoked) { PickSpellCard(); }
+
+        currentSpell.InvokeSpell();
+    }
+
+    public void DisposeBoss() {
+        if (onBossDeath != null) {
+            onBossDeath();
+        }
+
+        Destroy(gameObject);
     }
 }

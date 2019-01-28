@@ -27,7 +27,7 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     private void SpawnWave() {
         // Generate a random wave number to spawn.
-        int genWaveNo = Random.Range(0, spawnDetails.Length - 1);
+        int genWaveNo = Random.Range(0, spawnDetails.Length);
         // The selected wave.
         var selectedWave = spawnDetails[genWaveNo];
         // Set the current wave to the selected wave.

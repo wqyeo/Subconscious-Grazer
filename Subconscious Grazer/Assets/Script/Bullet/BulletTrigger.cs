@@ -24,8 +24,7 @@ public class BulletTrigger : Bullet, ITriggerable {
     [ConditionalField("invokeOnTriggerExitEff", true), SerializeField, Tooltip("Effects when bullet exits the trigger.")]
     private BulletTriggerEffect onTriggerExitEff;
 
-    [ReadOnly]
-    public bool invoked = false;
+    private bool invoked = false;
 
     public BulletTriggerEffect OnTriggerEnterEff {
         get {

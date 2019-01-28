@@ -197,15 +197,20 @@ public class Player : Singleton<Player> {
 
         // If the player touched the enemy's bullet.
         if (other.CompareTag("EnemyBullet")) {
-            var hitBullet = other.gameObject.GetComponent<Bullet>();
-
-            // Dumping ground. (To prevent interaction when it gets set back to active.)
-            hitBullet.gameObject.transform.position = new Vector2(5f, 5f);
-
-            StartCoroutine(HandleHitAnim());
-
-            hitBullet.Dispose();
+            HandleBulletCollision(other.gameObject.GetComponent<Bullet>());
+        } else if (other.CompareTag("Collectable")) {
+            HandleCollectableCollision(other.gameObject.GetComponent<Collectable>());
         }
+    }
+
+    private void HandleBulletCollision(Bullet collidedBullet) {
+        StartCoroutine(HandleHitAnim());
+
+        collidedBullet.Dispose();
+    }
+
+    private void HandleCollectableCollision(Collectable collidedCollectable) {
+        collidedCollectable.CollectCollectable();
     }
 
     private void Shoot() {

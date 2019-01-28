@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - BulletTriggerZone
   - Boss
+  - Collectable
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - EnemyBorder
   - BulletTriggerZone
   - Boss
-  - 
+  - Collectable
   - 
   - 
   - 
