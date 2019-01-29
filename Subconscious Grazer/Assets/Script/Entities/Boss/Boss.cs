@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent, RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public abstract class Boss : MonoBehaviour {
+public abstract class Boss : MonoBehaviour, IDisposableObj {
 
     protected delegate void OnBossDeathDelegate();
     protected delegate void OnSpellEndDelegate();
@@ -67,6 +67,7 @@ public abstract class Boss : MonoBehaviour {
 
     private void Awake() {
         Health = maxHealth;
+        Invulnerable = true;
     }
 
     private void Start() {
@@ -76,15 +77,20 @@ public abstract class Boss : MonoBehaviour {
     protected abstract void OnStart();
 
     public void Initalize(int lifeCount) {
-        foreach (var spellCard in spellCards) {
-            spellCard.SpellOwner = this;
-            spellCard.Initalize();
-        }
+        Invulnerable = false;
+        InitalizeSpellCards();
 
         Life = lifeCount;
 
         PickSpellCard();
         currentSpell.InvokeSpell();
+    }
+
+    private void InitalizeSpellCards() {
+        foreach (var spellCard in spellCards) {
+            spellCard.SpellOwner = this;
+            spellCard.Initalize();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -95,38 +101,52 @@ public abstract class Boss : MonoBehaviour {
         if (other.CompareTag("PlayerBullet")) {
             var hitBullet = other.gameObject.GetComponent<Bullet>();
 
-            DamageBoss(hitBullet.Damage);
+            UpdateBossHealth(hitBullet.Damage);
 
             hitBullet.Dispose();
         }
     }
 
-    protected void DamageBoss(int damage) {
+    protected void UpdateBossHealth(int damage) {
 
         Health -= damage;
 
         // If the boss is dead but has a life left.
         if (Health <= 0 && Life > 0) {
-            currentSpell.EndSpell();
-            PickSpellCard();
-
-            --Life;
-            Health = maxHealth;
-
-            transitionParticleSystem.Play();
+            HandleLifeLoss();
         }
         // Boss has no life left.
         else if (Health <= 0 && Life <= 0) {
-
-            currentSpell.EndSpell();
-            if (onSpellEnd != null) { onSpellEnd(); }
-
-            SpawnManager.Instance.BossFight = false;
-
-            deathParticleSystem.Play();
+            HandleBossDeath();
         } else {
             currentSpell.ScaleSpell(damage);
         }
+    }
+
+    private void HandleBossDeath() {
+        Invulnerable = true;
+        currentSpell.EndSpell();
+        if (onSpellEnd != null) { onSpellEnd(); }
+
+        if (onBossDeath != null) {
+            onBossDeath();
+        }
+
+        SpawnManager.Instance.BossFight = false;
+
+        ObjPoolManager.Instance.BulletPool.ClearAllObjectPool();
+
+        deathParticleSystem.Play();
+    }
+
+    private void HandleLifeLoss() {
+        currentSpell.EndSpell();
+        PickSpellCard();
+
+        --Life;
+        Health = maxHealth;
+
+        transitionParticleSystem.Play();
     }
 
     protected void PickSpellCard() {
@@ -141,10 +161,7 @@ public abstract class Boss : MonoBehaviour {
         currentSpell.InvokeSpell();
     }
 
-    public void DisposeBoss() {
-        if (onBossDeath != null) {
-            onBossDeath();
-        }
+    public void Dispose() {
 
         Destroy(gameObject);
     }

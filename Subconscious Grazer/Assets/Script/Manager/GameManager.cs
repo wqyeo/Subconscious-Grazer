@@ -18,6 +18,6 @@ public class GameManager : Singleton<GameManager> {
             PowerPoints = 4;
         }
 
-        Player.Instance.HandlePowerState();
+        Player.Instance.UpdatePowerPoints();
     }
 }

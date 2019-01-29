@@ -40,7 +40,7 @@ public class SpreadShooter : TargettingShooter {
         }
     }
 
-    protected override void OnShootInvoked() {
+    protected override void InvokeShooting() {
 
         // Get the initial direction to shoot at
         Vector2 initalDirection = FindShootDirection();
@@ -57,7 +57,7 @@ public class SpreadShooter : TargettingShooter {
             // Find out where the bullet have to move to from the current shooting angle.
             Vector2 bulletMoveDirection = initalDirection.Rotate(angle);
             // Initalize the bullet.
-            InitBullet(bulletMoveDirection);
+            CreateBulletObject(bulletMoveDirection);
 
             angle += angleStep;
         }

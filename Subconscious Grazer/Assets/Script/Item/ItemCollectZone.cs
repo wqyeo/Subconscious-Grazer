@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D)), DisallowMultipleComponent]
-public class CollectableTrigger : MonoBehaviour {
+public class ItemCollectZone : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
-        var collectable = other.GetComponent<Collectable>();
+        var collectable = other.GetComponent<Item>();
         // If this is a collectable.
         if (collectable != null) {
-            // Absorb it to the player.
-            collectable.AbsorbCollectable();
+            collectable.SeekToPlayer();
         }
     }
 }

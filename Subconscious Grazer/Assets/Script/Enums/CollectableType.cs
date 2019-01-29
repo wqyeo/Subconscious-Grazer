@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public enum CollectableType {
+public enum ItemType {
     PowerPoint,
     BluePoint,
     BonusPoint

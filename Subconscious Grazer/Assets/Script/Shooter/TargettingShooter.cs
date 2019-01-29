@@ -11,7 +11,7 @@ public abstract class TargettingShooter : BaseShooter
     private bool lockOn;
 
     [ConditionalField("lockOn", false), SerializeField, Tooltip("Where this shot is angled towards."), Range(0f, 360f)]
-    private float shotAngle;
+    private float shootingAngle;
 
     [MustBeAssigned, ConditionalField("lockOn", true), SerializeField, Tooltip("The target this shooter is locking on to. (Play if null.)")]
     private Transform targetTransform;
@@ -29,11 +29,11 @@ public abstract class TargettingShooter : BaseShooter
 
     public float ShotAngle {
         get {
-            return shotAngle;
+            return shootingAngle;
         }
 
         set {
-            shotAngle = value;
+            shootingAngle = value;
         }
     }
 
@@ -55,16 +55,18 @@ public abstract class TargettingShooter : BaseShooter
     protected Vector2 FindShootDirection() {
         // If we are locking on to an enemy.
         if (lockOn) {
-            // If no target was given.
-            if (targetTransform == null) {
-                // Target the player.
-                targetTransform = Player.Instance.transform;
-            }
+            TargetPlayerIfTargetIsNull();
 
             return (targetTransform.position - transform.position).normalized;
 
         } else {
-            return DetermineBulletMoveDirection(shotAngle);
+            return DetermineBulletMoveDirection(shootingAngle);
+        }
+    }
+
+    private void TargetPlayerIfTargetIsNull() {
+        if (targetTransform == null) {
+            targetTransform = Player.Instance.transform;
         }
     }
 }

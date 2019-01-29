@@ -43,7 +43,7 @@ public class SpawnManager : Singleton<SpawnManager> {
                 chanceToSpawnBoss = 0f;
                 SpawnBoss();
             } else {
-                // Spawn a new wave.
+                
                 SpawnWave();
                 chanceToSpawnBoss += stackChanceAmt;
             }
@@ -54,50 +54,56 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     private void SpawnBoss() {
         var bossToSpawn = bosses[Random.Range(0, bosses.Length)];
+        ObjPoolManager.Instance.BulletPool.ClearAllObjectPool();
+
         StartCoroutine(HandleBossSpawning(bossToSpawn));
     }
 
     private IEnumerator HandleBossSpawning(Boss bossToSpawn) {
-        // Create a new boss.
         var newBossObj = Instantiate(bossToSpawn.gameObject, new Vector2(0, 8), Quaternion.identity);
 
         float from = 8;
         float to = 4;
-
         float progress = 0f;
 
-        // Move the boss to its starting position.
+        // Progressively move the boss to where it should be.
         while (progress <= 1) {
-            var temp = newBossObj.transform.position;
-            temp.y = Mathf.Lerp(from, to, progress);
+            MoveBossFromToByProgress(newBossObj, from, to, progress);
 
             progress += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        // Initalize the boss.
+
         newBossObj.GetComponent<Boss>().Initalize(Random.Range(0, newBossObj.GetComponent<Boss>().NoOfSpells));
 
         yield return null;
     }
 
+    private void MoveBossFromToByProgress(GameObject bossObj, float from, float to, float progress) {
+        var temp = bossObj.transform.position;
+        temp.y = Mathf.Lerp(from, to, progress);
+        bossObj.transform.position = temp;
+    }
+
     private void SpawnWave() {
-        // Generate a random wave number to spawn.
-        int genWaveNo = Random.Range(0, spawnDetails.Length);
-        // The selected wave.
-        var selectedWave = spawnDetails[genWaveNo];
         // Set the current wave to the selected wave.
-        currentSpawnWave = selectedWave;
+        currentSpawnWave = RandomlySelectWave();
         // Handle the selected wave.
-        HandleWave(selectedWave);
+        HandleWave(currentSpawnWave);
+    }
+
+    private SpawnDetail RandomlySelectWave() {
+        int genWaveNo = Random.Range(0, spawnDetails.Length);
+        return spawnDetails[genWaveNo];
     }
 
     private void HandleWave(SpawnDetail waveDetail) {
-        // For each spawnpoint that exists
-        foreach (var spawnPoint in waveDetail.SpawnPointsObj) {
-            // Handle them
-            StartCoroutine(HandleSpawnPoint(spawnPoint));
-        }
+        HandleRequiredSpawnPoints(waveDetail);
 
+        HandleOptionalSpawnPoints(waveDetail);
+    }
+
+    private void HandleOptionalSpawnPoints(SpawnDetail waveDetail) {
         // Foreach optional spawnpoint that exists
         foreach (var opSpawnPoint in waveDetail.OptionalSpawnPointsObj) {
             var chance = Random.Range(0, 100);
@@ -107,7 +113,14 @@ public class SpawnManager : Singleton<SpawnManager> {
                 StartCoroutine(HandleSpawnPoint(opSpawnPoint.spawnPoint));
             }
         }
+    }
 
+    private void HandleRequiredSpawnPoints(SpawnDetail waveDetail) {
+        // For each spawnpoint that exists
+        foreach (var spawnPoint in waveDetail.SpawnPointsObj) {
+            // Handle them
+            StartCoroutine(HandleSpawnPoint(spawnPoint));
+        }
     }
 
     private IEnumerator HandleSpawnPoint(SpawnDetail.SpawnPoint spawnPoint) {
@@ -124,25 +137,31 @@ public class SpawnManager : Singleton<SpawnManager> {
             // Copy the details of the prefab into the new enemy.
             newEnemy.CopyDetails(spawnPoint.enemyPrefab.GetComponent<Enemy>());
 
-            // Set the direction for the enemy respectively.
-            newEnemy.MoveDirection = spawnPoint.enemyStartDirection;
+            SetEnemyAIBySpawnPoint(newEnemy, spawnPoint);
 
-            // If this new enemy is going to be a hit-run AI
-            if (spawnPoint.aiType == AIType.HitRunAI) {
-                // Setup the properties respectively.
-                newEnemy.LingerDuration = spawnPoint.lingerDuration;
-                newEnemy.ShootAfterMoving = spawnPoint.shootAfterMoving;
-                newEnemy.MoveDuration = spawnPoint.moveDuration;
-            }
-            newEnemy.Invulnerable = true;
             // Initalize this enemy
             newEnemy.InitEnemy(spawnPoint.aiType);
+
+            newEnemy.Invulnerable = true;
 
             // Wait for the delay before spawning the next enemy
             yield return new WaitForSeconds(spawnPoint.enemySpawnDelay);
         }
 
         yield return null;
+    }
+
+    private void SetEnemyAIBySpawnPoint(Enemy enemy, SpawnDetail.SpawnPoint spawnPoint) {
+        // Set the direction for the enemy respectively.
+        enemy.MoveDirection = spawnPoint.enemyStartDirection;
+
+        // If this new enemy is going to be a hit-run AI
+        if (spawnPoint.aiType == AIType.HitRunAI) {
+            // Setup the properties respectively.
+            enemy.LingerDuration = spawnPoint.lingerDuration;
+            enemy.ShootAfterMoving = spawnPoint.shootAfterMoving;
+            enemy.MoveDuration = spawnPoint.moveDuration;
+        }
     }
 
     private GameObject FetchOrCreateEnemyObject(EnemyType enemyType, GameObject enemyObj) {

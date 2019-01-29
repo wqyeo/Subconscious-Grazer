@@ -2,7 +2,7 @@
 using System;
 
 [DisallowMultipleComponent]
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour, IDisposableObj {
 
     public event EventHandler OnBulletDisposedEvent;
 
@@ -69,26 +69,35 @@ public class Bullet : MonoBehaviour {
     private BaseShooter parentShooter;
 
     public void Update() {
+        UpdateBulletAcceleration(Time.deltaTime);
 
+        UpdateBulletPositionAndRotation(Time.deltaTime);
+
+        UpdateBulletLifeSpan(Time.deltaTime);
+    }
+
+    private void UpdateBulletPositionAndRotation(float deltaTime) {
+        Vector3 newPosition = (transform.position) + ((Vector3)(Velocity * deltaTime));
+
+        UpdateRotation(newPosition, deltaTime);
+
+        transform.position = (newPosition);
+    }
+
+    private void UpdateBulletAcceleration(float deltaTime) {
         // Change speed based on acceleration.
-        Velocity += (Velocity.normalized * (AccelerationSpeed * Time.deltaTime));
+        Velocity += (Velocity.normalized * (AccelerationSpeed * deltaTime));
 
         // If this bullet is affected by gravity.
         if (gravityAffected) {
-            Velocity += ((9.81f * Time.deltaTime) * Vector2.down);
+            Velocity += ((9.81f * deltaTime) * Vector2.down);
         }
+    }
 
-        Vector3 newPosition = (transform.position) + ((Vector3) (Velocity * Time.deltaTime));
-
-        HandleRotation(newPosition, Time.deltaTime);
-
-        // Set new position
-        transform.position = (newPosition);
-
-        // If this bullet has a life span.
+    private void UpdateBulletLifeSpan(float deltaTime) {
         if (hasLifeSpan) {
-            lifetime += Time.deltaTime;
-            // If this bullet's lifespan is up
+            lifetime += deltaTime;
+
             if (lifetime >= bulletLifeSpan) {
                 Dispose();
             }
@@ -99,8 +108,7 @@ public class Bullet : MonoBehaviour {
     /// Handle the rotation of this bullet.
     /// </summary>
     /// <param name="newPos">Where the bullet would be at.</param>
-    /// <param name="time">Delta time</param>
-    private void HandleRotation(Vector3 newPos, float time) {
+    private void UpdateRotation(Vector3 newPos, float time) {
         // If we need to rotate the bullet to the direction it is travelling at.
         if (RotateBulletToDirection) {
             // Set a rotation where it looks at the new position from the current position.
@@ -162,7 +170,7 @@ public class Bullet : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    public void Dispose(bool destroyBullet = false) {
+    public void Dispose() {
 
         if (OnBulletDisposedEvent != null) {
             OnBulletDisposedEvent.Invoke(this, null);
@@ -170,11 +178,6 @@ public class Bullet : MonoBehaviour {
 
         DetachFromShooter();
 
-        // If we do not need to destroy this bullet.
-        if (!destroyBullet) {
-            PoolBackBullet();
-        } else {
-            Destroy(gameObject);
-        }
+        PoolBackBullet();
     }
 }

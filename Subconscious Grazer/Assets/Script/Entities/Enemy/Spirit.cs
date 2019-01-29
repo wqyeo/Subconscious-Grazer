@@ -47,8 +47,7 @@ public class Spirit : Enemy, ITeleport {
         }
     }
 
-    public override void CopyDetails(Enemy enemy) {
-        CopyBaseDetails(enemy);
+    protected override void OnCopyDetails(Enemy enemy) {
 
         if (enemy is Spirit) {
             var enemyType = enemy as Spirit;

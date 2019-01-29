@@ -9,6 +9,14 @@ public class ObjectPool<T> {
         objectPools = new Dictionary<T, HashSet<GameObject>>();
     }
 
+    public void ClearAllObjectPool() {
+        foreach (var objPool in objectPools) {
+            DestroyObjectsInPool(objPool.Value);
+        }
+
+        objectPools = new Dictionary<T, HashSet<GameObject>>();
+    }
+
     /// <summary>
     /// Clear an object pool of the given type.
     /// </summary>
@@ -16,11 +24,15 @@ public class ObjectPool<T> {
     public void ClearObjectPoolOfType(T type) {
         // If the pool does exists.
         if (objectPools.ContainsKey(type)) {
-            foreach (var obj in objectPools[type]) {
-                Object.Destroy(obj);
-            }
+            DestroyObjectsInPool(objectPools[type]);
 
             objectPools[type] = new HashSet<GameObject>();
+        }
+    }
+
+    private static void DestroyObjectsInPool(HashSet<GameObject> objPool) {
+        foreach (var obj in objPool) {
+            Object.Destroy(obj);
         }
     }
 

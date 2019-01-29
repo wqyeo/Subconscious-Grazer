@@ -22,6 +22,8 @@ public class Rakuki : Boss {
 
     private void Update() {
         if (currentSpell != null) {
+            if (!currentSpell.Invoking) { return; }
+
             if (currentSpell.SpellCardName == SpellCardName.Arrow_Storm) {
                 UpdateArrowStormSpell(Time.deltaTime);
             } else if (currentSpell.SpellCardName == SpellCardName.Returning_Arrow) {
@@ -34,13 +36,13 @@ public class Rakuki : Boss {
         timer += deltaTime;
 
         if (timer >= returningArrowFireRate) {
-            ReturnExisitingArrows();
+            ReturnExisitingReturningArrows();
             returningArrowShooter.Shoot();
             timer = 0f;
         }
     }
 
-    private void ReturnExisitingArrows() {
+    private void ReturnExisitingReturningArrows() {
         returningArrowShooter.InvokeOnAllShotBullets(SeekBulletToBoss);
     }
 
@@ -80,11 +82,6 @@ public class Rakuki : Boss {
         onSpellEnd += delegate {
             ArrowRainToBonusPoints();
         };
-
-        onBossDeath += delegate {
-            ObjPoolManager.Instance.BulletPool.ClearObjectPoolOfType(BulletType.arrow);
-            ObjPoolManager.Instance.BulletPool.ClearObjectPoolOfType(BulletType.arrow_Effect);
-        };
     }
 
     private void ArrowRainToBonusPoints() {
@@ -94,7 +91,7 @@ public class Rakuki : Boss {
     }
 
     private void CreateBonusPointOnBulletAndDisposeBullet(Bullet bullet) {
-        CollectableManager.Instance.CreateCollectableAtPos(bullet.transform.position, CollectableType.BonusPoint);
+        ItemManager.Instance.CreateCollectableAtPos(bullet.transform.position, ItemType.BonusPoint);
         bullet.Dispose();
     }
 }

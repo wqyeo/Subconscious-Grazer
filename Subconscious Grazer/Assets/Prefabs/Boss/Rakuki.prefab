@@ -4770,10 +4770,10 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 0
-  shotCooldown: 0
+  batchShootCooldown: 0
   batchShotCount: 0
   lockOn: 0
-  shotAngle: 205
+  shootingAngle: 210
   targetTransform: {fileID: 0}
 --- !u!1 &2248239170080943233
 GameObject:
@@ -9544,7 +9544,7 @@ MonoBehaviour:
     bulletAccelerationScale: -0.05
   - shooters:
     - {fileID: 2248239171381215550}
-    fireRate: 1
+    fireRate: 1.5
     activationDelay: 0.5
     scaleByHealth: 0
     fireRateScale: 0
@@ -9607,11 +9607,11 @@ MonoBehaviour:
   rotateBulletToDirection: 0
   rotation: 0
   rotationAcceleration: 0
-  batchShooting: 0
-  shotCooldown: 0.01
-  batchShotCount: 2
-  lockOn: 0
-  shotAngle: 180
+  batchShooting: 1
+  batchShootCooldown: 0.1
+  batchShotCount: 20
+  lockOn: 1
+  shootingAngle: 180
   targetTransform: {fileID: 0}
   sprayingAngle: 40
 --- !u!1 &2248239170321698510
@@ -9662,11 +9662,11 @@ MonoBehaviour:
   spellOptions:
   - shooters:
     - {fileID: 2248239170227026427}
-    fireRate: 0.1
+    fireRate: 3
     activationDelay: 0
     scaleByHealth: 1
-    fireRateScale: -0.05
-    bulletSpeedScale: 2
+    fireRateScale: -0.25
+    bulletSpeedScale: 1
     bulletAccelerationScale: -0.05
 --- !u!1 &2248239170396853115
 GameObject:
@@ -9969,10 +9969,10 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 1
-  shotCooldown: 0.05
+  batchShootCooldown: 0.1
   batchShotCount: 3
   lockOn: 1
-  shotAngle: 0
+  shootingAngle: 0
   targetTransform: {fileID: 0}
   bulletCount: 3
   shotWideness: 45
@@ -10033,11 +10033,11 @@ MonoBehaviour:
   rotateBulletToDirection: 0
   rotation: 0
   rotationAcceleration: 0
-  batchShooting: 0
-  shotCooldown: 0
-  batchShotCount: 0
+  batchShooting: 1
+  batchShootCooldown: 0.75
+  batchShotCount: 2
   lockOn: 0
-  shotAngle: 0
+  shootingAngle: 0
   targetTransform: {fileID: 0}
   bulletCount: 25
 --- !u!1 &2248239171381215551
@@ -10098,10 +10098,10 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 0
-  shotCooldown: 0
+  batchShootCooldown: 0
   batchShotCount: 0
   lockOn: 1
-  shotAngle: 0
+  shootingAngle: 0
   targetTransform: {fileID: 0}
   bulletCount: 3
   shotWideness: 45
@@ -10163,10 +10163,10 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 0
-  shotCooldown: 0
+  batchShootCooldown: 0
   batchShotCount: 0
   lockOn: 1
-  shotAngle: 0
+  shootingAngle: 0
   targetTransform: {fileID: 0}
   bulletCount: 25
 --- !u!1 &2248239171872065613
@@ -10227,10 +10227,10 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 1
-  shotCooldown: 0.2
+  batchShootCooldown: 0.15
   batchShotCount: 3
   lockOn: 0
-  shotAngle: 180
+  shootingAngle: 180
   targetTransform: {fileID: 0}
   bulletCount: 5
   shotWideness: 120

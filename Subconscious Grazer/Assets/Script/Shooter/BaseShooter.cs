@@ -62,7 +62,7 @@ public abstract class BaseShooter : MonoBehaviour {
     private bool batchShooting = false;
 
     [ConditionalField("batchShooting", true), SerializeField, Tooltip("The cooldown between each shot.")]
-    private float shotCooldown;
+    private float batchShootCooldown;
 
     [ConditionalField("batchShooting", true), SerializeField, Tooltip("The number of shots to fire per batch.")]
     private int batchShotCount;
@@ -193,40 +193,47 @@ public abstract class BaseShooter : MonoBehaviour {
 
     #endregion
 
-    /// <summary>
-    /// Fires a batch of shot.
-    /// </summary>
     public void Shoot() {
         if (shotBullets == null) { shotBullets = new HashSet<Bullet>(); }
 
         if (batchShooting) {
             StartCoroutine(ShootBatches());
         } else {
-            OnShootInvoked();
+            InvokeShooting();
         }
     }
 
-    protected abstract void OnShootInvoked();
+    protected abstract void InvokeShooting();
 
     private IEnumerator ShootBatches() {
         for (int i = 0; i < batchShotCount; ++i) {
-            OnShootInvoked();
-            yield return new WaitForSeconds(shotCooldown);
+            InvokeShooting();
+            yield return new WaitForSeconds(batchShootCooldown);
         }
 
         yield return null;
     }
 
-    protected Bullet InitBullet(Vector2 direction) {
+    protected Bullet CreateBulletObject(Vector2 direction) {
         var newBullet = FetchOrCreateBullet();
+        var bullet = newBullet.GetComponent<Bullet>();
+
         newBullet.SetActive(true);
 
-        HandleBulletObject(newBullet, direction, initalRotateToDirection);
-
-        var bullet = newBullet.GetComponent<Bullet>();
+        SetBulletPosition(newBullet);
+        SetBulletSprite(newBullet);
+        SetBulletRotation(newBullet, direction);
 
         shotBullets.Add(bullet);
 
+        InitalizeBullet(bullet, direction);
+
+        SetBulletEventListeners(bullet);
+
+        return bullet;
+    }
+
+    private void InitalizeBullet(Bullet bullet, Vector2 direction) {
         // If we need to rotate the bullet to the flying direction.
         if (rotateBulletToDirection) {
             // Create a bullet that constantly rotates to the flying direction.
@@ -235,12 +242,6 @@ public abstract class BaseShooter : MonoBehaviour {
             // Create a bullet, giving desired rotation and rotation acceleration.
             bullet.Initalize(this, bulletSpeed * direction, bulletAcceleration, damage, ShotBulletType, rotation, rotationAcceleration, bulletRotationOffset, gravityAffected);
         }
-
-        bullet.GravityAffected = bulletPrefab.GetComponent<Bullet>().GravityAffected;
-
-        SetBulletEventListeners(bullet);
-
-        return bullet;
     }
 
     private void SetBulletEventListeners(Bullet bullet) {
@@ -255,12 +256,11 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Set the bullet sprite (if default sprite is given), rotation and position.
-    /// </summary>
-    /// <param name="bulletObj"></param>
-    private void HandleBulletObject(GameObject bulletObj, Vector2 direction, bool initalRotateToDirection = false) {
+    private void SetBulletPosition(GameObject bulletObj) {
+        bulletObj.transform.position = transform.position;
+    }
 
+    private void SetBulletSprite(GameObject bulletObj) {
         // If a bullet default sprite is given.
         if (BulletDefaultSprite != null) {
             // Set the bullet sprite.
@@ -269,10 +269,12 @@ public abstract class BaseShooter : MonoBehaviour {
             // Use the given prefab's sprite.
             bulletObj.GetComponent<SpriteRenderer>().sprite = bulletPrefab.GetComponent<SpriteRenderer>().sprite;
         }
+    }
 
-        // Set back to the default rotation place.
+    private void SetBulletRotation(GameObject bulletObj, Vector2 direction) {
+        // Set back to the default rotation place before rotating.
         bulletObj.transform.rotation = Quaternion.identity;
-
+        // Rotate based off the offset
         bulletObj.transform.Rotate(new Vector3(0, 0, bulletRotationOffset));
 
         // If we initally need to rotate this bullet to the shooting direction.
@@ -282,9 +284,6 @@ public abstract class BaseShooter : MonoBehaviour {
             // Rotate respectively.
             bulletObj.transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
         }
-
-        // Set the bullet position to this shooter's position.
-        bulletObj.transform.position = transform.position;
     }
 
     /// <summary>
@@ -306,17 +305,6 @@ public abstract class BaseShooter : MonoBehaviour {
         return newBullet;
     }
 
-    private bool IsSameBulletType(GameObject bulletObj) {
-        var bullet = bulletObj.GetComponent<Bullet>();
-
-        // If this is not a bullet.
-        if (bulletObj.GetComponent<Bullet>() == null) {
-            return false;
-        }
-
-        return bullet.Type == bulletType;
-    }
-
     private void OnBulletDestroyedEvent(object sender, EventArgs e) {
         // If the delegate still exists.
         if (onBulletDestroy != null) {
@@ -325,23 +313,15 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
-    private bool IsCorrectBulletType(GameObject bulletObj) {
-        bool correctBulletType = false;
-        // Get the bullet component from the gameobject.
-        var temp = bulletObj.GetComponent<Bullet>();
-        // If the component exists.
-        if (temp != null) {
-            // Check if the bullet type matches this shooter's
-            correctBulletType = (temp.Type == bulletType);
-        }
-
-        return correctBulletType;
-    }
-
-    protected Vector2 DetermineBulletMoveDirection(float shotAngle) {
+    /// <summary>
+    /// Determine the direction of the bullet's travel based on the given shooting angle.
+    /// </summary>
+    /// <param name="shootingAngle"></param>
+    /// <returns></returns>
+    protected Vector2 DetermineBulletMoveDirection(float shootingAngle) {
         // Determine the direction of the bullet travel on the x and y axis.
-        float bulletDirectionX = transform.position.x + Mathf.Sin((shotAngle * Mathf.PI) / 180);
-        float bulletDirectionY = transform.position.y + Mathf.Cos((shotAngle * Mathf.PI) / 180);
+        float bulletDirectionX = transform.position.x + Mathf.Sin((shootingAngle * Mathf.PI) / 180);
+        float bulletDirectionY = transform.position.y + Mathf.Cos((shootingAngle * Mathf.PI) / 180);
 
         // Determines the direction this bullet should be moving.
         Vector2 bulletDirection = new Vector2(bulletDirectionX, bulletDirectionY);
@@ -364,6 +344,10 @@ public abstract class BaseShooter : MonoBehaviour {
         onBulletDestroy = null;
     }
 
+    /// <summary>
+    /// Invoke an action onto all active bullets that are shot by this shooter.
+    /// </summary>
+    /// <param name="invokeAction"></param>
     public void InvokeOnAllShotBullets(Action<Bullet> invokeAction) {
         if (shotBullets == null) { shotBullets = new HashSet<Bullet>(); }
 

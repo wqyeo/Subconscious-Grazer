@@ -7,6 +7,6 @@ public class DeathParticleCallback : MonoBehaviour {
     private Boss boss;
 
     public void OnParticleSystemStopped() {
-        boss.DisposeBoss();
+        boss.Dispose();
     }
 }

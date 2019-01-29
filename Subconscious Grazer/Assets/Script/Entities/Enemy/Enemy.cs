@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D)), DisallowMultipleComponent]
-public abstract class Enemy : MonoBehaviour {
+public abstract class Enemy : MonoBehaviour, IDisposableObj {
     [Separator("Base enemy properties", true)]
 
     [SearchableEnum, SerializeField, Tooltip("The type of this enemy.")]
@@ -228,32 +228,9 @@ public abstract class Enemy : MonoBehaviour {
         if (Health <= 0) {
             CanAct = false;
             enemyRB.velocity = Vector2.zero;
-            // If this enemy explodes on death
-            if (explodeOnDeath) {
-                // Set all shooter to inactive.
-                ForeachShooter((BaseShooter shooter) => { shooter.IsActive = false; });
+            HandleExplodeOnDeath();
 
-                // Fetch all deathshooter
-                foreach (var deathShooter in onDeathShooters) {
-                    // Shoot them.
-                    deathShooter.Shoot();
-                }
-            }
-
-            // Generate a random number of power points and blue points to spawn.
-            int powerPointSpawnCount = Random.Range(0, 2);
-            int bluePointSpawnCount = Random.Range(2, 10);
-
-            // Spawn those collectable around the enemy.
-            while (powerPointSpawnCount > 0) {
-                CollectableManager.Instance.CreateCollectableAtPos((Random.insideUnitSphere * 0.15f) + transform.position, CollectableType.PowerPoint);
-                --powerPointSpawnCount;
-            }
-
-            while (bluePointSpawnCount > 0) {
-                CollectableManager.Instance.CreateCollectableAtPos((Random.insideUnitSphere * 0.15f) + transform.position, CollectableType.BluePoint);
-                --bluePointSpawnCount;
-            }
+            HandleItemSpawning();
 
             // If this enemy has an animator.
             if (enemyAnim != null) {
@@ -262,6 +239,41 @@ public abstract class Enemy : MonoBehaviour {
             } else {
                 // Set this enemy to inactive.
                 gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void HandleItemSpawning() {
+        // Generate a random number of power points and blue points to spawn.
+        int powerPointSpawnCount = Random.Range(0, 3);
+        int bluePointSpawnCount = Random.Range(2, 10);
+
+        // Spawn those collectable around the enemy.
+        while (powerPointSpawnCount > 0) {
+            SpawnItemOfTypeAroundEnemy(ItemType.PowerPoint);
+            --powerPointSpawnCount;
+        }
+
+        while (bluePointSpawnCount > 0) {
+            SpawnItemOfTypeAroundEnemy(ItemType.BluePoint);
+            --bluePointSpawnCount;
+        }
+    }
+
+    private void SpawnItemOfTypeAroundEnemy(ItemType itemType) {
+        ItemManager.Instance.CreateCollectableAtPos((Random.insideUnitSphere * 0.5f) + transform.position, itemType);
+    }
+
+    private void HandleExplodeOnDeath() {
+        // If this enemy explodes on death
+        if (explodeOnDeath) {
+            // Set all shooter to inactive.
+            ForeachShooter((BaseShooter shooter) => { shooter.IsActive = false; });
+
+            // Fetch all deathshooter
+            foreach (var deathShooter in onDeathShooters) {
+                // Shoot them.
+                deathShooter.Shoot();
             }
         }
     }
@@ -303,7 +315,7 @@ public abstract class Enemy : MonoBehaviour {
         AssignAI(aIType);
     }
 
-    public void DiposeEnemy() {
+    public void Dispose() {
         gameObject.SetActive(false);
 
         // Make sure the object scales back to normal.
@@ -328,13 +340,13 @@ public abstract class Enemy : MonoBehaviour {
         }
     }
 
+    protected abstract void OnCopyDetails(Enemy enemy);
+
     /// <summary>
     /// Copy the detail of the given enemy over to this enemy.
     /// </summary>
     /// <param name="enemy">The details of the enemy to copy.</param>
-    public abstract void CopyDetails(Enemy enemy);
-
-    protected void CopyBaseDetails(Enemy enemy, bool copyAIType = false) {
+    public void CopyDetails(Enemy enemy, bool copyAIType = false) {
         Invulnerable = enemy.Invulnerable;
         Health = enemy.Health;
         Speed = enemy.Speed;
@@ -342,6 +354,8 @@ public abstract class Enemy : MonoBehaviour {
         LingerDuration = enemy.LingerDuration;
         ShootAfterMoving = enemy.ShootAfterMoving;
         ExplodeOnDeath = enemy.ExplodeOnDeath;
+
+        OnCopyDetails(enemy);
 
         if (copyAIType) {
             AssignAI(enemy.controllingAI.TypeOfAI);

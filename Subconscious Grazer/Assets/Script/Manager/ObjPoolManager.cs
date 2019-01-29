@@ -4,11 +4,11 @@
 
     public ObjectPool<EnemyType> EnemyPool { get; private set; }
 
-    public ObjectPool<CollectableType> CollectablePool { get; private set; }
+    public ObjectPool<ItemType> CollectablePool { get; private set; }
         
     private void Awake() {
         BulletPool = new ObjectPool<BulletType>();
         EnemyPool = new ObjectPool<EnemyType>();
-        CollectablePool = new ObjectPool<CollectableType>();
+        CollectablePool = new ObjectPool<ItemType>();
     }
 }

@@ -65,6 +65,8 @@ public class Player : Singleton<Player> {
 
     private bool isFocused;
 
+    private int currPowerPoint;
+
     private bool CanShoot {
         get {
             return cooldownTimer >= shootCooldown;
@@ -107,6 +109,7 @@ public class Player : Singleton<Player> {
 
     // Use this for initialization
     void Start() {
+        currPowerPoint = 0;
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
 
@@ -192,45 +195,46 @@ public class Player : Singleton<Player> {
     #endregion
 
     private void OnTriggerEnter2D(Collider2D other) {
-        // If this player is invulnerable, exit.
-        if (IsInvulerable) { return; }
-
         // If the player touched the enemy's bullet.
         if (other.CompareTag("EnemyBullet")) {
             HandleBulletCollision(other.gameObject.GetComponent<Bullet>());
         } else if (other.CompareTag("Collectable")) {
-            HandleCollectableCollision(other.gameObject.GetComponent<Collectable>());
+            HandleCollectableCollision(other.gameObject.GetComponent<Item>());
         }
     }
 
     private void HandleBulletCollision(Bullet collidedBullet) {
+        if (IsInvulerable) { return; }
+
         StartCoroutine(HandleHitAnim());
 
         collidedBullet.Dispose();
     }
 
-    private void HandleCollectableCollision(Collectable collidedCollectable) {
-        collidedCollectable.CollectCollectable();
+    private void HandleCollectableCollision(Item collidedCollectable) {
+        collidedCollectable.CollectItem();
     }
 
     private void Shoot() {
         // Reset shoot timer
         cooldownTimer = 0f;
 
-        // For each shooter the player has
+        ShootAllActiveDefaultShooters();
+
+        ShootAllActiveNeedleShooters();
+    }
+
+    private void ShootAllActiveDefaultShooters() {
         foreach (var shooter in defaultShooter) {
-            // If the shooter is active
             if (shooter.IsActive) {
-                // shoot
                 shooter.Shoot();
             }
         }
+    }
 
-        // For each shooter the player has
+    private void ShootAllActiveNeedleShooters() {
         foreach (var shooter in needleShooters) {
-            // If the shooter is active
             if (shooter.IsActive) {
-                // shoot
                 shooter.Shoot();
             }
         }
@@ -393,21 +397,32 @@ public class Player : Singleton<Player> {
 
     #endregion
 
-    public void HandlePowerState() {
-        int activeRoseCount = Mathf.FloorToInt(GameManager.Instance.PowerPoints);
+    #region Power_Point_Handling
 
-        // Activate respective shooters.
-        foreach (var shooter in needleShooters) {
-            if (activeRoseCount > 0) {
-                shooter.IsActive = true;
-            } else {
-                shooter.IsActive = false;
-            }
-            --activeRoseCount;
+    public void UpdatePowerPoints() {
+        int gamePowerPoint = Mathf.FloorToInt(GameManager.Instance.PowerPoints);
+        // Update the player's power point if needed.
+        if (currPowerPoint != gamePowerPoint) {
+            currPowerPoint = gamePowerPoint;
+            UpdateNeedleShootersByPower(currPowerPoint);
         }
+    }
 
+    private void UpdateNeedleShootersByPower(int powerPoint) {
+        foreach (var shooter in needleShooters) {
+            // Activate this shooter if we have enough power to.
+            shooter.IsActive = (powerPoint > 0);
+            UpdateNeedleShooterSprite(shooter);
+            --powerPoint;
+        }
         HandleRosePosition();
     }
+
+    private void UpdateNeedleShooterSprite(BaseShooter needleShooter) {
+        needleShooter.gameObject.GetComponent<SpriteRenderer>().enabled = needleShooter.IsActive;
+    }
+
+    #endregion
 
     private IEnumerator HandleHitAnim() {
 

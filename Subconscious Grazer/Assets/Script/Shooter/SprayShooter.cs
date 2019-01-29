@@ -8,9 +8,9 @@ public class SprayShooter : TargettingShooter {
     [Range(0, 360), SerializeField, Tooltip("The angle which it will spray around the target point.")]
     private float sprayingAngle;
 
-    protected override void OnShootInvoked() {
+    protected override void InvokeShooting() {
         float halfOfSprayingAngle = sprayingAngle / 2f;
 
-        InitBullet(FindShootDirection().Rotate(Random.Range(-halfOfSprayingAngle, halfOfSprayingAngle)));
+        CreateBulletObject(FindShootDirection().Rotate(Random.Range(-halfOfSprayingAngle, halfOfSprayingAngle)));
     }
 }

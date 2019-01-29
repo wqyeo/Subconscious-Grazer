@@ -62,7 +62,7 @@ public class SpellCard : MonoBehaviour {
     }
 
     private void CreateBonusPointOnBullet(Bullet bullet) {
-        CollectableManager.Instance.CreateCollectableAtPos(bullet.transform.position, CollectableType.BonusPoint);
+        ItemManager.Instance.CreateCollectableAtPos(bullet.transform.position, ItemType.BonusPoint);
         bullet.Dispose();
     }
 

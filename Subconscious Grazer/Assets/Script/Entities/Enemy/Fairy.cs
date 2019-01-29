@@ -27,8 +27,7 @@ public class Fairy : Enemy, IShooting {
         }
     }
 
-    public override void CopyDetails(Enemy enemy) {
-        CopyBaseDetails(enemy);
+    protected override void OnCopyDetails(Enemy enemy) {
 
         // If the enemy we are copying is a fairy
         if (enemy is Fairy) {

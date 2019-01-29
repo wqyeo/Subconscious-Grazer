@@ -48,14 +48,10 @@ public class FadeAround : MonoBehaviour {
         if (!IsActive) { return; }
         // If the progress is not done yet.
         if (currProgress < 1) {
-            // Determines if it should be fading in or fading out.
-            var from = goingMax ? maxFadeValue : minFadeValue;
-            var to = goingMax ? minFadeValue : maxFadeValue;
+            float from, to;
+            GetFadingFromAndTo(out from, out to);
 
-            // Get the opacity value and set to the graphic object.
-            var temp = GetComponent<Graphic>().color;
-            temp.a = Mathf.Lerp(from, to, currProgress);
-            GetComponent<Graphic>().color = temp;
+            FadeGraphicByProgress(from, to, currProgress);
 
             // Update the current fade progress.
             currProgress += Time.deltaTime * fadeSpeed;
@@ -64,6 +60,17 @@ public class FadeAround : MonoBehaviour {
             currProgress = 0;
             goingMax = !goingMax;
         }
+    }
+
+    private void FadeGraphicByProgress(float from, float to, float progress) {
+        var temp = GetComponent<Graphic>().color;
+        temp.a = Mathf.Lerp(from, to, progress);
+        GetComponent<Graphic>().color = temp;
+    }
+
+    private void GetFadingFromAndTo(out float from, out float to) {
+        from = goingMax ? maxFadeValue : minFadeValue;
+        to = goingMax ? minFadeValue : maxFadeValue;
     }
 
 }
