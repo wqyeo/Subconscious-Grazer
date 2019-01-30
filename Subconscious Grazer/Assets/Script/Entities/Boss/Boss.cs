@@ -134,8 +134,6 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
 
         SpawnManager.Instance.BossFight = false;
 
-        ObjPoolManager.Instance.BulletPool.ClearAllObjectPool();
-
         deathParticleSystem.Play();
     }
 

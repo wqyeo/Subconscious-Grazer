@@ -54,8 +54,6 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     private void SpawnBoss() {
         var bossToSpawn = bosses[Random.Range(0, bosses.Length)];
-        ObjPoolManager.Instance.BulletPool.ClearAllObjectPool();
-
         StartCoroutine(HandleBossSpawning(bossToSpawn));
     }
 
@@ -73,6 +71,8 @@ public class SpawnManager : Singleton<SpawnManager> {
             progress += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        ObjPoolManager.Instance.EnemyPool.ClearAllObjectPool();
 
         newBossObj.GetComponent<Boss>().Initalize(Random.Range(0, newBossObj.GetComponent<Boss>().NoOfSpells));
 

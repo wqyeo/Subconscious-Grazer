@@ -2,12 +2,12 @@ fileFormatVersion: 2
 guid: d3efcb34fe29461439a4c38c098d070b
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Enemy_0
-    21300002: Enemy_1
-    21300004: Enemy_2
-    21300006: Enemy_3
-    21300008: Enemy_4
-    21300010: Enemy_5
+    21300000: blueFairy_0
+    21300002: blueFairy_1
+    21300004: blueFairy_2
+    21300006: blueFairy_3
+    21300008: blueFairy_4
+    21300010: blueFairy_5
     21300012: redSpirit_1
     21300014: redSpirit_4
     21300016: blueSpirit_2
@@ -26,24 +26,24 @@ TextureImporter:
     21300042: redFairyTurn_03
     21300044: redFairyTurn_04
     21300046: redFairyTurn_05
-    21300048: Enemy_24
-    21300050: Enemy_25
-    21300052: Enemy_26
-    21300054: Enemy_27
-    21300056: Enemy_28
-    21300058: Enemy_29
+    21300048: greenFairy_0
+    21300050: greenFairy_1
+    21300052: greenFairy_2
+    21300054: greenFairy_3
+    21300056: greenFairy_4
+    21300058: greenFairy_5
     21300060: Enemy_30
     21300062: Enemy_31
     21300064: Enemy_32
     21300066: Enemy_33
     21300068: Enemy_34
     21300070: Enemy_35
-    21300072: Enemy_36
-    21300074: Enemy_37
-    21300076: Enemy_38
-    21300078: Enemy_39
-    21300080: Enemy_40
-    21300082: Enemy_41
+    21300072: purpleFairy_0
+    21300074: purpleFairy_1
+    21300076: purpleFairy_2
+    21300078: purpleFairy_3
+    21300080: purpleFairy_4
+    21300082: purpleFairy_5
     21300084: Enemy_42
     21300086: Enemy_43
     21300088: Enemy_44
@@ -246,7 +246,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_0
+      name: blueFairy_0
       rect:
         serializedVersion: 2
         x: 0
@@ -266,7 +266,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1
+      name: blueFairy_1
       rect:
         serializedVersion: 2
         x: 33
@@ -286,10 +286,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_2
+      name: blueFairy_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 63
         y: 482
         width: 31
         height: 29
@@ -306,7 +306,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_3
+      name: blueFairy_3
       rect:
         serializedVersion: 2
         x: 96
@@ -326,7 +326,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_4
+      name: blueFairy_4
       rect:
         serializedVersion: 2
         x: 128
@@ -346,7 +346,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_5
+      name: blueFairy_5
       rect:
         serializedVersion: 2
         x: 160
@@ -486,7 +486,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_24
+      name: greenFairy_0
       rect:
         serializedVersion: 2
         x: 0
@@ -506,7 +506,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_25
+      name: greenFairy_1
       rect:
         serializedVersion: 2
         x: 33
@@ -526,7 +526,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_26
+      name: greenFairy_2
       rect:
         serializedVersion: 2
         x: 64
@@ -546,7 +546,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_27
+      name: greenFairy_3
       rect:
         serializedVersion: 2
         x: 96
@@ -566,7 +566,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_28
+      name: greenFairy_4
       rect:
         serializedVersion: 2
         x: 128
@@ -586,7 +586,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_29
+      name: greenFairy_5
       rect:
         serializedVersion: 2
         x: 160
@@ -606,7 +606,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_36
+      name: purpleFairy_0
       rect:
         serializedVersion: 2
         x: 0
@@ -626,7 +626,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_37
+      name: purpleFairy_1
       rect:
         serializedVersion: 2
         x: 33
@@ -646,7 +646,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_38
+      name: purpleFairy_2
       rect:
         serializedVersion: 2
         x: 64
@@ -666,7 +666,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_39
+      name: purpleFairy_3
       rect:
         serializedVersion: 2
         x: 96
@@ -686,7 +686,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_40
+      name: purpleFairy_4
       rect:
         serializedVersion: 2
         x: 128
@@ -706,7 +706,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_41
+      name: purpleFairy_5
       rect:
         serializedVersion: 2
         x: 160

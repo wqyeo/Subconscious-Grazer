@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934f659968f59ad40adae590d5dc1cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfEnemy: 0
+  typeOfEnemy: 1
   speed: 1
   health: 4
   startAIType: 0
@@ -193,8 +193,8 @@ MonoBehaviour:
   rotationAcceleration: 0
   batchShooting: 1
   batchShootCooldown: 0.1
-  batchShotCount: 5
+  batchShotCount: 3
   lockOn: 0
   shootingAngle: 0
   targetTransform: {fileID: 0}
-  bulletCount: 20
+  bulletCount: 10
