@@ -1,7 +1,19 @@
 fileFormatVersion: 2
 guid: 4793431f2db339b489f167a62acabecc
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Tensei_0
+    21300002: Tensei_1
+    21300004: Tensei_2
+    21300006: Tensei_3
+    21300008: MinibossTensei_4
+    21300010: MinibossTensei_5
+    21300012: MinibossTensei_6
+    21300014: MinibossTensei_7
+    21300016: MinibossTensei_8
+    21300018: MinibossTensei_9
+    21300020: MinibossTensei_10
+    21300022: MinibossTensei_11
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -104,7 +116,87 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Tensei_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 178
+        width: 45
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b341a1c4309b87b489ab1a4229d6a22d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tensei_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 178
+        width: 52
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d95dbdb952f43f41985dad8497df1d9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tensei_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 178
+        width: 52
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d330a50f50cef4b9d18095e1714676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tensei_3
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 178
+        width: 49
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c752d20a3692acc46a32e336292e0436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
