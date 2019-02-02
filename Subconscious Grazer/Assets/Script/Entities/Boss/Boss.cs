@@ -19,11 +19,18 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     [SerializeField, Tooltip("The speed which this boss moves at.")]
     private float speed;
 
+    [Header("Spell Cards")]
+
     [SerializeField, Tooltip("The spell-cards that this boss possess.")]
     protected SpellCard[] spellCards;
 
-    [SerializeField, Tooltip("The respective particle emitters for the boss.")]
-    private ParticleSystem transitionParticleSystem, deathParticleSystem;
+    [Header("Particle Systems")]
+
+    [SerializeField, Tooltip("The respective particle system.")]
+    private ParticleSystemHelper transitionParticleSystem;
+
+    [SerializeField]
+    private ParticleSystemHelper deathParticleSystem;
 
     #region Properties
 
@@ -72,6 +79,9 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
 
     private void Start() {
         OnStart();
+
+        deathParticleSystem.onParticleSystemStopped += Dispose;
+        transitionParticleSystem.onParticleSystemStopped += TransitionToNextSpell;
     }
 
     protected abstract void OnStart();
@@ -134,7 +144,7 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
 
         SpawnManager.Instance.BossFight = false;
 
-        deathParticleSystem.Play();
+        deathParticleSystem.PlayParticleSystem();
     }
 
     private void HandleLifeLoss() {
@@ -144,7 +154,7 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
         --Life;
         Health = maxHealth;
 
-        transitionParticleSystem.Play();
+        transitionParticleSystem.PlayParticleSystem();
     }
 
     protected void PickSpellCard() {
@@ -153,7 +163,7 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
         } while (currentSpell.Invoked);
     }
 
-    public void TransitionToNextSpell() {
+    private void TransitionToNextSpell() {
         if (currentSpell.Invoked) { PickSpellCard(); }
 
         currentSpell.InvokeSpell();

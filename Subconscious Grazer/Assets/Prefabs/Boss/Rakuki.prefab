@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2248239169840816713}
   - component: {fileID: 2248239169840816716}
-  - component: {fileID: 2248239169840816718}
+  - component: {fileID: 8803558014172539893}
   - component: {fileID: 2248239169840816719}
   m_Layer: 0
   m_Name: Death_Particle
@@ -4637,7 +4637,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &2248239169840816718
+--- !u!114 &8803558014172539893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4646,10 +4646,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2248239169840816717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a6439fb0ac91b4f932a9c4b08022ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 450c4f79e291b754a8d2a667324fa8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 2248239170396853114}
 --- !u!199 &2248239169840816719
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4775,6 +4774,7 @@ MonoBehaviour:
   lockOn: 0
   shootingAngle: 210
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
 --- !u!1 &2248239170080943233
 GameObject:
   m_ObjectHideFlags: 0
@@ -4785,7 +4785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2248239170080943293}
   - component: {fileID: 2248239170080943232}
-  - component: {fileID: 2248239170080943234}
+  - component: {fileID: 6445806118001961627}
   - component: {fileID: 2248239170080943235}
   m_Layer: 0
   m_Name: Transition_Particle
@@ -9412,7 +9412,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &2248239170080943234
+--- !u!114 &6445806118001961627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9421,10 +9421,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2248239170080943233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5f281b7f260414894de4a5edb2f13a, type: 3}
+  m_Script: {fileID: 11500000, guid: 450c4f79e291b754a8d2a667324fa8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 2248239170396853114}
 --- !u!199 &2248239170080943235
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9613,6 +9612,7 @@ MonoBehaviour:
   lockOn: 1
   shootingAngle: 180
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   sprayingAngle: 40
 --- !u!1 &2248239170321698510
 GameObject:
@@ -9836,14 +9836,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bc1779dfd507e49a2d6c2516e31b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5000
+  maxHealth: 3500
   speed: 2
   spellCards:
   - {fileID: 2248239170982904344}
   - {fileID: 2248239170181912093}
   - {fileID: 2248239170321698505}
-  transitionParticleSystem: {fileID: 2248239170080943232}
-  deathParticleSystem: {fileID: 2248239169840816716}
+  transitionParticleSystem: {fileID: 6445806118001961627}
+  deathParticleSystem: {fileID: 8803558014172539893}
   arrowRainFireRate: 0.075
   arrowRainShooter: {fileID: 2248239170029673928}
   returningArrowFireRate: 3.5
@@ -9974,6 +9974,7 @@ MonoBehaviour:
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   bulletCount: 3
   shotWideness: 45
 --- !u!1 &2248239171282279295
@@ -10039,6 +10040,7 @@ MonoBehaviour:
   lockOn: 0
   shootingAngle: 0
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   bulletCount: 25
 --- !u!1 &2248239171381215551
 GameObject:
@@ -10103,6 +10105,7 @@ MonoBehaviour:
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   bulletCount: 3
   shotWideness: 45
 --- !u!1 &2248239171465615462
@@ -10168,6 +10171,7 @@ MonoBehaviour:
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   bulletCount: 25
 --- !u!1 &2248239171872065613
 GameObject:
@@ -10232,5 +10236,6 @@ MonoBehaviour:
   lockOn: 0
   shootingAngle: 180
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   bulletCount: 5
   shotWideness: 120

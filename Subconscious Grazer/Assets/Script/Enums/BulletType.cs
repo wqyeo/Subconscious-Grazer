@@ -16,8 +16,13 @@ public enum BulletType {
     arrow,
     ringBall,
     fadeBall,
+    danmaku,
+    star_Big,
+    ball,
 
     arrow_Effect,
-    ringBall_Effect
+    ringBall_Effect,
+
+    star_Big_Shooter
     #endregion
 }

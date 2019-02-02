@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+using System.Linq;
+
 public class ObjectPool<T> {
 
     private Dictionary<T, HashSet<GameObject>> objectPools;
 
-    public System.Type PoolOfType {
+    public System.Type TypeOfPools {
         get {
             return typeof(T);
         }
@@ -13,6 +15,22 @@ public class ObjectPool<T> {
 
     public ObjectPool() {
         objectPools = new Dictionary<T, HashSet<GameObject>>();
+    }
+
+    /// <summary>
+    /// Clear inactive GameObjects in exisiting object pools.
+    /// </summary>
+    public void ClearInactiveObjectsInPools() {
+        foreach (var objPool in objectPools) {
+            foreach (var obj in objPool.Value.ToArray()) {
+
+                if (!obj.activeInHierarchy) {
+                    objPool.Value.Remove(obj);
+
+                    Object.Destroy(obj);
+                }
+            }
+        }
     }
 
     public void ClearAllObjectPool() {

@@ -68,12 +68,16 @@ public class Bullet : MonoBehaviour, IDisposableObj {
 
     private BaseShooter parentShooter;
 
+    protected virtual void OnUpdate() { }
+
     public void Update() {
         UpdateBulletAcceleration(Time.deltaTime);
 
         UpdateBulletPositionAndRotation(Time.deltaTime);
 
         UpdateBulletLifeSpan(Time.deltaTime);
+
+        OnUpdate();
     }
 
     private void UpdateBulletPositionAndRotation(float deltaTime) {

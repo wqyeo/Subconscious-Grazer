@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : Singleton<Player> {
 
     [SerializeField, Tooltip("True if this player is invicible at the start.")]
-    private bool IsInvulerable;
+    private bool Invulnerable;
 
     [Separator("Player Input Keycodes", true)]
 
@@ -204,7 +204,7 @@ public class Player : Singleton<Player> {
     }
 
     private void HandleBulletCollision(Bullet collidedBullet) {
-        if (IsInvulerable) { return; }
+        if (Invulnerable) { return; }
 
         StartCoroutine(HandleHitAnim());
 
@@ -426,7 +426,7 @@ public class Player : Singleton<Player> {
 
     private IEnumerator HandleHitAnim() {
 
-        IsInvulerable = true;
+        Invulnerable = true;
 
         float timeTaken = 0f;
 
@@ -450,7 +450,7 @@ public class Player : Singleton<Player> {
 
         GetComponent<SpriteRenderer>().color = temp;
 
-        IsInvulerable = false;
+        Invulnerable = false;
 
         yield return null;
     }

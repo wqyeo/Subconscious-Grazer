@@ -61,7 +61,7 @@ public class SpawnManager : Singleton<SpawnManager> {
         var newBossObj = Instantiate(bossToSpawn.gameObject, new Vector2(0, 8), Quaternion.identity);
 
         float from = 8;
-        float to = 4;
+        float to = 3.25f;
         float progress = 0f;
 
         // Progressively move the boss to where it should be.
@@ -72,7 +72,8 @@ public class SpawnManager : Singleton<SpawnManager> {
             yield return new WaitForEndOfFrame();
         }
 
-        ObjPoolManager.Instance.EnemyPool.ClearAllObjectPool();
+        ObjPoolManager.Instance.EnemyPool.ClearInactiveObjectsInPools();
+        ObjPoolManager.Instance.BulletPool.ClearInactiveObjectsInPools();
 
         newBossObj.GetComponent<Boss>().Initalize(Random.Range(0, newBossObj.GetComponent<Boss>().NoOfSpells));
 
@@ -129,26 +130,30 @@ public class SpawnManager : Singleton<SpawnManager> {
 
         // Foreach enemy to spawn
         for (int i = 0; i < spawnPoint.enemyCount; ++i) {
-            GameObject newEnemyObj = FetchOrCreateEnemyObject(spawnPoint.enemyPrefab.GetComponent<Enemy>().TypeOfEnemy, spawnPoint.enemyPrefab);
-            Enemy newEnemy = newEnemyObj.GetComponent<Enemy>();
-            // Move this new enemy to it's spawnpoint
-            newEnemyObj.transform.position = spawnPoint.position;
-
-            // Copy the details of the prefab into the new enemy.
-            newEnemy.CopyDetails(spawnPoint.enemyPrefab.GetComponent<Enemy>());
-
-            SetEnemyAIBySpawnPoint(newEnemy, spawnPoint);
-
-            // Initalize this enemy
-            newEnemy.InitEnemy(spawnPoint.aiType);
-
-            newEnemy.Invulnerable = true;
+            SpawnEnemyOnSpawnPoint(spawnPoint);
 
             // Wait for the delay before spawning the next enemy
             yield return new WaitForSeconds(spawnPoint.enemySpawnDelay);
         }
 
         yield return null;
+    }
+
+    private void SpawnEnemyOnSpawnPoint(SpawnDetail.SpawnPoint spawnPoint) {
+        GameObject newEnemyObj = FetchOrCreateEnemyObject(spawnPoint.enemyPrefab.GetComponent<Enemy>().TypeOfEnemy, spawnPoint.enemyPrefab);
+        Enemy newEnemy = newEnemyObj.GetComponent<Enemy>();
+        // Move this new enemy to it's spawnpoint
+        newEnemyObj.transform.position = spawnPoint.position;
+
+        // Copy the details of the prefab into the new enemy.
+        newEnemy.CopyDetails(spawnPoint.enemyPrefab.GetComponent<Enemy>());
+
+        SetEnemyAIBySpawnPoint(newEnemy, spawnPoint);
+
+        // Initalize this enemy
+        newEnemy.InitEnemy(spawnPoint.aiType);
+
+        newEnemy.Invulnerable = true;
     }
 
     private void SetEnemyAIBySpawnPoint(Enemy enemy, SpawnDetail.SpawnPoint spawnPoint) {

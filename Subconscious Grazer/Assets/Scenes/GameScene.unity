@@ -382,6 +382,75 @@ Transform:
   m_Father: {fileID: 1259349194}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &112398943
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2248239170396853115, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_Name
+      value: Rakuki
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248239170396853105, guid: 242c7026c3c64b04ca865c278daecc07,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 242c7026c3c64b04ca865c278daecc07, type: 3}
 --- !u!1 &143576729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1140,137 @@ MonoBehaviour:
   bosses:
   - {fileID: 2248239170396853114, guid: 242c7026c3c64b04ca865c278daecc07, type: 3}
   stackChanceAmt: 5
+--- !u!1 &459967487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459967488}
+  - component: {fileID: 459967489}
+  m_Layer: 17
+  m_Name: ExplodingStarShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &459967488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459967487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1987710185}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &459967489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459967487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12d483c1e9e9244987ea4270f278f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 2550597560880515764, guid: ae65cb87b207c0b45a13b6a451e87360,
+    type: 3}
+  damage: 1
+  bulletType: 13
+  bulletRotationOffset: 0
+  bulletDefaultSprite: {fileID: 0}
+  gravityAffected: 0
+  bulletSpeed: 3.5
+  bulletAcceleration: 0
+  initalRotateToDirection: 0
+  rotateBulletToDirection: 0
+  rotation: 75
+  rotationAcceleration: 0
+  batchShooting: 0
+  batchShootCooldown: 0
+  batchShotCount: 0
+  lockOn: 1
+  shootingAngle: 0
+  targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
+  bulletCount: 2
+  shotWideness: 90
+--- !u!1 &544148170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 544148171}
+  - component: {fileID: 544148172}
+  m_Layer: 17
+  m_Name: SprayShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &544148171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544148170}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1987710185}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &544148172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544148170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646687b3facd17d418b1b78195e2f928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 6586376734119972354, guid: 7f7920384f236584e99686458d9eff39,
+    type: 3}
+  damage: 1
+  bulletType: 3
+  bulletRotationOffset: 0
+  bulletDefaultSprite: {fileID: 0}
+  gravityAffected: 0
+  bulletSpeed: 4
+  bulletAcceleration: 0
+  initalRotateToDirection: 0
+  rotateBulletToDirection: 0
+  rotation: 100
+  rotationAcceleration: 0
+  batchShooting: 1
+  batchShootCooldown: 0.1
+  batchShotCount: 10
+  lockOn: 1
+  shootingAngle: 0
+  targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
+  sprayingAngle: 60
 --- !u!1 &600219519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,7 +2052,7 @@ MonoBehaviour:
   activeOnStart: 1
   bulletPrefab: {fileID: 4372727854939742452, guid: 11a1ca7a443e5aa48ae04e24c05be311,
     type: 3}
-  damage: 2
+  damage: 3
   bulletType: 1
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
@@ -1870,6 +2070,60 @@ MonoBehaviour:
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
+--- !u!1 &1118528173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118528174}
+  - component: {fileID: 1118528175}
+  m_Layer: 17
+  m_Name: StarVortex_SpellCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118528174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1498912522}
+  m_Father: {fileID: 1864823546}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118528175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118528173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9668302368eda144eaa39116ec2929c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellCardName: 3
+  spellOptions:
+  - shooters:
+    - {fileID: 1498912523}
+    fireRate: 4
+    activationDelay: 4
+    scaleByHealth: 1
+    fireRateScale: -1
+    bulletSpeedScale: 1
+    bulletAccelerationScale: 0.25
 --- !u!1 &1122906751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,6 +2264,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1259349194}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1128941133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1128941135}
+  - component: {fileID: 1128941134}
+  m_Layer: 17
+  m_Name: StarVortexShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1128941134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128941133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dbc80f2445ffee408295e947723a7e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 7116219408381216303, guid: 49d981567b9b5aa4d9568121b7bdf139,
+    type: 3}
+  damage: 1
+  bulletType: 3
+  bulletRotationOffset: 0
+  bulletDefaultSprite: {fileID: 0}
+  gravityAffected: 0
+  bulletSpeed: 4
+  bulletAcceleration: 0.25
+  initalRotateToDirection: 0
+  rotateBulletToDirection: 0
+  rotation: 90
+  rotationAcceleration: 0.2
+  batchShooting: 0
+  batchShootCooldown: 0
+  batchShotCount: 0
+  lockOn: 0
+  shootingAngle: 0
+  targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
+  bulletCount: 5
+--- !u!4 &1128941135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128941133}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1864823546}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1226712481
 GameObject:
@@ -2309,7 +2628,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333461345}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0.027771944}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1864823546}
@@ -2386,10 +2705,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1333461345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5f281b7f260414894de4a5edb2f13a, type: 3}
+  m_Script: {fileID: 11500000, guid: 450c4f79e291b754a8d2a667324fa8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 0}
 --- !u!198 &1333461349
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -7263,7 +7581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410817778}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0.027771944}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1864823546}
@@ -7340,10 +7658,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1410817778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a6439fb0ac91b4f932a9c4b08022ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 450c4f79e291b754a8d2a667324fa8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 0}
 --- !u!198 &1410817782
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -12182,6 +12499,72 @@ Transform:
   m_Father: {fileID: 1606452613}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1498912521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1498912522}
+  - component: {fileID: 1498912523}
+  m_Layer: 17
+  m_Name: FadeBallShooter_Aimed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1498912522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498912521}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1118528174}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1498912523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498912521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12d483c1e9e9244987ea4270f278f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 6599561580670719409, guid: b53b10fb389a49547804909960466986,
+    type: 3}
+  damage: 0
+  bulletType: 7
+  bulletRotationOffset: 0
+  bulletDefaultSprite: {fileID: 0}
+  gravityAffected: 0
+  bulletSpeed: 1
+  bulletAcceleration: 0
+  initalRotateToDirection: 0
+  rotateBulletToDirection: 0
+  rotation: 30
+  rotationAcceleration: 0
+  batchShooting: 0
+  batchShootCooldown: 0
+  batchShotCount: 0
+  lockOn: 1
+  shootingAngle: 0
+  targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
+  bulletCount: 3
+  shotWideness: 100
 --- !u!1 &1535001337
 GameObject:
   m_ObjectHideFlags: 0
@@ -12356,7 +12739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c51bbd7309af0468f0fa8db6f5d313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInvulerable: 0
+  Invulnerable: 0
   shootKey: 122
   focusKey: 304
   moveUpKey: 273
@@ -12554,7 +12937,7 @@ MonoBehaviour:
   activeOnStart: 1
   bulletPrefab: {fileID: 4372727854939742452, guid: 11a1ca7a443e5aa48ae04e24c05be311,
     type: 3}
-  damage: 2
+  damage: 3
   bulletType: 1
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
@@ -13074,6 +13457,7 @@ GameObject:
   - component: {fileID: 1864823544}
   - component: {fileID: 1864823543}
   - component: {fileID: 1864823542}
+  - component: {fileID: 1864823547}
   m_Layer: 17
   m_Name: Tensei
   m_TagString: Boss
@@ -13203,14 +13587,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864823541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1333461346}
   - {fileID: 1410817779}
+  - {fileID: 1987710185}
+  - {fileID: 1118528174}
+  - {fileID: 1128941135}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1864823547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864823541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfcf8e1b0de9a6147a71fbd9a9b2ccf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3750
+  speed: 1
+  spellCards:
+  - {fileID: 1118528175}
+  transitionParticleSystem: {fileID: 1333461348}
+  deathParticleSystem: {fileID: 1410817781}
+  starVortexShooter: {fileID: 1128941134}
+  starVortexFireRate: 0.125
+  minMaxRotationSpeed:
+    Min: -51.447655
+    Max: 55.45658
+  rotationSpeedChangeFrequency: 5
 --- !u!1 &1900214191
 GameObject:
   m_ObjectHideFlags: 0
@@ -13352,6 +13763,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ca2b9c171335f409a478a50b0b5dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1987710184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1987710185}
+  - component: {fileID: 1987710186}
+  m_Layer: 17
+  m_Name: ExplodingStars_SpellCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1987710185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987710184}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 459967488}
+  - {fileID: 544148171}
+  m_Father: {fileID: 1864823546}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1987710186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987710184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9668302368eda144eaa39116ec2929c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellCardName: 3
+  spellOptions:
+  - shooters:
+    - {fileID: 459967489}
+    fireRate: 4
+    activationDelay: 0
+    scaleByHealth: 1
+    fireRateScale: 0
+    bulletSpeedScale: -0.5
+    bulletAccelerationScale: 0
+  - shooters:
+    - {fileID: 544148172}
+    fireRate: 2
+    activationDelay: 2
+    scaleByHealth: 0
+    fireRateScale: 0
+    bulletSpeedScale: -0.5
+    bulletAccelerationScale: 0
 --- !u!1 &2017423922
 GameObject:
   m_ObjectHideFlags: 0

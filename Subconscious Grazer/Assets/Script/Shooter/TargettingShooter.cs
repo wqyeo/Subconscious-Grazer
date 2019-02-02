@@ -12,11 +12,12 @@ public abstract class TargettingShooter : BaseShooter
 
     [ConditionalField("lockOn", false), SerializeField, Tooltip("Where this shot is angled towards."), Range(0f, 360f)]
     private float shootingAngle;
-
+    
     [MustBeAssigned, ConditionalField("lockOn", true), SerializeField, Tooltip("The target this shooter is locking on to. (Play if null.)")]
     private Transform targetTransform;
 
-    [Separator("Angle Rotating Options", true)]
+    [Header("Angle Rotating Options")]
+
     [SerializeField, ConditionalField("lockOn", false), Tooltip("The rotational speed applied to the shooting angle.")]
     private float shootAngleRotationSpeed;
 

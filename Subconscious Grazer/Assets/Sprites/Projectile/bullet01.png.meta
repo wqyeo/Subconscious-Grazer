@@ -37,6 +37,8 @@ TextureImporter:
     21300064: fadeBall_Green
     21300066: danmaku_Pink
     21300068: ringBall_Red
+    21300070: ball_Red
+    21300072: charm_Pink
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -530,86 +532,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spiritBullet_Red_0
-      rect:
-        serializedVersion: 2
-        x: 387
-        y: 218
-        width: 27
-        height: 33
-      alignment: 9
-      pivot: {x: 0.5326866, y: 0.5935979}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c1238fd8356b0f41885e3aae3c67118
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spiritBullet_Red_1
-      rect:
-        serializedVersion: 2
-        x: 420
-        y: 218
-        width: 27
-        height: 33
-      alignment: 9
-      pivot: {x: 0.48774323, y: 0.5835696}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8903d50220af0c24f946837d68d4ed70
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spiritBullet_Red_2
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 218
-        width: 29
-        height: 33
-      alignment: 9
-      pivot: {x: 0.522824, y: 0.5869122}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 76f4db58a0fb91c4f9526085dfa6db8f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spiritBullet_Red_3
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 218
-        width: 29
-        height: 33
-      alignment: 9
-      pivot: {x: 0.49115518, y: 0.59068066}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81fcfdd1842dca546989c292d914609d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ringBall_Black
       rect:
         serializedVersion: 2
@@ -825,6 +747,46 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5541862125209ef438cc21faf3f734ec
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ball_Red
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 345
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc4078e93313b4349b31c42861af6905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: charm_Pink
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 476
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5991aaedec508a46ab403bbb94b4fb4
       vertices: []
       indices: 
       edges: []
