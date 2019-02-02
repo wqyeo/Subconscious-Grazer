@@ -48,12 +48,12 @@ public class SpellCard : MonoBehaviour {
     public void EndSpell() {
         Invoking = false;
 
-        GenerateBonusPoints();
+        GenerateBonusPointsOnActiveBullets();
 
         SetSpellState(false);
     }
 
-    private void GenerateBonusPoints() {
+    private void GenerateBonusPointsOnActiveBullets() {
         foreach (var spellOption in spellOptions) {
             foreach (var shooter in spellOption.shooters) {
                 shooter.InvokeOnAllShotBullets(CreateBonusPointOnBullet);
@@ -71,18 +71,26 @@ public class SpellCard : MonoBehaviour {
             // If we need to scale this spell option by health.
             if (spellOption.scaleByHealth) {
 
-                float t = (float)(SpellOwner.MaxHealth - SpellOwner.Health) / SpellOwner.MaxHealth;
-
-                // Scale the fire rates.
-                spellOption.fireRate = Mathf.Lerp(spellOption.OriginalFireRate, spellOption.OriginalFireRate + spellOption.fireRateScale, t);
-
-                // Scale the shooters
-                foreach (var shooter in spellOption.shooters) {
-                    shooter.BulletSpeed = Mathf.Lerp(shooter.OriginalBulletSpeed, shooter.OriginalBulletSpeed + spellOption.bulletSpeedScale, t);
-                    shooter.BulletAcceleration = Mathf.Lerp(shooter.OriginalBulletAcceleration, shooter.OriginalBulletAcceleration + spellOption.bulletAccelerationScale, t);
-                }
+                ScaleSpellOptionByMissingBossHealth(spellOption);
             }
         }
+    }
+
+    private void ScaleSpellOptionByMissingBossHealth(SpellOption spellOption) {
+        // Scale the fire rates based on how much health the boss is missing.
+        spellOption.fireRate = LerpValueByMissingBossHealth(spellOption.OriginalFireRate, spellOption.OriginalFireRate + spellOption.fireRateScale);
+
+        // Scale the shooters.
+        foreach (var shooter in spellOption.shooters) {
+            shooter.BulletSpeed = LerpValueByMissingBossHealth(shooter.OriginalBulletSpeed, shooter.OriginalBulletSpeed + spellOption.bulletSpeedScale);
+            shooter.BulletAcceleration = LerpValueByMissingBossHealth(shooter.OriginalBulletAcceleration, shooter.OriginalBulletAcceleration + spellOption.bulletAccelerationScale);
+        }
+    }
+
+    private float LerpValueByMissingBossHealth(float a, float b) {
+        float t = (float)(SpellOwner.MaxHealth - SpellOwner.Health) / SpellOwner.MaxHealth;
+
+        return Mathf.Lerp(a, b, t);
     }
 
     private IEnumerator HandleSpellOption(SpellOption spellOption) {

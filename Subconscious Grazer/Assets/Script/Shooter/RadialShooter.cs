@@ -24,7 +24,7 @@ public class RadialShooter : TargettingShooter {
 
     protected override void InvokeShooting() {
         // Find the initial direction to shoot for the first bullet.
-        Vector2 initialDirection = FindShootDirection();
+        Vector2 initialDirection = GetShootDirection();
         // How much to rotate by after each shot.
         float angleStep = 360f / bulletCount;
         // Current facing angle.

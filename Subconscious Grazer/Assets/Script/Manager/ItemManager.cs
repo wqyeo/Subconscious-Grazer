@@ -18,12 +18,12 @@ public class ItemManager : Singleton<ItemManager> {
     }
 
     private GameObject CreateOrFetchCollectablePrefab(ItemType collectableType) {
-        GameObject newPrefab = ObjPoolManager.Instance.CollectablePool.FetchObjByType(collectableType);
+        GameObject newPrefab = ObjPoolManager.Instance.ItemPool.FetchObjByType(collectableType);
         // If no inactive collectable was found in the obj pool.
         if (newPrefab == null) {
             // Instantiate one, and add to the obj pool.
             newPrefab = InstantiateCollectablePrefab(collectableType);
-            ObjPoolManager.Instance.CollectablePool.AddToObjectPool(collectableType, newPrefab);
+            ObjPoolManager.Instance.ItemPool.AddToObjectPool(collectableType, newPrefab);
         }
 
         return newPrefab;

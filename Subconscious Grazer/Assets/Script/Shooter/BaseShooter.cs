@@ -24,7 +24,7 @@ public abstract class BaseShooter : MonoBehaviour {
     [SerializeField, Tooltip("The amount of damage this bullet deals.")]
     private int damage;
 
-    [SearchableEnum,SerializeField, Tooltip("The type of the bullet this shooter shoots.")]
+    [SerializeField, Tooltip("The type of the bullet this shooter shoots.")]
     private BulletType bulletType;
 
     [Range(0, 360), SerializeField, Tooltip("How much more to rotate the bullet by. (For the sprite to show correctly.)")]

@@ -11,6 +11,6 @@ public class SprayShooter : TargettingShooter {
     protected override void InvokeShooting() {
         float halfOfSprayingAngle = sprayingAngle / 2f;
 
-        CreateBulletObject(FindShootDirection().Rotate(Random.Range(-halfOfSprayingAngle, halfOfSprayingAngle)));
+        CreateBulletObject(GetShootDirection().Rotate(Random.Range(-halfOfSprayingAngle, halfOfSprayingAngle)));
     }
 }

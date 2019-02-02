@@ -5,6 +5,12 @@ public class ObjectPool<T> {
 
     private Dictionary<T, HashSet<GameObject>> objectPools;
 
+    public System.Type PoolOfType {
+        get {
+            return typeof(T);
+        }
+    }
+
     public ObjectPool() {
         objectPools = new Dictionary<T, HashSet<GameObject>>();
     }

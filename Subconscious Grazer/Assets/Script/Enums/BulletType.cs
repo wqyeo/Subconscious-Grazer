@@ -14,6 +14,8 @@ public enum BulletType {
     star_Small,
     ball_Small,
     arrow,
+    ringBall,
+    fadeBall,
 
     arrow_Effect,
     ringBall_Effect

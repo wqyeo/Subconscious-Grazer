@@ -1,14 +1,17 @@
-﻿public class ObjPoolManager : Singleton<ObjPoolManager> {
+﻿using System.Collections;
+using System.Collections.Generic;
+
+public class ObjPoolManager : Singleton<ObjPoolManager> {
 
     public ObjectPool<BulletType> BulletPool { get; private set; }
 
     public ObjectPool<EnemyType> EnemyPool { get; private set; }
 
-    public ObjectPool<ItemType> CollectablePool { get; private set; }
+    public ObjectPool<ItemType> ItemPool { get; private set; }
         
     private void Awake() {
         BulletPool = new ObjectPool<BulletType>();
         EnemyPool = new ObjectPool<EnemyType>();
-        CollectablePool = new ObjectPool<ItemType>();
+        ItemPool = new ObjectPool<ItemType>();
     }
 }

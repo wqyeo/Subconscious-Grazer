@@ -43,7 +43,7 @@ public class SpreadShooter : TargettingShooter {
     protected override void InvokeShooting() {
 
         // Get the initial direction to shoot at
-        Vector2 initalDirection = FindShootDirection();
+        Vector2 initalDirection = GetShootDirection();
 
         // Offset for the spread. (So that the first shot wont start at the targetted angle, and continue clockwise.)
         float offSet = shotWideness / 2;

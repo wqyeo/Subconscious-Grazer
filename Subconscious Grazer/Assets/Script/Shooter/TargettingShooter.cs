@@ -16,6 +16,10 @@ public abstract class TargettingShooter : BaseShooter
     [MustBeAssigned, ConditionalField("lockOn", true), SerializeField, Tooltip("The target this shooter is locking on to. (Play if null.)")]
     private Transform targetTransform;
 
+    [Separator("Angle Rotating Options", true)]
+    [SerializeField, ConditionalField("lockOn", false), Tooltip("The rotational speed applied to the shooting angle.")]
+    private float shootAngleRotationSpeed;
+
     #region Properties
     public Transform TargetTransform {
         get {
@@ -46,13 +50,33 @@ public abstract class TargettingShooter : BaseShooter
             lockOn = value;
         }
     }
+
+    public float ShootAngleRotationSpeed {
+        get {
+            return shootAngleRotationSpeed;
+        }
+
+        set {
+            shootAngleRotationSpeed = value;
+        }
+    }
     #endregion
+
+    private void Update() {
+        RotateShootAngleIfNotLockedOn();
+    }
+
+    private void RotateShootAngleIfNotLockedOn() {
+        if (!lockOn) {
+            shootingAngle += (shootAngleRotationSpeed * Time.deltaTime);
+        }
+    }
 
     /// <summary>
     /// Get the direction to the desired target to shoot at.
     /// </summary>
     /// <returns>The direction to the desired target</returns>
-    protected Vector2 FindShootDirection() {
+    protected Vector2 GetShootDirection() {
         // If we are locking on to an enemy.
         if (lockOn) {
             TargetPlayerIfTargetIsNull();
