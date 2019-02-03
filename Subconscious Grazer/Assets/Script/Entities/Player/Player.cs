@@ -8,15 +8,18 @@ public class Player : Singleton<Player> {
     [SerializeField, Tooltip("True if this player is invicible at the start.")]
     private bool Invulnerable;
 
-    [Separator("Player Input Keycodes", true)]
+    [MustBeAssigned, Separator("Player Input Keycodes", true)]
 
-    [MustBeAssigned, SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
+    [SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
     private KeyCode shootKey;
+
+    [MustBeAssigned, SerializeField, SearchableEnum, Tooltip("Keycode for screenshot capture")]
+    private KeyCode screenshotKey;
 
     [MustBeAssigned, SerializeField, SearchableEnum, Tooltip("The respective keycodes for the player's input.")]
     private KeyCode focusKey, moveUpKey, moveDownKey, moveRightKey, moveLeftKey;
 
-    [Separator("Player movement properties",true)]
+    [Separator("Player movement properties", true)]
 
     [SerializeField, Tooltip("The respective move speed of this player")]
     private Vector2 moveSpeed;
@@ -121,10 +124,21 @@ public class Player : Singleton<Player> {
 
     private void Update() {
         HandleShooting(Time.deltaTime);
+
+        if (Input.GetKeyDown(screenshotKey)) {
+            TakeScreenshot();
+        }
     }
 
     void FixedUpdate() {
         HandleMovement(Time.fixedTime);
+    }
+
+    private void TakeScreenshot() {
+        int screenShotNum = PlayerPrefs.GetInt("ScreenShotNum", 0);
+        ScreenCapture.CaptureScreenshot("screenshots/Screenshot_" + screenShotNum.ToString());
+        screenShotNum += 1;
+        PlayerPrefs.SetInt("ScreenShotNum", screenShotNum);
     }
 
     #region Input_Handling

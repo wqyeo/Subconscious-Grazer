@@ -491,7 +491,7 @@ MonoBehaviour:
   rightWallShooter: {fileID: 3239562363303902005}
   wallShooterFireRate: 1.5
   paranoiaShooter: {fileID: 3239562362481385040}
-  paranoiaShooterFireRate: 0.03
+  paranoiaShooterFireRate: 0.035
   illusionaryShooter: {fileID: 6551695721124319129}
   scareShooter: {fileID: 6373931211007985328}
   illusionaryShooterFireRate: 1.5

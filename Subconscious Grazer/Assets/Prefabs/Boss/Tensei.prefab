@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 6586376734119972354, guid: 7f7920384f236584e99686458d9eff39,
     type: 3}
   damage: 1
@@ -174,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 2550597560880515764, guid: ae65cb87b207c0b45a13b6a451e87360,
     type: 3}
   damage: 1
@@ -181,7 +183,7 @@ MonoBehaviour:
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
-  bulletSpeed: 3.5
+  bulletSpeed: 3.25
   bulletAcceleration: 0
   initalRotateToDirection: 0
   rotateBulletToDirection: 0
@@ -194,7 +196,7 @@ MonoBehaviour:
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
-  bulletCount: 2
+  bulletCount: 4
   shotWideness: 90
 --- !u!1 &5263248174637347070
 GameObject:
@@ -240,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 6586376734119972354, guid: 7f7920384f236584e99686458d9eff39,
     type: 3}
   damage: 1
@@ -486,6 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 5348376081784917830, guid: dec06b8fe749ba3429a08316c7a045d6,
     type: 3}
   damage: 1
@@ -500,13 +504,13 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 1
-  batchShootCooldown: 0.2
+  batchShootCooldown: 0.15
   batchShotCount: 5
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
-  bulletCount: 7
+  bulletCount: 9
   shotWideness: 110
 --- !u!1 &5263248175221004292
 GameObject:
@@ -5326,6 +5330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 4882290934674359442, guid: 7ded1bc52d55f244bb559aa6c32db0a3,
     type: 3}
   damage: 1
@@ -5445,6 +5450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 7116219408381216303, guid: 49d981567b9b5aa4d9568121b7bdf139,
     type: 3}
   damage: 1
@@ -5510,6 +5516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 6599561580670719409, guid: b53b10fb389a49547804909960466986,
     type: 3}
   damage: 0

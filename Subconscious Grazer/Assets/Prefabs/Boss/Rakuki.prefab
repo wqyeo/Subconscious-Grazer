@@ -4755,6 +4755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 4864671057777329638, guid: 31151903b0771c043980cb3274f5cacb,
     type: 3}
   damage: 1
@@ -9593,6 +9594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 4864671057777329638, guid: 31151903b0771c043980cb3274f5cacb,
     type: 3}
   damage: 1
@@ -9600,7 +9602,7 @@ MonoBehaviour:
   bulletRotationOffset: 270
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
-  bulletSpeed: 2.5
+  bulletSpeed: 3
   bulletAcceleration: 0.5
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
@@ -9613,7 +9615,7 @@ MonoBehaviour:
   shootingAngle: 180
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
-  sprayingAngle: 40
+  sprayingAngle: 45
 --- !u!1 &2248239170321698510
 GameObject:
   m_ObjectHideFlags: 0
@@ -9955,6 +9957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 9156564843100477171, guid: 350e8b0e38cc3964f819ccf25dd9ce4e,
     type: 3}
   damage: 1
@@ -10021,6 +10024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 4725296189212582574, guid: 02e2d1bde81435a4abade52d045e3e46,
     type: 3}
   damage: 1
@@ -10086,6 +10090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 2135438384845879402, guid: f0d558a4e8a16344fb2c8e88c816756e,
     type: 3}
   damage: 1
@@ -10152,6 +10157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 9156564843100477171, guid: 350e8b0e38cc3964f819ccf25dd9ce4e,
     type: 3}
   damage: 1
@@ -10217,6 +10223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 4725296189212582574, guid: 02e2d1bde81435a4abade52d045e3e46,
     type: 3}
   damage: 1
