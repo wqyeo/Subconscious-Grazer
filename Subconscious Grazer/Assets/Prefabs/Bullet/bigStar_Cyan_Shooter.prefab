@@ -147,4 +147,4 @@ MonoBehaviour:
   gravityAffected: 0
   hasLifeSpan: 0
   bulletLifeSpan: 0
-  fireRate: 2
+  fireRate: 1.75

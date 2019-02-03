@@ -39,6 +39,12 @@ TextureImporter:
     21300068: ringBall_Red
     21300070: ball_Red
     21300072: charm_Pink
+    21300074: heart_Pink
+    21300076: heart_Green
+    21300078: ball_Blue
+    21300080: ball_Grey
+    21300082: smallBall_Grey
+    21300084: danmaku_Grey
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -496,7 +502,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 428
+        y: 429
         width: 16
         height: 15
       alignment: 0
@@ -716,7 +722,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 428
+        y: 429
         width: 16
         height: 15
       alignment: 0
@@ -780,13 +786,133 @@ TextureImporter:
         width: 14
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: d5991aaedec508a46ab403bbb94b4fb4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heart_Pink
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 312
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08f1f6feb2443ba46b922d9fddaa569f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heart_Green
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 312
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e73a458daa5d1e468f4ccd8b0944a2d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ball_Blue
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 345
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b90ef38403b45b4b829c4a5458b0b3b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ball_Grey
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 345
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eb75b205a21cca448b79a62f44bc8dc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smallBall_Grey
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 462
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b692fea8115f9c46b183c5606d32c22
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: danmaku_Grey
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 429
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac26ddce9f0bd944287397b7485d4ac0
       vertices: []
       indices: 
       edges: []

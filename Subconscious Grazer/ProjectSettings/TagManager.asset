@@ -66,3 +66,9 @@ TagManager:
   - name: Bullets
     uniqueID: 1600798707
     locked: 0
+  - name: HitBox
+    uniqueID: 75022857
+    locked: 0
+  - name: OnTop
+    uniqueID: 89010601
+    locked: 0

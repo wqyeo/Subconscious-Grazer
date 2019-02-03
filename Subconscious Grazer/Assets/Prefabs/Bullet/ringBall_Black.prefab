@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 530042490205035438}
   - component: {fileID: 530042490205035425}
   - component: {fileID: 530042490205035424}
-  - component: {fileID: 530042490205035439}
+  - component: {fileID: 3557221641653883632}
   m_Layer: 10
   m_Name: ringBall_Black
   m_TagString: EnemyBullet
@@ -96,8 +96,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.11
---- !u!114 &530042490205035439
+  m_Radius: 0.1
+--- !u!114 &3557221641653883632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,36 +106,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 530042490205035427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8a1f69fd43bf2340a1ec414f33dc0cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 86d2939d7391adc40845a4e3ab302955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invokeOnTriggerEnterEff: 1
-  onTriggerEnterEff:
-    applyAcceleration: 0
-    triggerAcceleration: 0
-    applyRotationalAcceleration: 0
-    triggerRotationalAcceleration: 0
-    applySpeed: 1
-    triggeredSpeed: 2
-    applyRotation: 0
-    triggerRotationSpeed: 0
-    changeDirection: 1
-    directionEffect:
-      targetPlayer: 1
-      newDirection: {x: 0, y: 0}
-      rotateToNewDirection: 0
-  invokeOnTriggerExitEff: 1
-  onTriggerExitEff:
-    applyAcceleration: 1
-    triggerAcceleration: 1
-    applyRotationalAcceleration: 0
-    triggerRotationalAcceleration: 0
-    applySpeed: 1
-    triggeredSpeed: 5
-    applyRotation: 0
-    triggerRotationSpeed: 0
-    changeDirection: 0
-    directionEffect:
-      targetPlayer: 0
-      newDirection: {x: 0, y: 0}
-      rotateToNewDirection: 0
+  gravityAffected: 0
+  hasLifeSpan: 0
+  bulletLifeSpan: 0

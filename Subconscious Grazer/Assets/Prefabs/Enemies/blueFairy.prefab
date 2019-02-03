@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4487642871136379827}
   - component: {fileID: 4487642871136379830}
   - component: {fileID: 4487642871136379848}
-  - component: {fileID: 4487642871136379831}
   - component: {fileID: 4487642871136379849}
+  - component: {fileID: 4060440807220960159}
   m_Layer: 9
   m_Name: blueFairy
   m_TagString: Enemy
@@ -150,38 +150,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4487642871136379831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4487642871136379826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b84cf87d61123a43bcafe639c70078b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeOnStart: 1
-  bulletPrefab: {fileID: 2924271851917794380, guid: e1e74b87ab1cede48957c5cddcc930af,
-    type: 3}
-  damage: 1
-  bulletType: 3
-  bulletRotationOffset: 0
-  bulletDefaultSprite: {fileID: 0}
-  gravityAffected: 0
-  bulletSpeed: 5
-  bulletAcceleration: 0
-  initalRotateToDirection: 0
-  rotateBulletToDirection: 0
-  rotation: 90
-  rotationAcceleration: 0
-  batchShooting: 0
-  batchShootCooldown: 0
-  batchShotCount: 0
-  lockOn: 1
-  shootingAngle: 0
-  targetTransform: {fileID: 0}
 --- !u!114 &4487642871136379849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,12 +164,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfEnemy: 5
   speed: 3
-  health: 4
-  startAIType: 0
+  health: 8
+  startAIType: 1
   startDirection: 0
   moveDuration: 0
   lingerDuration: 0
   shootAfterMoving: 0
   explodeOnDeath: 0
   onDeathShooters: []
-  shootCooldown: 1
+  shootCooldown: 2.5
+--- !u!114 &4060440807220960159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487642871136379826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646687b3facd17d418b1b78195e2f928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnStart: 1
+  bulletPrefab: {fileID: 2924271851917794380, guid: e1e74b87ab1cede48957c5cddcc930af,
+    type: 3}
+  damage: 1
+  bulletType: 3
+  bulletRotationOffset: 0
+  bulletDefaultSprite: {fileID: 0}
+  gravityAffected: 0
+  bulletSpeed: 3
+  bulletAcceleration: 0.5
+  initalRotateToDirection: 0
+  rotateBulletToDirection: 0
+  rotation: 90
+  rotationAcceleration: 1
+  batchShooting: 1
+  batchShootCooldown: 0.1
+  batchShotCount: 10
+  lockOn: 1
+  shootingAngle: 0
+  targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
+  sprayingAngle: 70

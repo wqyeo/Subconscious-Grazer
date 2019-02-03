@@ -232,6 +232,8 @@ public abstract class Enemy : MonoBehaviour, IDisposableObj {
 
             HandleItemSpawning();
 
+            AudioManager.Instance.PlayAudioClipIfExists(AudioType.EnemyDeath);
+
             // If this enemy has an animator.
             if (enemyAnim != null) {
                 // Play it's death animation.
@@ -245,8 +247,8 @@ public abstract class Enemy : MonoBehaviour, IDisposableObj {
 
     private void HandleItemSpawning() {
         // Generate a random number of power points and blue points to spawn.
-        int powerPointSpawnCount = Random.Range(0, 3);
-        int bluePointSpawnCount = Random.Range(2, 10);
+        int powerPointSpawnCount = Random.Range(0, 2);
+        int bluePointSpawnCount = Random.Range(1, 4);
 
         // Spawn those collectable around the enemy.
         while (powerPointSpawnCount > 0) {
@@ -311,6 +313,8 @@ public abstract class Enemy : MonoBehaviour, IDisposableObj {
         foreach (var deathShooter in onDeathShooters) {
             deathShooter.IsActive = false;
         }
+
+        startAIType = aIType;
 
         AssignAI(aIType);
     }

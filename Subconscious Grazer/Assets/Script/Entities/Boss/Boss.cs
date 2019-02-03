@@ -80,7 +80,7 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     private void Start() {
         OnStart();
 
-        deathParticleSystem.onParticleSystemStopped += Dispose;
+        deathParticleSystem.onParticleSystemStopped += delegate { StartCoroutine(RunAwayBossThenDispose()); };
         transitionParticleSystem.onParticleSystemStopped += TransitionToNextSpell;
     }
 
@@ -134,6 +134,7 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     }
 
     private void HandleBossDeath() {
+        AudioManager.Instance.PlayAudioClipIfExists(AudioType.BossDeath);
         Invulnerable = true;
         currentSpell.EndSpell();
         if (onSpellEnd != null) { onSpellEnd(); }
@@ -148,6 +149,7 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     }
 
     private void HandleLifeLoss() {
+        AudioManager.Instance.PlayAudioClipIfExists(AudioType.BossTransition);
         currentSpell.EndSpell();
         PickSpellCard();
 
@@ -169,8 +171,39 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
         currentSpell.InvokeSpell();
     }
 
+    private IEnumerator RunAwayBossThenDispose() {
+        float from = transform.position.y;
+        float to = 10f;
+        float progress = 0f;
+
+        // Progressively move the boss away.
+        while (progress <= 1) {
+            MoveBossFromToByProgress(from, to, progress);
+
+            progress += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        Dispose();
+    }
+
+    private void MoveBossFromToByProgress(float from, float to, float progress) {
+        var temp = transform.position;
+        temp.y = Mathf.Lerp(from, to, progress);
+        transform.position = temp;
+    }
+
     public void Dispose() {
 
         Destroy(gameObject);
+    }
+
+    protected void ShooterActiveBulletsToBonusPoints(BaseShooter shooter) {
+         shooter.InvokeOnAllShotBullets(CreateBonusPointOnBulletAndDisposeBullet);
+    }
+
+    protected void CreateBonusPointOnBulletAndDisposeBullet(Bullet bullet) {
+        ItemManager.Instance.CreateCollectableAtPos(bullet.transform.position, ItemType.BonusPoint);
+        bullet.Dispose();
     }
 }

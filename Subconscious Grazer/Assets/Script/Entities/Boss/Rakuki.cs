@@ -43,6 +43,7 @@ public class Rakuki : Boss {
     }
 
     private void ReturnExisitingReturningArrows() {
+        AudioManager.Instance.PlayAudioClipIfExists(AudioType.EnemyShoot_Flutter);
         returningArrowShooter.InvokeOnAllShotBullets(SeekBulletToBoss);
     }
 
@@ -80,18 +81,9 @@ public class Rakuki : Boss {
 
     protected override void OnStart() {
         onSpellEnd += delegate {
-            ArrowRainToBonusPoints();
+            if (currentSpell.SpellCardName != SpellCardName.Arrow_Storm) {
+                ShooterActiveBulletsToBonusPoints(arrowRainShooter);
+            }
         };
-    }
-
-    private void ArrowRainToBonusPoints() {
-        if (currentSpell.SpellCardName != SpellCardName.Arrow_Storm) {
-            arrowRainShooter.InvokeOnAllShotBullets(CreateBonusPointOnBulletAndDisposeBullet);
-        }
-    }
-
-    private void CreateBonusPointOnBulletAndDisposeBullet(Bullet bullet) {
-        ItemManager.Instance.CreateCollectableAtPos(bullet.transform.position, ItemType.BonusPoint);
-        bullet.Dispose();
     }
 }

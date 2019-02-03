@@ -56,6 +56,8 @@ public class Bullet : MonoBehaviour, IDisposableObj {
     /// </summary>
     public int Damage { get; set; }
 
+    public bool Grazed { get; set; }
+
     public bool GravityAffected {
         get {
             return gravityAffected;
@@ -142,6 +144,9 @@ public class Bullet : MonoBehaviour, IDisposableObj {
         parentShooter = shooter;
         RotationalOffset = rotationalOffset;
         GravityAffected = gravityAffected;
+
+        bulletLifeSpan = 0;
+        Grazed = false;
     }
 
     // Constantly rotates the bullet at the given speed.
@@ -156,6 +161,9 @@ public class Bullet : MonoBehaviour, IDisposableObj {
         parentShooter = shooter;
         RotationalOffset = rotationalOffset;
         GravityAffected = gravityAffected;
+
+        bulletLifeSpan = 0;
+        Grazed = false;
     }
 
     #endregion

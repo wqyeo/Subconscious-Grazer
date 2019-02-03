@@ -20,6 +20,9 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     public bool BossFight { get; set; }
 
+    private Boss previousBoss;
+    private SpawnDetail previousWave;
+
     private void Start() {
         chanceToSpawnBoss = 0f;
         BossFight = false;
@@ -38,7 +41,7 @@ public class SpawnManager : Singleton<SpawnManager> {
         // If this wave timer is up.
         if (currentSpawnWave.SpawnWaveDuration <= waveTimer) {
             // If the chance to spawn a boss is generated, spawn.
-            if (Random.Range(0, 100) <= chanceToSpawnBoss) {
+            if (Random.Range(0f, 100f) <= chanceToSpawnBoss) {
                 BossFight = true;
                 chanceToSpawnBoss = 0f;
                 SpawnBoss();
@@ -53,8 +56,22 @@ public class SpawnManager : Singleton<SpawnManager> {
     }
 
     private void SpawnBoss() {
-        var bossToSpawn = bosses[Random.Range(0, bosses.Length)];
+        var bossToSpawn = GetBossToSpawn();
         StartCoroutine(HandleBossSpawning(bossToSpawn));
+        previousBoss = bossToSpawn;
+    }
+
+    private Boss GetBossToSpawn() {
+        Boss bossToSpawn = bosses[Random.Range(0, bosses.Length)];
+        // If there was a previous boss.
+        if (previousBoss != null) {
+            // Ensure that we do not spawn the previous boss again.
+            while (bossToSpawn == previousBoss) {
+                bossToSpawn = bosses[Random.Range(0, bosses.Length)];
+            }
+        }
+
+        return bossToSpawn;
     }
 
     private IEnumerator HandleBossSpawning(Boss bossToSpawn) {
@@ -88,14 +105,26 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     private void SpawnWave() {
         // Set the current wave to the selected wave.
-        currentSpawnWave = RandomlySelectWave();
+        currentSpawnWave = GetNextWaveToSpawn();
         // Handle the selected wave.
         HandleWave(currentSpawnWave);
+        previousWave = currentSpawnWave;
     }
 
-    private SpawnDetail RandomlySelectWave() {
+    private SpawnDetail GetNextWaveToSpawn() {
         int genWaveNo = Random.Range(0, spawnDetails.Length);
-        return spawnDetails[genWaveNo];
+        SpawnDetail waveToSpawn = spawnDetails[genWaveNo];
+
+        // If there was a wave before this.
+        if (previousWave != null) {
+            // Ensure that we do not select the previous wave again.
+            while (previousWave == waveToSpawn) {
+                genWaveNo = Random.Range(0, spawnDetails.Length);
+                waveToSpawn = spawnDetails[genWaveNo];
+            }
+        }
+
+        return waveToSpawn;
     }
 
     private void HandleWave(SpawnDetail waveDetail) {

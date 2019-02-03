@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5945358175324153159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5945358175324153153}
+  - component: {fileID: 5945358175324153152}
+  m_Layer: 0
+  m_Name: SpawnDetail (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5945358175324153153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5945358175324153159}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5945358175324153152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5945358175324153159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6266b9f35ff3b3d4e9b4321aa3a1711b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnWaveDuration: 5.5
+  spawnPointsObj:
+  - position: {x: -5, y: 6}
+    enemyPrefab: {fileID: 6192392008066908678, guid: 203e5c174da87604680c7e3dbd841b65,
+      type: 3}
+    enemyStartDirection: 0
+    aiType: 1
+    moveDuration: 0
+    lingerDuration: 0
+    shootAfterMoving: 0
+    spawnDelay: 0
+    enemyCount: 2
+    enemySpawnDelay: 0.2
+  - position: {x: 5, y: 6}
+    enemyPrefab: {fileID: 6192392008066908678, guid: 203e5c174da87604680c7e3dbd841b65,
+      type: 3}
+    enemyStartDirection: 0
+    aiType: 1
+    moveDuration: 0
+    lingerDuration: 0
+    shootAfterMoving: 0
+    spawnDelay: 0
+    enemyCount: 2
+    enemySpawnDelay: 0.2
+  - position: {x: -8, y: 3}
+    enemyPrefab: {fileID: 7279051512568692010, guid: 9a2c646f63976114ea3bcbd583d93fcd,
+      type: 3}
+    enemyStartDirection: 2
+    aiType: 2
+    moveDuration: 1
+    lingerDuration: 0.5
+    shootAfterMoving: 0
+    spawnDelay: 0
+    enemyCount: 3
+    enemySpawnDelay: 0.3
+  - position: {x: 8, y: 3}
+    enemyPrefab: {fileID: 7279051512568692010, guid: 9a2c646f63976114ea3bcbd583d93fcd,
+      type: 3}
+    enemyStartDirection: 3
+    aiType: 2
+    moveDuration: 1
+    lingerDuration: 0.5
+    shootAfterMoving: 0
+    spawnDelay: 0
+    enemyCount: 3
+    enemySpawnDelay: 0.2
+  optionalSpawnPointsObj:
+  - spawnPoint:
+      position: {x: 6, y: 3}
+      enemyPrefab: {fileID: 345344535064458961, guid: 05cc1ed355dfd6940aa00607dfb948bf,
+        type: 3}
+      enemyStartDirection: 3
+      aiType: 3
+      moveDuration: 0
+      lingerDuration: 0
+      shootAfterMoving: 0
+      spawnDelay: 0
+      enemyCount: 2
+      enemySpawnDelay: 2
+    spawnInvokedChance: 50

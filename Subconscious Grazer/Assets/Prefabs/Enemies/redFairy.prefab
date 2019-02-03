@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfEnemy: 4
   speed: 2.5
-  health: 5
+  health: 9
   startAIType: 1
   startDirection: 2
   moveDuration: 1.5
@@ -205,5 +205,6 @@ MonoBehaviour:
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   bulletCount: 3
   shotWideness: 65

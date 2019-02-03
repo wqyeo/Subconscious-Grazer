@@ -19,10 +19,13 @@ public enum BulletType {
     danmaku,
     star_Big,
     ball,
+    charm,
 
     arrow_Effect,
     ringBall_Effect,
 
-    star_Big_Shooter
+    star_Big_Shooter,
+
+    heart_Shooter_Particle
     #endregion
 }

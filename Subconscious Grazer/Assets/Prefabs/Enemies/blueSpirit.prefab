@@ -181,7 +181,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 530042490205035427, guid: 5043223f437fa764488e3ab0c38760df,
     type: 3}
   damage: 1
-  bulletType: 5
+  bulletType: 6
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
@@ -197,4 +197,5 @@ MonoBehaviour:
   lockOn: 0
   shootingAngle: 0
   targetTransform: {fileID: 0}
-  bulletCount: 10
+  shootAngleRotationSpeed: 0
+  bulletCount: 7

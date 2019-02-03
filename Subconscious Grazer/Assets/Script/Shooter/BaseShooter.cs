@@ -18,6 +18,9 @@ public abstract class BaseShooter : MonoBehaviour {
 
     [Separator("Base bullet properties", true)]
 
+    [SerializeField, Tooltip("True to not play an audioclip whenever this shooter shoots")]
+    private bool silentAudio;
+
     [MustBeAssigned, SerializeField, Tooltip("Prefab of the bullet that this shooter shoots out")]
     protected GameObject bulletPrefab;
 
@@ -200,6 +203,8 @@ public abstract class BaseShooter : MonoBehaviour {
             StartCoroutine(ShootBatches());
         } else {
             InvokeShooting();
+
+            PlayEnemyShootAudioIfNotSilent();
         }
     }
 
@@ -208,10 +213,18 @@ public abstract class BaseShooter : MonoBehaviour {
     private IEnumerator ShootBatches() {
         for (int i = 0; i < batchShotCount; ++i) {
             InvokeShooting();
+            PlayEnemyShootAudioIfNotSilent();
             yield return new WaitForSeconds(batchShootCooldown);
         }
 
         yield return null;
+    }
+
+    private void PlayEnemyShootAudioIfNotSilent() {
+        if (!silentAudio) {
+            AudioManager.Instance.PlayAudioClipIfExists(AudioType.EnemyShoot);
+        }
+
     }
 
     protected Bullet CreateBulletObject(Vector2 direction) {
@@ -354,5 +367,9 @@ public abstract class BaseShooter : MonoBehaviour {
         foreach (var bullet in shotBullets.ToArray()) {
             invokeAction(bullet);
         }
+    }
+
+    public Bullet[] GetAllActiveShotBullets() {
+        return shotBullets.ToArray();
     }
 }

@@ -31,10 +31,12 @@ public class BorderSetter : MonoBehaviour {
         // Move the top border to the top-middle position of the camera, adjusting with the offset.
         topBorder.transform.position = (temp + new Vector2(0, borderOffset / 2f + yOffset));
 
+        // Bottom
         temp = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2f, 0));
         borderOffset = bottomBorder.GetComponent<BoxCollider2D>().bounds.size.y;
         bottomBorder.transform.position = (temp - new Vector2(0, borderOffset / 2f + yOffset));
 
+        //Left
         temp = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height / 2f));
         borderOffset = leftBorder.GetComponent<BoxCollider2D>().bounds.size.x;
         leftBorder.transform.position = (temp - new Vector2(borderOffset / 2f + xOffset, 0));

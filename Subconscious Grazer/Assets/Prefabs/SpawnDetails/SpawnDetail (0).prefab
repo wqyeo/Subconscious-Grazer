@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6266b9f35ff3b3d4e9b4321aa3a1711b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnWaveDuration: 9
+  spawnWaveDuration: 6
   spawnPointsObj:
   - position: {x: -5, y: 6}
     enemyPrefab: {fileID: 1272396770553664, guid: 6e1468b3d84d5334880cd57d8b63dbb7,
@@ -54,7 +54,7 @@ MonoBehaviour:
     lingerDuration: 0
     shootAfterMoving: 0
     spawnDelay: 1
-    enemyCount: 5
+    enemyCount: 4
     enemySpawnDelay: 0.25
   - position: {x: 5, y: 6}
     enemyPrefab: {fileID: 1272396770553664, guid: 6e1468b3d84d5334880cd57d8b63dbb7,
@@ -65,7 +65,7 @@ MonoBehaviour:
     lingerDuration: 0
     shootAfterMoving: 0
     spawnDelay: 1
-    enemyCount: 5
+    enemyCount: 4
     enemySpawnDelay: 0.25
   - position: {x: 0, y: 6}
     enemyPrefab: {fileID: 345344535064458961, guid: 05cc1ed355dfd6940aa00607dfb948bf,
@@ -76,7 +76,7 @@ MonoBehaviour:
     lingerDuration: 0
     shootAfterMoving: 0
     spawnDelay: 0
-    enemyCount: 10
+    enemyCount: 5
     enemySpawnDelay: 0.25
   optionalSpawnPointsObj:
   - spawnPoint:
@@ -85,7 +85,7 @@ MonoBehaviour:
         type: 3}
       enemyStartDirection: 3
       aiType: 2
-      moveDuration: 3
+      moveDuration: 1.2
       lingerDuration: 5
       shootAfterMoving: 1
       spawnDelay: 2
@@ -98,7 +98,7 @@ MonoBehaviour:
         type: 3}
       enemyStartDirection: 2
       aiType: 2
-      moveDuration: 3
+      moveDuration: 1.2
       lingerDuration: 5
       shootAfterMoving: 1
       spawnDelay: 2

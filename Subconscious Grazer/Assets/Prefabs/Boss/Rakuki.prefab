@@ -9836,7 +9836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bc1779dfd507e49a2d6c2516e31b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3500
+  maxHealth: 4250
   speed: 2
   spellCards:
   - {fileID: 2248239170982904344}
@@ -10089,7 +10089,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2135438384845879402, guid: f0d558a4e8a16344fb2c8e88c816756e,
     type: 3}
   damage: 1
-  bulletType: 6
+  bulletType: 12
   bulletRotationOffset: 270
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0

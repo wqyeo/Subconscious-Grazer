@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Tensei : Boss {
 
@@ -28,6 +26,12 @@ public class Tensei : Boss {
     protected override void OnStart() {
         rotatingFromSpeed = 0f;
         rotatingToSpeed = starVortexShooter.ShootAngleRotationSpeed;
+
+        onSpellEnd += delegate {
+            if (currentSpell.SpellCardName != SpellCardName.Star_Vortex) {
+                ShooterActiveBulletsToBonusPoints(starVortexShooter);
+            }
+        };
     }
 
     private void Update() {
@@ -45,6 +49,7 @@ public class Tensei : Boss {
         UpdateStarVortexRotation(deltaTime);
     }
 
+    // Updates shooting of the spiral shooters.
     private void UpdateStarVortexShooting(float deltaTime) {
         fireRateTimer += deltaTime;
 
@@ -54,6 +59,7 @@ public class Tensei : Boss {
         }
     }
 
+    // Update rotating of the spiral shooters.
     private void UpdateStarVortexRotation(float deltaTime) {
         rotationChangeTimer += deltaTime;
 
@@ -67,7 +73,7 @@ public class Tensei : Boss {
 
     private void ChangeRotatingFromAndToSpeed() {
         rotatingFromSpeed = rotatingToSpeed;
-
+        // Generate another rotation speed for the shooter.
         rotatingToSpeed = Random.Range(minMaxRotationSpeed.Min, minMaxRotationSpeed.Max);
     }
 

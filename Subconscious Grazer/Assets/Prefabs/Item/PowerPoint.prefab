@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfItem: 0
-  absorbingSpeed: 7.5
+  absorbingSpeed: 10
   fallSpeed: 1.5
   scoreReward: 1
   powerReward: 0.05

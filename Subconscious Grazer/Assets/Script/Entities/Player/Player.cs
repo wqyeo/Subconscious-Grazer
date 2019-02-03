@@ -206,18 +206,22 @@ public class Player : Singleton<Player> {
     private void HandleBulletCollision(Bullet collidedBullet) {
         if (Invulnerable) { return; }
 
-        StartCoroutine(HandleHitAnim());
+        StartCoroutine(ShowPlayerHitAnimation());
+        GameManager.Instance.PenalizePlayer();
 
         collidedBullet.Dispose();
     }
 
     private void HandleCollectableCollision(Item collidedCollectable) {
+        AudioManager.Instance.PlayAudioClipIfExists(AudioType.PlayerItemCollect);
         collidedCollectable.CollectItem();
     }
 
     private void Shoot() {
         // Reset shoot timer
         cooldownTimer = 0f;
+
+        AudioManager.Instance.PlayAudioClipIfExists(AudioType.PlayerShoot);
 
         ShootAllActiveDefaultShooters();
 
@@ -403,8 +407,18 @@ public class Player : Singleton<Player> {
         int gamePowerPoint = Mathf.FloorToInt(GameManager.Instance.PowerPoints);
         // Update the player's power point if needed.
         if (currPowerPoint != gamePowerPoint) {
+            AudioManager.Instance.PlayAudioClipIfExists(AudioType.PlayerPowerUp);
             currPowerPoint = gamePowerPoint;
             UpdateNeedleShootersByPower(currPowerPoint);
+            UpdateDefaultShootersByPower(currPowerPoint);
+        }
+    }
+
+    private void UpdateDefaultShootersByPower(int powerPoint) {
+        foreach (var shooter in defaultShooter) {
+            // Reduce the default shooter damage as the player gets more power.
+            // (Needles will take over the damage)
+            shooter.Damage = Mathf.Clamp((8 / powerPoint), 2, 6);
         }
     }
 
@@ -424,7 +438,7 @@ public class Player : Singleton<Player> {
 
     #endregion
 
-    private IEnumerator HandleHitAnim() {
+    private IEnumerator ShowPlayerHitAnimation() {
 
         Invulnerable = true;
 

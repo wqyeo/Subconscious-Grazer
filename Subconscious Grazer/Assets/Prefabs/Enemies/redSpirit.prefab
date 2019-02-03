@@ -184,13 +184,18 @@ MonoBehaviour:
   bulletType: 4
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
-  bulletSpeed: 5
+  gravityAffected: 0
+  bulletSpeed: 4
   bulletAcceleration: 0
   initalRotateToDirection: 0
   rotateBulletToDirection: 0
   rotation: 0
   rotationAcceleration: 0
+  batchShooting: 0
+  batchShootCooldown: 0
+  batchShotCount: 0
   lockOn: 1
-  shotAngle: 0
+  shootingAngle: 0
   targetTransform: {fileID: 0}
+  shootAngleRotationSpeed: 0
   bulletCount: 5
