@@ -35,14 +35,17 @@ public class Kage : Boss {
     [SerializeField]
     private float illusionaryShooterFireRate;
 
-    [SerializeField]
-    private float scareCooldown;
+    [SerializeField, Tooltip("Delay to invoke the scare afte shooting the illusionaries")]
+    private float scareDelay;
+
+    private bool invokeScareDelay;
 
     private float scareTimer;
 
     private float fireRateTimer;
 
     protected override void OnStart() {
+        invokeScareDelay = false;
         SetWallShooterPositions();
         SetParanoiaShooterPos();
 
@@ -83,23 +86,27 @@ public class Kage : Boss {
 
     private void UpdateIllusionaryScareSpell(float deltaTime) {
         fireRateTimer += deltaTime;
-        scareTimer += deltaTime;
-
-        UpdateScare();
         UpdateIllusionaryShooter();
+
+        if (invokeScareDelay) {
+            scareTimer += deltaTime;
+            UpdateScare();
+        }
     }
 
     private void UpdateIllusionaryShooter() {
         if (fireRateTimer >= illusionaryShooterFireRate) {
             illusionaryShooter.Shoot();
             fireRateTimer = 0f;
+            invokeScareDelay = true;
         }
     }
 
     private void UpdateScare() {
-        if (scareTimer >= scareCooldown) {
+        if (scareTimer >= scareDelay) {
             StartCoroutine(InvokeIllusionaryScare());
             scareTimer = 0f;
+            invokeScareDelay = false;
         }
     }
 
@@ -119,7 +126,7 @@ public class Kage : Boss {
 
             activeBullet.Dispose();
 
-            yield return new WaitForSecondsRealtime(0.005f);
+            yield return new WaitForSecondsRealtime(0.00125f);
         }
 
         float progress = 0f;

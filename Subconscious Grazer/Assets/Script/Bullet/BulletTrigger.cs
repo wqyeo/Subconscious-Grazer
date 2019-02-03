@@ -38,11 +38,7 @@ public class BulletTrigger : Bullet, ITriggerable {
         }
     }
 
-    private void Start() {
-        invoked = false;
-    }
-
-    private void OnEnable() {
+    protected override void OnInitalize() {
         invoked = false;
     }
 

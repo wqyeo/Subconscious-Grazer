@@ -178,10 +178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
-  bulletPrefab: {fileID: 530042490205035427, guid: 5043223f437fa764488e3ab0c38760df,
+  silentAudio: 0
+  bulletPrefab: {fileID: 7404168896650567087, guid: bd34daa005cb7114b80d8c2632f9ace5,
     type: 3}
   damage: 1
-  bulletType: 6
+  bulletType: 4
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0

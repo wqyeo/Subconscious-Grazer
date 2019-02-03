@@ -49,4 +49,8 @@ public class ShootingBullet : Bullet {
             if (shooter.IsActive) { shooter.Shoot(); } 
         }
     }
+
+    protected override void OnInitalize() {
+        fireRateTimer = 0f;
+    }
 }

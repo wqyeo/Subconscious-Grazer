@@ -139,6 +139,8 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
         currentSpell.EndSpell();
         if (onSpellEnd != null) { onSpellEnd(); }
 
+        HandleItemSpawning();
+
         if (onBossDeath != null) {
             onBossDeath();
         }
@@ -153,10 +155,33 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
         currentSpell.EndSpell();
         PickSpellCard();
 
+        HandleItemSpawning();
+
         --Life;
         Health = maxHealth;
 
         transitionParticleSystem.PlayParticleSystem();
+    }
+
+    private void HandleItemSpawning() {
+        // Generate a random number of power points and blue points to spawn.
+        int powerPointSpawnCount = Random.Range(4, 8);
+        int bluePointSpawnCount = Random.Range(8, 12);
+
+        // Spawn those collectable around the enemy.
+        while (powerPointSpawnCount > 0) {
+            SpawnItemOfTypeAroundEnemy(ItemType.PowerPoint);
+            --powerPointSpawnCount;
+        }
+
+        while (bluePointSpawnCount > 0) {
+            SpawnItemOfTypeAroundEnemy(ItemType.BluePoint);
+            --bluePointSpawnCount;
+        }
+    }
+
+    private void SpawnItemOfTypeAroundEnemy(ItemType itemType) {
+        ItemManager.Instance.CreateCollectableAtPos((Random.insideUnitSphere * 0.75f) + transform.position, itemType);
     }
 
     protected void PickSpellCard() {

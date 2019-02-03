@@ -106,21 +106,21 @@ MonoBehaviour:
   bulletRotationOffset: 270
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
-  bulletSpeed: 7
+  bulletSpeed: 5.75
   bulletAcceleration: 0
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 1
-  batchShootCooldown: 0.1
+  batchShootCooldown: 0.09
   batchShotCount: 5
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
-  bulletCount: 6
-  shotWideness: 80
+  bulletCount: 16
+  shotWideness: 120
 --- !u!1 &1735596906898142825
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e89453478584824d89a43eb4f649a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4100
+  maxHealth: 3900
   speed: 1
   spellCards:
   - {fileID: 3239562363682961682}
@@ -494,8 +494,8 @@ MonoBehaviour:
   paranoiaShooterFireRate: 0.035
   illusionaryShooter: {fileID: 6551695721124319129}
   scareShooter: {fileID: 6373931211007985328}
-  illusionaryShooterFireRate: 1.5
-  scareCooldown: 1.6
+  illusionaryShooterFireRate: 2.25
+  scareDelay: 0.65
 --- !u!1 &3239562362998201722
 GameObject:
   m_ObjectHideFlags: 0
@@ -10550,7 +10550,7 @@ MonoBehaviour:
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
   bulletSpeed: 3
-  bulletAcceleration: 1.25
+  bulletAcceleration: 1
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
   rotation: 0

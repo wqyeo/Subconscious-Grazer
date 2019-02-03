@@ -132,6 +132,8 @@ public class Bullet : MonoBehaviour, IDisposableObj {
 
     #region Initalize_Overloads
 
+    protected virtual void OnInitalize() { }
+
     // Rotates bullet to the direction it is travelling at.
     public void Initalize(BaseShooter shooter, Vector2 velocity, float accelerationSpeed, int damage, BulletType bulletType = BulletType.Undefined, bool rotateBulletToDirection = true, float rotationalOffset = 0f, bool gravityAffected = false) {
         Velocity = velocity;
@@ -147,6 +149,8 @@ public class Bullet : MonoBehaviour, IDisposableObj {
 
         bulletLifeSpan = 0;
         Grazed = false;
+
+        OnInitalize();
     }
 
     // Constantly rotates the bullet at the given speed.
@@ -164,6 +168,8 @@ public class Bullet : MonoBehaviour, IDisposableObj {
 
         bulletLifeSpan = 0;
         Grazed = false;
+
+        OnInitalize();
     }
 
     #endregion

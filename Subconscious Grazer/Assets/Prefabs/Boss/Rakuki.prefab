@@ -4764,7 +4764,7 @@ MonoBehaviour:
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
   bulletSpeed: 4
-  bulletAcceleration: 2.1
+  bulletAcceleration: 2
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
   rotation: 0
@@ -9838,7 +9838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bc1779dfd507e49a2d6c2516e31b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4250
+  maxHealth: 4000
   speed: 2
   spellCards:
   - {fileID: 2248239170982904344}

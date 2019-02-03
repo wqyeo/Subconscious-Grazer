@@ -59,13 +59,13 @@ MonoBehaviour:
   rotation: 100
   rotationAcceleration: 0
   batchShooting: 1
-  batchShootCooldown: 0.05
-  batchShotCount: 20
+  batchShootCooldown: 0.06
+  batchShotCount: 15
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
-  sprayingAngle: 60
+  sprayingAngle: 65
 --- !u!1 &5263248174244823789
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcf8e1b0de9a6147a71fbd9a9b2ccf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4400
+  maxHealth: 4100
   speed: 1
   spellCards:
   - {fileID: 5263248175544940099}
@@ -504,13 +504,13 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 1
-  batchShootCooldown: 0.15
+  batchShootCooldown: 0.125
   batchShotCount: 5
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
-  bulletCount: 9
+  bulletCount: 11
   shotWideness: 110
 --- !u!1 &5263248175221004292
 GameObject:
@@ -561,7 +561,7 @@ MonoBehaviour:
   spellOptions:
   - shooters:
     - {fileID: 5263248174634883309}
-    fireRate: 3
+    fireRate: 3.25
     activationDelay: 0
     scaleByHealth: 1
     fireRateScale: 0

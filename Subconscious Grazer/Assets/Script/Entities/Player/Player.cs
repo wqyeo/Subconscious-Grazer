@@ -136,7 +136,7 @@ public class Player : Singleton<Player> {
 
     private void TakeScreenshot() {
         int screenShotNum = PlayerPrefs.GetInt("ScreenShotNum", 0);
-        ScreenCapture.CaptureScreenshot("screenshots/Screenshot_" + screenShotNum.ToString());
+        ScreenCapture.CaptureScreenshot("Screenshot_" + screenShotNum.ToString());
         screenShotNum += 1;
         PlayerPrefs.SetInt("ScreenShotNum", screenShotNum);
     }
