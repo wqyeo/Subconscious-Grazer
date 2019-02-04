@@ -8,9 +8,14 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     [SerializeField, Tooltip("The bosses that are spawnable.")]
     private Boss[] bosses;
-
+    
     [SerializeField, Tooltip("The chance increase to spawn a boss whenever a boss is not spawned.")]
     private float stackChanceAmt;
+
+    [Separator("Debug Properties", true)]
+
+    [SerializeField, Tooltip("True if we only want to spawn bosses")]
+    private bool spawnBossOnly;
 
     private float waveTimer;
 
@@ -20,33 +25,37 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     public bool BossFight { get; set; }
 
-    private Boss previousBoss;
+    private HashSet<Boss> spawnedBosses;
     private SpawnDetail previousWave;
 
     private void Start() {
+        spawnedBosses = new HashSet<Boss>();
         chanceToSpawnBoss = 0f;
         BossFight = false;
-        SpawnWave();
+        // To spawn a wave immediately.
+        currentSpawnWave = spawnDetails[0];
+        waveTimer = currentSpawnWave.SpawnWaveDuration;
     }
 
     private void Update() {
-        waveTimer += Time.deltaTime;
-
+        // We do not want to spawn minions or other bosses during a bossfight
         if (!BossFight) {
-            UpdateSpawner();
+            UpdateSpawner(Time.deltaTime);
         }
     }
 
-    private void UpdateSpawner() {
+    private void UpdateSpawner(float deltaTime) {
+        waveTimer += deltaTime;
         // If this wave timer is up.
         if (currentSpawnWave.SpawnWaveDuration <= waveTimer) {
-            // If the chance to spawn a boss is generated, spawn.
-            if (Random.Range(0f, 100f) <= chanceToSpawnBoss) {
+            // If the chance to spawn a boss is generated
+            // or if we want to spawn bosses only.
+            if (Random.Range(0f, 100f) <= chanceToSpawnBoss || spawnBossOnly) {
                 BossFight = true;
                 chanceToSpawnBoss = 0f;
                 SpawnBoss();
             } else {
-                
+
                 SpawnWave();
                 chanceToSpawnBoss += stackChanceAmt;
             }
@@ -58,17 +67,25 @@ public class SpawnManager : Singleton<SpawnManager> {
     private void SpawnBoss() {
         var bossToSpawn = GetBossToSpawn();
         StartCoroutine(HandleBossSpawning(bossToSpawn));
-        previousBoss = bossToSpawn;
+
+        // Record down the spawned Boss (So that we do not spawn the same boss again later)
+        spawnedBosses.Add(bossToSpawn);
+
+        // A boss is spawned fill up the health bar.
+        GameManager.Instance.FillHealthBar();
     }
 
     private Boss GetBossToSpawn() {
         Boss bossToSpawn = bosses[Random.Range(0, bosses.Length)];
-        // If there was a previous boss.
-        if (previousBoss != null) {
-            // Ensure that we do not spawn the previous boss again.
-            while (bossToSpawn == previousBoss) {
-                bossToSpawn = bosses[Random.Range(0, bosses.Length)];
-            }
+        // If the player already met through all the bosses.
+        if (bosses.Length == spawnedBosses.Count) {
+            // Clear records of the player meeting the bosses.
+            spawnedBosses = new HashSet<Boss>();
+        }
+
+        // Ensures that we do not spawn the already met bosses again.
+        while (spawnedBosses.Contains(bossToSpawn)) {
+            bossToSpawn = bosses[Random.Range(0, bosses.Length)];
         }
 
         return bossToSpawn;
@@ -91,10 +108,18 @@ public class SpawnManager : Singleton<SpawnManager> {
 
         ObjPoolManager.Instance.EnemyPool.ClearInactiveObjectsInPools();
         ObjPoolManager.Instance.BulletPool.ClearInactiveObjectsInPools();
-
-        newBossObj.GetComponent<Boss>().Initalize(Random.Range(0, newBossObj.GetComponent<Boss>().NoOfSpells));
+        InitalizeBoss(newBossObj.GetComponent<Boss>());
 
         yield return null;
+    }
+
+    private void InitalizeBoss(Boss bossToInitalize) {
+        int bossSpellCount = bossToInitalize.NoOfSpells;
+        // If it was set to spawn bosses only in the inspector, let the boss use all the spell-cards.
+        // Else, generate a random number of spell cards for the boss to use.
+        int bossSpellAmount = spawnBossOnly ? (bossSpellCount - 1) : Random.Range(0, bossSpellCount);
+
+        bossToInitalize.Initalize(bossSpellAmount);
     }
 
     private void MoveBossFromToByProgress(GameObject bossObj, float from, float to, float progress) {

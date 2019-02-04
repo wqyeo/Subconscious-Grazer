@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Graphic)), DisallowMultipleComponent]
 public class FadeAround : MonoBehaviour {
-    [SerializeField, Tooltip("Fade around these two values.")]
-    private float minFadeValue, maxFadeValue;
+    [MinMaxRange(0f, 1f), SerializeField, Tooltip("Fade around these two values.")]
+    private RangedFloat fadeValues;
 
     [SerializeField, Tooltip("How fast to fade this object.")]
     private float fadeSpeed;
@@ -20,7 +20,20 @@ public class FadeAround : MonoBehaviour {
 
     public bool IsActive { get; set; }
 
+    private float maxFadeValue, minFadeValue;
+
     private void Awake() {
+        Initalize();
+    }
+
+    private void OnEnable() {
+        Initalize();
+    }
+
+    private void Initalize() {
+        maxFadeValue = fadeValues.Max;
+        minFadeValue = fadeValues.Min;
+
         IsActive = fadeOnStart;
         goingMax = false;
         currProgress = 0;

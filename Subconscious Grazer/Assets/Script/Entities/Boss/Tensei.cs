@@ -28,9 +28,7 @@ public class Tensei : Boss {
         rotatingToSpeed = starVortexShooter.ShootAngleRotationSpeed;
 
         onSpellEnd += delegate {
-            if (currentSpell.SpellCardName != SpellCardName.Star_Vortex) {
-                ShooterActiveBulletsToBonusPoints(starVortexShooter);
-            }
+            starVortexShooter.ConvertAllActiveBulletsToBonusPoints();
         };
     }
 

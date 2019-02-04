@@ -5,8 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator)), DisallowMultipleComponent]
 public class Player : Singleton<Player> {
 
+    [Separator("Debugging Properties")]
+
     [SerializeField, Tooltip("True if this player is invicible at the start.")]
     private bool Invulnerable;
+
+    [SerializeField, Range(0f, 4f), Tooltip("The starting power point the player has.")]
+    private float startingPowerPoints;
 
     [MustBeAssigned, Separator("Player Input Keycodes", true)]
 
@@ -120,6 +125,8 @@ public class Player : Singleton<Player> {
         needleShooters = GetComponentsInChildren<SpreadShooter>(true);
 
         SetFocused(false);
+
+        GameManager.Instance.AddPowerPoints(startingPowerPoints);
     }
 
     private void Update() {
@@ -134,12 +141,30 @@ public class Player : Singleton<Player> {
         HandleMovement(Time.fixedTime);
     }
 
+    #region Screenshot_Tool
+
     private void TakeScreenshot() {
-        int screenShotNum = PlayerPrefs.GetInt("ScreenShotNum", 0);
-        ScreenCapture.CaptureScreenshot("Screenshot_" + screenShotNum.ToString());
-        screenShotNum += 1;
-        PlayerPrefs.SetInt("ScreenShotNum", screenShotNum);
+        ScreenCapture.CaptureScreenshot(CreatePathForScreenShot());
+        IncrementScreenshotCount();
     }
+
+    private string CreatePathForScreenShot() {
+        int screenShotNum = PlayerPrefs.GetInt("ScreenShotNum", 0);
+        string validTimeNowStringForFileName = System.DateTime.Now.ToLongTimeString().Replace(" ", "_").Replace(":", "-");
+
+        // Example: Screenshot-05_1:00:00PM.png
+        string path = "Screenshot" + screenShotNum.ToString() + "_" + validTimeNowStringForFileName + ".png";
+
+        return path;
+    }
+
+    private void IncrementScreenshotCount() {
+        int screenShotCount = PlayerPrefs.GetInt("ScreenShotNum", 0);
+        ++screenShotCount;
+        PlayerPrefs.SetInt("ScreenShotNum", screenShotCount);
+    }
+
+    #endregion
 
     #region Input_Handling
 

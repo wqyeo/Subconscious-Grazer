@@ -12,6 +12,9 @@ public class SpellCard : MonoBehaviour {
     [SerializeField, Tooltip("The spell options for this spellcard")]
     private SpellOption[] spellOptions;
 
+    [Range(15, 90), SerializeField, Tooltip("How long does this spellcard lasts for")]
+    private int spellDuration;
+
     public bool Invoked { get; private set; }
     public bool Invoking { get; private set; }
 
@@ -43,6 +46,9 @@ public class SpellCard : MonoBehaviour {
         foreach (var spellOption in spellOptions) {
             StartCoroutine(HandleSpellOption(spellOption));
         }
+
+        GameManager.Instance.WarnSpellCard(spellCardName);
+        GameManager.Instance.CountDownSpellCard(spellDuration, SpellOwner.HandleSpellCardTimeOut);
     }
 
     public void EndSpell() {
@@ -51,19 +57,17 @@ public class SpellCard : MonoBehaviour {
         GenerateBonusPointsOnActiveBullets();
 
         SetSpellState(false);
+
+        GameManager.Instance.HideSpellCardWarningAndStopCountDown();
     }
 
     private void GenerateBonusPointsOnActiveBullets() {
+        // Convert all active bullets to bonus points
         foreach (var spellOption in spellOptions) {
             foreach (var shooter in spellOption.shooters) {
-                shooter.InvokeOnAllShotBullets(CreateBonusPointOnBullet);
+                shooter.ConvertAllActiveBulletsToBonusPoints();
             }
         }
-    }
-
-    private void CreateBonusPointOnBullet(Bullet bullet) {
-        ItemManager.Instance.CreateCollectableAtPos(bullet.transform.position, ItemType.BonusPoint);
-        bullet.Dispose();
     }
 
     public void ScaleSpell(int healthLoss = 1) {

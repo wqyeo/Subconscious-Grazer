@@ -48,12 +48,13 @@ MonoBehaviour:
   spellOptions:
   - shooters:
     - {fileID: 6330965585920533060}
-    fireRate: 2.03
+    fireRate: 1
     activationDelay: 0
     scaleByHealth: 0
     fireRateScale: 1
     bulletSpeedScale: 1
     bulletAccelerationScale: 3
+  spellDuration: 40
 --- !u!1 &579424998390267199
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,14 +114,14 @@ MonoBehaviour:
   rotation: 0
   rotationAcceleration: 0
   batchShooting: 1
-  batchShootCooldown: 0.09
+  batchShootCooldown: 0.1
   batchShotCount: 5
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 0
   bulletCount: 16
-  shotWideness: 120
+  shotWideness: 160
 --- !u!1 &1735596906898142825
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,11 +182,11 @@ MonoBehaviour:
   rotationAcceleration: 0
   batchShooting: 1
   batchShootCooldown: 0.1
-  batchShotCount: 2
+  batchShotCount: 4
   lockOn: 0
   shootingAngle: 0
   targetTransform: {fileID: 0}
-  shootAngleRotationSpeed: 20
+  shootAngleRotationSpeed: 55
   bulletCount: 10
 --- !u!1 &3239562362481385006
 GameObject:
@@ -306,6 +307,7 @@ MonoBehaviour:
     fireRateScale: 1
     bulletSpeedScale: 1
     bulletAccelerationScale: 0
+  spellDuration: 60
 --- !u!1 &3239562362902927682
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,8 +496,8 @@ MonoBehaviour:
   paranoiaShooterFireRate: 0.035
   illusionaryShooter: {fileID: 6551695721124319129}
   scareShooter: {fileID: 6373931211007985328}
-  illusionaryShooterFireRate: 2.25
-  scareDelay: 0.65
+  illusionaryShooterFireRate: 2.5
+  scareDelay: 0.7
 --- !u!1 &3239562362998201722
 GameObject:
   m_ObjectHideFlags: 0
@@ -5259,7 +5261,7 @@ MonoBehaviour:
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
-  bulletSpeed: 4
+  bulletSpeed: 4.5
   bulletAcceleration: 0
   initalRotateToDirection: 0
   rotateBulletToDirection: 0
@@ -5272,7 +5274,7 @@ MonoBehaviour:
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 60
-  bulletCount: 5
+  bulletCount: 6
 --- !u!1 &3239562363077719986
 GameObject:
   m_ObjectHideFlags: 0
@@ -10167,7 +10169,7 @@ MonoBehaviour:
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
-  bulletSpeed: 4
+  bulletSpeed: 4.5
   bulletAcceleration: 0
   initalRotateToDirection: 0
   rotateBulletToDirection: 0
@@ -10180,7 +10182,7 @@ MonoBehaviour:
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: -60
-  bulletCount: 5
+  bulletCount: 6
 --- !u!1 &3239562363682961680
 GameObject:
   m_ObjectHideFlags: 0
@@ -10240,12 +10242,13 @@ MonoBehaviour:
   - shooters:
     - {fileID: 3239562363027245145}
     - {fileID: 3239562363443845713}
-    fireRate: 0.15
+    fireRate: 0.125
     activationDelay: 0
     scaleByHealth: 1
     fireRateScale: -0.05
     bulletSpeedScale: -0.5
     bulletAccelerationScale: 2
+  spellDuration: 50
 --- !u!1 &3239562363687653819
 GameObject:
   m_ObjectHideFlags: 0
@@ -10300,6 +10303,7 @@ MonoBehaviour:
     fireRateScale: 0
     bulletSpeedScale: 0.5
     bulletAccelerationScale: 0
+  spellDuration: 60
 --- !u!1 &3239562363789660536
 GameObject:
   m_ObjectHideFlags: 0

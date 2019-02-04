@@ -27,7 +27,7 @@ public class Kage : Boss {
 
     [Header("Illusionary Scare (Kage's Spell Properties)")]
     [SerializeField, Tooltip("The shooter for illusionary scare.")]
-    private BaseShooter illusionaryShooter;
+    private SpreadShooter illusionaryShooter;
 
     [SerializeField]
     private BaseShooter scareShooter;
@@ -50,9 +50,8 @@ public class Kage : Boss {
         SetParanoiaShooterPos();
 
         onSpellEnd += delegate {
-            if (currentSpell.SpellCardName != SpellCardName.Danmaku_Paranoia) {
-                ShooterActiveBulletsToBonusPoints(paranoiaShooter);
-            }
+            paranoiaShooter.ConvertAllActiveBulletsToBonusPoints();
+            illusionaryShooter.ConvertAllActiveBulletsToBonusPoints();
         };
     }
 
@@ -85,12 +84,15 @@ public class Kage : Boss {
     }
 
     private void UpdateIllusionaryScareSpell(float deltaTime) {
-        fireRateTimer += deltaTime;
         UpdateIllusionaryShooter();
 
+        fireRateTimer += deltaTime;
+
+        // If we need to invoke the scare.
         if (invokeScareDelay) {
-            scareTimer += deltaTime;
+            // Update it.
             UpdateScare();
+            scareTimer += deltaTime;
         }
     }
 
@@ -118,6 +120,10 @@ public class Kage : Boss {
 
         AudioManager.Instance.PlayAudioClipIfExists(AudioType.EnemyShoot_Flutter);
 
+        // The number of bullets to change at a time before pausing.
+        int batchesToChangeAtATime = illusionaryShooter.BulletCount;
+        // Keep track of how many bullets we already changed.
+        int i = 0;
         foreach (var activeBullet in illusionaryShooter.GetAllActiveShotBullets()) {
             // Move the scare shooter to the current bullet position.
             scareShooter.transform.position = activeBullet.transform.position;
@@ -126,19 +132,26 @@ public class Kage : Boss {
 
             activeBullet.Dispose();
 
-            yield return new WaitForSecondsRealtime(0.00125f);
+            ++i;
+
+            // If we already changed enough bullets.
+            if (i == batchesToChangeAtATime) {
+                // Give it a pause before changing the next batch.
+                i = 0;
+                yield return new WaitForSecondsRealtime(0.05f);
+            }
         }
 
         float progress = 0f;
 
         while (progress < 1f) {
             // Progressively scale back the panel's alpha color.
-            GameManager.Instance.SetScareFlashPanelAlphaColor((byte) Mathf.Lerp(160, 0, progress));
+            GameManager.Instance.SetScareFlashPanelAlphaColor((byte)Mathf.Lerp(160, 0, progress));
 
             // Progressively scale back time.
             Time.timeScale = Mathf.Lerp(0, 1, progress);
 
-            progress += Time.unscaledDeltaTime;
+            progress += Time.unscaledDeltaTime * 1.25f;
             yield return new WaitForEndOfFrame();
         }
 

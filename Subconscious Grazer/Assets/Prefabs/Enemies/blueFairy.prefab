@@ -172,7 +172,7 @@ MonoBehaviour:
   shootAfterMoving: 0
   explodeOnDeath: 0
   onDeathShooters: []
-  shootCooldown: 2.5
+  shootCooldown: 2
 --- !u!114 &4060440807220960159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeOnStart: 1
+  silentAudio: 0
   bulletPrefab: {fileID: 2924271851917794380, guid: e1e74b87ab1cede48957c5cddcc930af,
     type: 3}
   damage: 1

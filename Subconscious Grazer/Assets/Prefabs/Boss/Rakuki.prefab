@@ -9550,6 +9550,7 @@ MonoBehaviour:
     fireRateScale: 0
     bulletSpeedScale: 0
     bulletAccelerationScale: 0
+  spellDuration: 60
 --- !u!1 &2248239170227026424
 GameObject:
   m_ObjectHideFlags: 0
@@ -9670,6 +9671,7 @@ MonoBehaviour:
     fireRateScale: -0.25
     bulletSpeedScale: 1
     bulletAccelerationScale: -0.05
+  spellDuration: 50
 --- !u!1 &2248239170396853115
 GameObject:
   m_ObjectHideFlags: 0
@@ -9913,6 +9915,7 @@ MonoBehaviour:
     fireRateScale: 0
     bulletSpeedScale: 0
     bulletAccelerationScale: 0
+  spellDuration: 60
 --- !u!1 &2248239171200245035
 GameObject:
   m_ObjectHideFlags: 0

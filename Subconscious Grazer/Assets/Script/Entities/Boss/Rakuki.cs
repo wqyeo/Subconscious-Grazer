@@ -81,9 +81,7 @@ public class Rakuki : Boss {
 
     protected override void OnStart() {
         onSpellEnd += delegate {
-            if (currentSpell.SpellCardName != SpellCardName.Arrow_Storm) {
-                ShooterActiveBulletsToBonusPoints(arrowRainShooter);
-            }
+            arrowRainShooter.ConvertAllActiveBulletsToBonusPoints();
         };
     }
 }

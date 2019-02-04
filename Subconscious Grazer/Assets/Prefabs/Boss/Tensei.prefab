@@ -116,7 +116,7 @@ MonoBehaviour:
   spellOptions:
   - shooters:
     - {fileID: 5263248175152628567}
-    fireRate: 4
+    fireRate: 3.5
     activationDelay: 4
     scaleByHealth: 1
     fireRateScale: 0
@@ -128,9 +128,10 @@ MonoBehaviour:
     fireRate: 0.125
     activationDelay: 0
     scaleByHealth: 1
-    fireRateScale: -0.025
+    fireRateScale: -0.015
     bulletSpeedScale: 0.5
     bulletAccelerationScale: 0
+  spellDuration: 50
 --- !u!1 &5263248174634884883
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +506,7 @@ MonoBehaviour:
   rotationAcceleration: 0
   batchShooting: 1
   batchShootCooldown: 0.125
-  batchShotCount: 5
+  batchShotCount: 7
   lockOn: 1
   shootingAngle: 0
   targetTransform: {fileID: 0}
@@ -575,6 +576,7 @@ MonoBehaviour:
     fireRateScale: 0
     bulletSpeedScale: -0.5
     bulletAccelerationScale: 0
+  spellDuration: 45
 --- !u!1 &5263248175371933069
 GameObject:
   m_ObjectHideFlags: 0
@@ -5406,6 +5408,7 @@ MonoBehaviour:
     fireRateScale: -1
     bulletSpeedScale: 1
     bulletAccelerationScale: 0.25
+  spellDuration: 75
 --- !u!1 &5263248175576453793
 GameObject:
   m_ObjectHideFlags: 0
@@ -5459,11 +5462,11 @@ MonoBehaviour:
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
   bulletSpeed: 4
-  bulletAcceleration: 0.25
+  bulletAcceleration: 0.5
   initalRotateToDirection: 0
   rotateBulletToDirection: 0
   rotation: 90
-  rotationAcceleration: 0.2
+  rotationAcceleration: 5
   batchShooting: 0
   batchShootCooldown: 0
   batchShotCount: 0
@@ -5471,7 +5474,7 @@ MonoBehaviour:
   shootingAngle: 0
   targetTransform: {fileID: 0}
   shootAngleRotationSpeed: 10
-  bulletCount: 8
+  bulletCount: 10
 --- !u!1 &5263248175743419365
 GameObject:
   m_ObjectHideFlags: 0

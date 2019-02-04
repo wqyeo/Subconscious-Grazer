@@ -104,21 +104,22 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        // If this enemy is invulnerable, exit.
-        if (Invulnerable) { return; }
 
         // If this enemy touched the player's bullet.
         if (other.CompareTag("PlayerBullet")) {
             var hitBullet = other.gameObject.GetComponent<Bullet>();
 
-            UpdateBossHealth(hitBullet.Damage);
+            DamageAndUpdateBossHealth(hitBullet.Damage);
 
             hitBullet.Dispose();
         }
     }
 
-    protected void UpdateBossHealth(int damage) {
+    protected void DamageAndUpdateBossHealth(int damage) {
+        // If this boss is invulernable, exit
+        if (Invulnerable) { return; }
 
+        GameManager.Instance.SetHealthBarValue((float) Health / maxHealth);
         Health -= damage;
 
         // If the boss is dead but has a life left.
@@ -147,18 +148,29 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
 
         SpawnManager.Instance.BossFight = false;
 
+        // Reward for defeating boss.
+        GameManager.Instance.AddPoints(2000);
+
         deathParticleSystem.PlayParticleSystem();
     }
 
     private void HandleLifeLoss() {
+        // Boss is invulnerable until it transitions to the next spell.
+        Invulnerable = true;
+
+        // The boss has another spell card, fill back up the health bar.
+        GameManager.Instance.FillHealthBar();
+        Health = maxHealth;
+        --Life;
+
+        HandleItemSpawning();
         AudioManager.Instance.PlayAudioClipIfExists(AudioType.BossTransition);
+        // End the current spell and pick a new one.
         currentSpell.EndSpell();
         PickSpellCard();
 
-        HandleItemSpawning();
-
-        --Life;
-        Health = maxHealth;
+        // Reward for transition to next spell card.
+        GameManager.Instance.AddPoints(1000);
 
         transitionParticleSystem.PlayParticleSystem();
     }
@@ -180,6 +192,20 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
         }
     }
 
+    public void HandleSpellCardTimeOut() {
+        // Penalty for not clearing the spell card in time.
+        GameManager.Instance.AddPoints(-500);
+
+        // If the boss has a life left.
+        if (Life > 0) {
+            HandleLifeLoss();
+        }
+        // Boss has no life left.
+        else if (Life <= 0) {
+            HandleBossDeath();
+        }
+    }
+
     private void SpawnItemOfTypeAroundEnemy(ItemType itemType) {
         ItemManager.Instance.CreateCollectableAtPos((Random.insideUnitSphere * 0.75f) + transform.position, itemType);
     }
@@ -191,6 +217,7 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     }
 
     private void TransitionToNextSpell() {
+        Invulnerable = false;
         if (currentSpell.Invoked) { PickSpellCard(); }
 
         currentSpell.InvokeSpell();
@@ -219,16 +246,6 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     }
 
     public void Dispose() {
-
         Destroy(gameObject);
-    }
-
-    protected void ShooterActiveBulletsToBonusPoints(BaseShooter shooter) {
-         shooter.InvokeOnAllShotBullets(CreateBonusPointOnBulletAndDisposeBullet);
-    }
-
-    protected void CreateBonusPointOnBulletAndDisposeBullet(Bullet bullet) {
-        ItemManager.Instance.CreateCollectableAtPos(bullet.transform.position, ItemType.BonusPoint);
-        bullet.Dispose();
     }
 }

@@ -9,5 +9,6 @@ public enum AudioType {
     EnemyShoot_Flutter,
     PlayerGetHealth,
     PlayerPowerUp,
-    EnemyDeath
+    EnemyDeath,
+    TimeOut
 }

@@ -52,7 +52,7 @@ MonoBehaviour:
     aiType: 2
     moveDuration: 1
     lingerDuration: 3
-    shootAfterMoving: 1
+    shootAfterMoving: 0
     spawnDelay: 0
     enemyCount: 1
     enemySpawnDelay: 0.2
@@ -63,14 +63,14 @@ MonoBehaviour:
     aiType: 2
     moveDuration: 1
     lingerDuration: 3
-    shootAfterMoving: 1
+    shootAfterMoving: 0
     spawnDelay: 0
     enemyCount: 1
     enemySpawnDelay: 0.2
   - position: {x: -8, y: 3}
     enemyPrefab: {fileID: 6192392008066908678, guid: 203e5c174da87604680c7e3dbd841b65,
       type: 3}
-    enemyStartDirection: 2
+    enemyStartDirection: 3
     aiType: 1
     moveDuration: 1
     lingerDuration: 0.5
@@ -81,7 +81,7 @@ MonoBehaviour:
   - position: {x: 8, y: 3}
     enemyPrefab: {fileID: 6192392008066908678, guid: 203e5c174da87604680c7e3dbd841b65,
       type: 3}
-    enemyStartDirection: 3
+    enemyStartDirection: 2
     aiType: 1
     moveDuration: 1
     lingerDuration: 0.5

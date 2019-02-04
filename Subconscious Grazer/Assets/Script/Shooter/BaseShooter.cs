@@ -197,7 +197,7 @@ public abstract class BaseShooter : MonoBehaviour {
     #endregion
 
     public void Shoot() {
-        if (shotBullets == null) { shotBullets = new HashSet<Bullet>(); }
+        CreateShotBulletsHashSetIfNull();
 
         if (batchShooting) {
             StartCoroutine(ShootBatches());
@@ -362,7 +362,7 @@ public abstract class BaseShooter : MonoBehaviour {
     /// </summary>
     /// <param name="invokeAction"></param>
     public void InvokeOnAllShotBullets(Action<Bullet> invokeAction) {
-        if (shotBullets == null) { shotBullets = new HashSet<Bullet>(); }
+        CreateShotBulletsHashSetIfNull();
 
         foreach (var bullet in shotBullets.ToArray()) {
             invokeAction(bullet);
@@ -371,5 +371,24 @@ public abstract class BaseShooter : MonoBehaviour {
 
     public Bullet[] GetAllActiveShotBullets() {
         return shotBullets.ToArray();
+    }
+
+    public void ConvertAllActiveBulletsToBonusPoints() {
+        CreateShotBulletsHashSetIfNull();
+
+        foreach (var bullet in shotBullets.ToArray()) {
+            CreateBonusPointOnBulletAndDisposeBullet(bullet);
+        }
+    }
+
+    private void CreateBonusPointOnBulletAndDisposeBullet(Bullet bullet) {
+        ItemManager.Instance.CreateCollectableAtPos(bullet.transform.position, ItemType.BonusPoint);
+        bullet.Dispose();
+    }
+
+    private void CreateShotBulletsHashSetIfNull() {
+        if (shotBullets == null) {
+            shotBullets = new HashSet<Bullet>();
+        }
     }
 }

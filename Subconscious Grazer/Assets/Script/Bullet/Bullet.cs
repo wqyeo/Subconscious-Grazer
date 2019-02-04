@@ -114,20 +114,24 @@ public class Bullet : MonoBehaviour, IDisposableObj {
     /// Handle the rotation of this bullet.
     /// </summary>
     /// <param name="newPos">Where the bullet would be at.</param>
-    private void UpdateRotation(Vector3 newPos, float time) {
+    private void UpdateRotation(Vector3 newPos, float deltaTime) {
         // If we need to rotate the bullet to the direction it is travelling at.
         if (RotateBulletToDirection) {
-            // Set a rotation where it looks at the new position from the current position.
-            Quaternion rotation = Quaternion.LookRotation(newPos.normalized, transform.TransformDirection(Vector3.up + new Vector3(0, 0, -RotationalOffset)));
-            // Rotate respectively.
-            transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+            RotateBulletToNewDirection(newPos);
         } 
         // If we need to constantly rotate this bullet.
         else if (RotationSpeed != 0) {
-            transform.Rotate(0, 0, RotationSpeed * time);
+            transform.Rotate(0, 0, RotationSpeed * deltaTime);
 
             RotationSpeed += (AccelerationSpeed * Time.deltaTime);
         }
+    }
+
+    protected void RotateBulletToNewDirection(Vector3 newDirection) {
+        // Set a rotation where it looks at the new direction from the current position.
+        Quaternion rotation = Quaternion.LookRotation(newDirection.normalized, transform.TransformDirection(Vector3.up + new Vector3(0, 0, -RotationalOffset)));
+        // Rotate respectively.
+        transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
     }
 
     #region Initalize_Overloads
