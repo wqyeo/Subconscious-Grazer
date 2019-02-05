@@ -5,7 +5,7 @@ public class BulletTrigger : Bullet, ITriggerable {
 
     public delegate void OnBulletTrigger(BulletTrigger bullet);
 
-    public OnBulletTrigger onEnterTriger;
+    public OnBulletTrigger onEnterTrigger;
 
     [SerializeField, Tooltip("True if this bullet trigger can only be invoked once")]
     private bool oneTimeEffect = true;
@@ -54,8 +54,8 @@ public class BulletTrigger : Bullet, ITriggerable {
 
         ApplyEffects(onTriggerEnterEff);
 
-        if (onEnterTriger != null) {
-            onEnterTriger(this);
+        if (onEnterTrigger != null) {
+            onEnterTrigger(this);
         }
     }
 

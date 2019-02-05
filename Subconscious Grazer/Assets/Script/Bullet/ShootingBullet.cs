@@ -35,8 +35,8 @@ public class ShootingBullet : Bullet {
         UpdateShooting(Time.deltaTime);
     }
 
-    private void UpdateShooting(float time) {
-        fireRateTimer += time;
+    private void UpdateShooting(float deltaTime) {
+        fireRateTimer += deltaTime;
 
         if (fireRateTimer >= fireRate) {
             Shoot();

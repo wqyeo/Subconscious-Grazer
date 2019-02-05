@@ -82,14 +82,6 @@ public class Bullet : MonoBehaviour, IDisposableObj {
         OnUpdate();
     }
 
-    private void UpdateBulletPositionAndRotation(float deltaTime) {
-        Vector3 newPosition = (transform.position) + ((Vector3)(Velocity * deltaTime));
-
-        UpdateRotation(newPosition, deltaTime);
-
-        transform.position = (newPosition);
-    }
-
     private void UpdateBulletAcceleration(float deltaTime) {
         // Change speed based on acceleration.
         Velocity += (Velocity.normalized * (AccelerationSpeed * deltaTime));
@@ -98,6 +90,14 @@ public class Bullet : MonoBehaviour, IDisposableObj {
         if (gravityAffected) {
             Velocity += ((9.81f * deltaTime) * Vector2.down);
         }
+    }
+
+    private void UpdateBulletPositionAndRotation(float deltaTime) {
+        Vector3 newPosition = (transform.position) + ((Vector3)(Velocity * deltaTime));
+
+        UpdateRotation(newPosition, deltaTime);
+
+        transform.position = (newPosition);
     }
 
     private void UpdateBulletLifeSpan(float deltaTime) {

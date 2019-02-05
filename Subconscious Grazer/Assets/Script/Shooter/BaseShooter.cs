@@ -111,16 +111,6 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
-    public float BulletRotationOffset {
-        get {
-            return bulletRotationOffset;
-        }
-
-        set {
-            bulletRotationOffset = value;
-        }
-    }
-
     public float Rotation {
         get {
             return rotation;
@@ -138,26 +128,6 @@ public abstract class BaseShooter : MonoBehaviour {
 
         set {
             rotationAcceleration = value;
-        }
-    }
-
-    public bool RotateBulletToDirection {
-        get {
-            return rotateBulletToDirection;
-        }
-
-        set {
-            rotateBulletToDirection = value;
-        }
-    }
-
-    public bool InitalRotateToDirection {
-        get {
-            return initalRotateToDirection;
-        }
-
-        set {
-            initalRotateToDirection = value;
         }
     }
 
@@ -183,16 +153,6 @@ public abstract class BaseShooter : MonoBehaviour {
 
     public float OriginalBulletSpeed { get; set; }
     public float OriginalBulletAcceleration { get; set; }
-
-    public bool GravityAffected {
-        get {
-            return gravityAffected;
-        }
-
-        set {
-            gravityAffected = value;
-        }
-    }
 
     #endregion
 
@@ -275,9 +235,9 @@ public abstract class BaseShooter : MonoBehaviour {
 
     private void SetBulletSprite(GameObject bulletObj) {
         // If a bullet default sprite is given.
-        if (BulletDefaultSprite != null) {
+        if (bulletDefaultSprite != null) {
             // Set the bullet sprite.
-            bulletObj.GetComponent<SpriteRenderer>().sprite = BulletDefaultSprite;
+            bulletObj.GetComponent<SpriteRenderer>().sprite = bulletDefaultSprite;
         } else {
             // Use the given prefab's sprite.
             bulletObj.GetComponent<SpriteRenderer>().sprite = bulletPrefab.GetComponent<SpriteRenderer>().sprite;
