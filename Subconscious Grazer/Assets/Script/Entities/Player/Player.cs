@@ -454,10 +454,13 @@ public class Player : Singleton<Player> {
     }
 
     private void UpdateDefaultShootersByPower(int powerPoint) {
+        // Reduce the default shooter damage as the player gets more power.
+        // (Needles will take over the damage)
+        powerPoint = Mathf.Clamp(powerPoint, 1, 3) + 1;
+        int damageToDeal = Mathf.CeilToInt(Mathf.Clamp(Mathf.Ceil(8f / powerPoint), 2, 7));
+
         foreach (var shooter in defaultShooter) {
-            // Reduce the default shooter damage as the player gets more power.
-            // (Needles will take over the damage)
-            shooter.Damage = Mathf.Clamp((8 / powerPoint), 2, 6);
+            shooter.Damage = damageToDeal;
         }
     }
 

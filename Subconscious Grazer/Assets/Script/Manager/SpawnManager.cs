@@ -17,6 +17,9 @@ public class SpawnManager : Singleton<SpawnManager> {
     [SerializeField, Tooltip("True if we only want to spawn bosses")]
     private bool spawnBossOnly;
 
+    [SerializeField, Tooltip("True all bosses to have max life at the start. (Always show all their patterns)")]
+    private bool bossAlwaysHasMaxLife;
+
     private float waveTimer;
 
     private float chanceToSpawnBoss;
@@ -115,9 +118,8 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     private void InitalizeBoss(Boss bossToInitalize) {
         int bossSpellCount = bossToInitalize.NoOfSpells;
-        // If it was set to spawn bosses only in the inspector, let the boss use all the spell-cards.
-        // Else, generate a random number of spell cards for the boss to use.
-        int bossSpellAmount = spawnBossOnly ? (bossSpellCount - 1) : Random.Range(0, bossSpellCount);
+        // Let the boss use up all the spell-cards if we set it in the inspector to do so.
+        int bossSpellAmount = bossAlwaysHasMaxLife ? (bossSpellCount - 1) : Random.Range(0, bossSpellCount);
 
         bossToInitalize.Initalize(bossSpellAmount);
     }

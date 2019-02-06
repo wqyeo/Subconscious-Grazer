@@ -428,7 +428,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.07
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -560,7 +560,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 13edd21d054256b4db8398f4f41ca603, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.03
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -734,9 +734,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeValues:
-    Min: 0
-    Max: 0
-  fadeSpeed: 1
+    Min: 0.70088845
+    Max: 0.8983218
+  fadeSpeed: 0.25
   fadeOnStart: 1
 --- !u!212 &154749802
 SpriteRenderer:
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154749799}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f12d483c1e9e9244987ea4270f278f8c, type: 3}
   m_Name: 
@@ -802,13 +802,13 @@ MonoBehaviour:
   silentAudio: 1
   bulletPrefab: {fileID: 6003866568756797530, guid: 18756dd651771064c87eff6dd55a9b02,
     type: 3}
-  damage: 2
+  damage: 1
   bulletType: 2
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
   bulletSpeed: 17.5
-  bulletAcceleration: 0
+  bulletAcceleration: 0.5
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
   rotation: 0
@@ -882,9 +882,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeValues:
-    Min: 0
-    Max: 0
-  fadeSpeed: 1
+    Min: 0.70088845
+    Max: 0.8983218
+  fadeSpeed: 0.25
   fadeOnStart: 1
 --- !u!212 &179270684
 SpriteRenderer:
@@ -950,13 +950,13 @@ MonoBehaviour:
   silentAudio: 1
   bulletPrefab: {fileID: 6003866568756797530, guid: 18756dd651771064c87eff6dd55a9b02,
     type: 3}
-  damage: 2
+  damage: 1
   bulletType: 2
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
   bulletSpeed: 17.5
-  bulletAcceleration: 0
+  bulletAcceleration: 0.5
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
   rotation: 0
@@ -1180,9 +1180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeValues:
-    Min: 0
-    Max: 0
-  fadeSpeed: 1
+    Min: 0.70088845
+    Max: 0.8983218
+  fadeSpeed: 0.25
   fadeOnStart: 1
 --- !u!212 &265059839
 SpriteRenderer:
@@ -1248,13 +1248,13 @@ MonoBehaviour:
   silentAudio: 1
   bulletPrefab: {fileID: 6003866568756797530, guid: 18756dd651771064c87eff6dd55a9b02,
     type: 3}
-  damage: 2
+  damage: 1
   bulletType: 2
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
   bulletSpeed: 17.5
-  bulletAcceleration: 0
+  bulletAcceleration: 0.5
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
   rotation: 0
@@ -1515,13 +1515,14 @@ MonoBehaviour:
   - {fileID: 1952050498270304809, guid: b222eab3254f2b6428678a61aec83d7b, type: 3}
   - {fileID: 5945358175324153152, guid: 4d0570ba0a0eef54ea1a1d0fe088e378, type: 3}
   - {fileID: 4399395312516120015, guid: 820d4ffbbc1b617469c5e4128c08c992, type: 3}
-  - {fileID: 6354193282619445549, guid: a83cd743544b8d34f85324a84c669422, type: 3}
+  - {fileID: 5997808714066866501, guid: e81f19b820440ea4ab277a8cdf014583, type: 3}
   bosses:
   - {fileID: 3239562362902927688, guid: da5d25b59f72d3c49adfb330ec557278, type: 3}
   - {fileID: 2248239170396853114, guid: 242c7026c3c64b04ca865c278daecc07, type: 3}
   - {fileID: 5263248174832264727, guid: 380853f2dddc993458d18b7d1c2f7293, type: 3}
   stackChanceAmt: 10
-  spawnBossOnly: 0
+  spawnBossOnly: 1
+  bossAlwaysHasMaxLife: 1
 --- !u!1 &379708286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2678,7 +2679,7 @@ MonoBehaviour:
   silentAudio: 1
   bulletPrefab: {fileID: 4372727854939742452, guid: 11a1ca7a443e5aa48ae04e24c05be311,
     type: 3}
-  damage: 6
+  damage: 7
   bulletType: 1
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
@@ -4059,8 +4060,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c51bbd7309af0468f0fa8db6f5d313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Invulnerable: 0
-  startingPowerPoints: 0
+  Invulnerable: 1
+  startingPowerPoints: 2
   shootKey: 122
   screenshotKey: 115
   focusKey: 304
@@ -4261,7 +4262,7 @@ MonoBehaviour:
   silentAudio: 1
   bulletPrefab: {fileID: 4372727854939742452, guid: 11a1ca7a443e5aa48ae04e24c05be311,
     type: 3}
-  damage: 6
+  damage: 7
   bulletType: 1
   bulletRotationOffset: 90
   bulletDefaultSprite: {fileID: 0}
@@ -5322,9 +5323,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeValues:
-    Min: 0
-    Max: 0
-  fadeSpeed: 1
+    Min: 0.70088845
+    Max: 0.8983218
+  fadeSpeed: 0.25
   fadeOnStart: 1
 --- !u!212 &2092203502
 SpriteRenderer:
@@ -5381,7 +5382,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092203499}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f12d483c1e9e9244987ea4270f278f8c, type: 3}
   m_Name: 
@@ -5390,13 +5391,13 @@ MonoBehaviour:
   silentAudio: 1
   bulletPrefab: {fileID: 6003866568756797530, guid: 18756dd651771064c87eff6dd55a9b02,
     type: 3}
-  damage: 2
+  damage: 1
   bulletType: 2
   bulletRotationOffset: 0
   bulletDefaultSprite: {fileID: 0}
   gravityAffected: 0
   bulletSpeed: 17.5
-  bulletAcceleration: 0
+  bulletAcceleration: 0.5
   initalRotateToDirection: 1
   rotateBulletToDirection: 0
   rotation: 0

@@ -15,6 +15,12 @@ public class SpellCard : MonoBehaviour {
     [Range(15, 90), SerializeField, Tooltip("How long does this spellcard lasts for")]
     private int spellDuration;
 
+    [SerializeField, Tooltip("True if this spellcard requires the boss to move.")]
+    private bool moveBoss;
+
+    [SerializeField, ConditionalField("moveBoss", true), Tooltip("The positions the boss should move towards.")]
+    private Vector2[] bossPositions;
+
     public bool Invoked { get; private set; }
     public bool Invoking { get; private set; }
 
@@ -23,6 +29,18 @@ public class SpellCard : MonoBehaviour {
     public SpellCardName SpellCardName {
         get {
             return spellCardName;
+        }
+    }
+
+    public bool MoveBoss {
+        get {
+            return moveBoss;
+        }
+    }
+
+    public Vector2[] BossPositions {
+        get {
+            return bossPositions;
         }
     }
 

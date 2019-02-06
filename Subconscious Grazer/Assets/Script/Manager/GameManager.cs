@@ -131,6 +131,7 @@ public class GameManager : Singleton<GameManager> {
         spellCardWarnText.gameObject.SetActive(show);
         currentSpellCardNameText.gameObject.SetActive(show);
         spellCardCountDownText.gameObject.SetActive(show);
+        bossHealthBar.gameObject.SetActive(show);
     }
 
     private string GetSpellCardNameAsStringWithoutSpaces(SpellCardName spellCardName) {

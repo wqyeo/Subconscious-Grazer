@@ -68,7 +68,7 @@ MonoBehaviour:
     enemyCount: 4
     enemySpawnDelay: 0.25
   - position: {x: 0, y: 6}
-    enemyPrefab: {fileID: 345344535064458961, guid: 05cc1ed355dfd6940aa00607dfb948bf,
+    enemyPrefab: {fileID: 6192392008066908678, guid: 203e5c174da87604680c7e3dbd841b65,
       type: 3}
     enemyStartDirection: 0
     aiType: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
     lingerDuration: 0
     shootAfterMoving: 0
     spawnDelay: 0
-    enemyCount: 5
+    enemyCount: 3
     enemySpawnDelay: 0.25
   optionalSpawnPointsObj:
   - spawnPoint:

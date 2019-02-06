@@ -92,10 +92,10 @@ MonoBehaviour:
   optionalSpawnPointsObj:
   - spawnPoint:
       position: {x: 6, y: 3}
-      enemyPrefab: {fileID: 345344535064458961, guid: 05cc1ed355dfd6940aa00607dfb948bf,
+      enemyPrefab: {fileID: 6192392008066908678, guid: 203e5c174da87604680c7e3dbd841b65,
         type: 3}
       enemyStartDirection: 3
-      aiType: 3
+      aiType: 1
       moveDuration: 0
       lingerDuration: 0
       shootAfterMoving: 0

@@ -55,6 +55,8 @@ MonoBehaviour:
     bulletSpeedScale: 1
     bulletAccelerationScale: 3
   spellDuration: 40
+  moveBoss: 0
+  bossPositions: []
 --- !u!1 &579424998390267199
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +310,8 @@ MonoBehaviour:
     bulletSpeedScale: 1
     bulletAccelerationScale: 0
   spellDuration: 60
+  moveBoss: 0
+  bossPositions: []
 --- !u!1 &3239562362902927682
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +485,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3900
-  speed: 1
+  speed: 0.5
+  defaultPos: {x: 0, y: 3.25}
   spellCards:
   - {fileID: 3239562363682961682}
   - {fileID: 3239562362890414309}
@@ -10249,6 +10254,12 @@ MonoBehaviour:
     bulletSpeedScale: -0.5
     bulletAccelerationScale: 2
   spellDuration: 50
+  moveBoss: 1
+  bossPositions:
+  - {x: 2.25, y: 3}
+  - {x: -2, y: 3.1}
+  - {x: 1, y: 3.25}
+  - {x: -1.75, y: 3.2}
 --- !u!1 &3239562363687653819
 GameObject:
   m_ObjectHideFlags: 0
@@ -10304,6 +10315,12 @@ MonoBehaviour:
     bulletSpeedScale: 0.5
     bulletAccelerationScale: 0
   spellDuration: 60
+  moveBoss: 1
+  bossPositions:
+  - {x: -1.65, y: 3.25}
+  - {x: -2.5, y: 3}
+  - {x: 1.5, y: 3.5}
+  - {x: 2.1, y: 3.3}
 --- !u!1 &3239562363789660536
 GameObject:
   m_ObjectHideFlags: 0
