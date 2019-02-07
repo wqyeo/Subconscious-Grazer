@@ -61,7 +61,7 @@ public abstract class BaseShooter : MonoBehaviour {
 
     [Separator("Batched shooting options.")]
 
-    [SerializeField, Tooltip("True if this shooter shoots in batches.")]
+    [SerializeField, Tooltip("True if this shooter shoots in batches. (Mutiple shooting over a duration)")]
     private bool batchShooting = false;
 
     [ConditionalField("batchShooting", true), SerializeField, Tooltip("The cooldown between each shot.")]
@@ -70,6 +70,9 @@ public abstract class BaseShooter : MonoBehaviour {
     [ConditionalField("batchShooting", true), SerializeField, Tooltip("The number of shots to fire per batch.")]
     private int batchShotCount;
 
+    /// <summary>
+    /// The currently active bullets that were shot out by this shooter.
+    /// </summary>
     private HashSet<Bullet> shotBullets;
 
     #region Property
@@ -131,6 +134,9 @@ public abstract class BaseShooter : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Uses the prefab sprite if null
+    /// </summary>
     public Sprite BulletDefaultSprite {
         get {
             return bulletDefaultSprite;
@@ -221,7 +227,7 @@ public abstract class BaseShooter : MonoBehaviour {
         // If there are listeners to add.
         if (onBulletDestroy != null) {
             // Add them.
-            bullet.OnBulletDisposedEvent += OnBulletDestroyedEvent;
+            bullet.OnObjectDisposedEvent += OnBulletDestroyedEvent;
         }
 
         if (onBulletCreated != null) {

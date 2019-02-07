@@ -97,17 +97,23 @@ public class Kage : Boss {
     }
 
     private void UpdateIllusionaryShooter() {
+        // If we can shoot.
         if (fireRateTimer >= illusionaryShooterFireRate) {
+            // Shoot.
             illusionaryShooter.Shoot();
             fireRateTimer = 0f;
+            // Start invoking the scare.
             invokeScareDelay = true;
         }
     }
 
     private void UpdateScare() {
+        // If we can scare.
         if (scareTimer >= scareDelay) {
+            // Start the scare.
             StartCoroutine(InvokeIllusionaryScare());
             scareTimer = 0f;
+            // Scare has started, stop invoking.
             invokeScareDelay = false;
         }
     }

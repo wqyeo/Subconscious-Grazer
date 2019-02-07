@@ -28,7 +28,11 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     public bool BossFight { get; set; }
 
+    /// <summary>
+    /// Records down the bosses we spawned already. (To spawn bosses that are not spawned yet.)
+    /// </summary>
     private HashSet<Boss> spawnedBosses;
+
     private SpawnDetail previousWave;
 
     private void Start() {
@@ -74,7 +78,7 @@ public class SpawnManager : Singleton<SpawnManager> {
         // Record down the spawned Boss (So that we do not spawn the same boss again later)
         spawnedBosses.Add(bossToSpawn);
 
-        // A boss is spawned fill up the health bar.
+        // A boss is spawned, fill up the health bar.
         GameManager.Instance.FillHealthBar();
     }
 
@@ -97,11 +101,12 @@ public class SpawnManager : Singleton<SpawnManager> {
     private IEnumerator HandleBossSpawning(Boss bossToSpawn) {
         var newBossObj = Instantiate(bossToSpawn.gameObject, new Vector2(0, 8), Quaternion.identity);
 
+        /// TODO: CODE REFACTOR
         float from = 8;
         float to = 3.25f;
         float progress = 0f;
 
-        // Progressively move the boss to where it should be.
+        // Progressively move the boss to where it should be (the starting point).
         while (progress <= 1) {
             MoveBossFromToByProgress(newBossObj, from, to, progress);
 
@@ -109,8 +114,11 @@ public class SpawnManager : Singleton<SpawnManager> {
             yield return new WaitForEndOfFrame();
         }
 
+        // Clear all inactive bullets and enemy first.
+        // (Clears unnessary items in the object pool.)
         ObjPoolManager.Instance.EnemyPool.ClearInactiveObjectsInPools();
         ObjPoolManager.Instance.BulletPool.ClearInactiveObjectsInPools();
+
         InitalizeBoss(newBossObj.GetComponent<Boss>());
 
         yield return null;
@@ -125,6 +133,7 @@ public class SpawnManager : Singleton<SpawnManager> {
     }
 
     private void MoveBossFromToByProgress(GameObject bossObj, float from, float to, float progress) {
+        /// TODO: CODE REFACTOR
         var temp = bossObj.transform.position;
         temp.y = Mathf.Lerp(from, to, progress);
         bossObj.transform.position = temp;

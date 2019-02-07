@@ -2,6 +2,9 @@
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D)), DisallowMultipleComponent]
 public abstract class Enemy : MonoBehaviour, IDisposableObj {
+
+    public event System.EventHandler OnObjectDisposedEvent;
+
     [Separator("Base enemy properties", true)]
 
     [SearchableEnum, SerializeField, Tooltip("The type of this enemy.")]
@@ -280,8 +283,6 @@ public abstract class Enemy : MonoBehaviour, IDisposableObj {
         }
     }
 
-    #region Util
-
     public void InitEnemy(AIType aIType) {
         JustSpawned = true;
         CanAct = true;
@@ -299,11 +300,7 @@ public abstract class Enemy : MonoBehaviour, IDisposableObj {
             enemyAnim = GetComponent<Animator>();
         }
 
-        // If this enemy has an animator.
-        if (enemyAnim != null) {
-            // Make it play the default animation.
-            enemyAnim.Play("Default");
-        }
+        PlayDefaultAnimationIfAnimatorExists();
 
         foreach (var shooter in shooters) {
             // Set the shooters to active
@@ -317,21 +314,6 @@ public abstract class Enemy : MonoBehaviour, IDisposableObj {
         startAIType = aIType;
 
         AssignAI(aIType);
-    }
-
-    public void Dispose() {
-        gameObject.SetActive(false);
-
-        // Make sure the object scales back to normal.
-        var temp = gameObject.transform.localScale;
-        temp.y = 1f;
-        temp.x = 1f;
-        gameObject.transform.localScale = temp;
-
-        // Make sure the object color turns back to normal.
-        var renderTemp = GetComponent<SpriteRenderer>().color;
-        renderTemp.a = 1f;
-        GetComponent<SpriteRenderer>().color = renderTemp;
     }
 
     /// <summary>
@@ -366,5 +348,42 @@ public abstract class Enemy : MonoBehaviour, IDisposableObj {
         }
     }
 
+    #region Dispose
+
+    public void Dispose() {
+
+        if (OnObjectDisposedEvent != null) {
+            OnObjectDisposedEvent(this, null);
+        }
+
+        PlayDefaultAnimationIfAnimatorExists();
+
+        gameObject.SetActive(false);
+
+        // Make sure the object scales back to normal.
+        ScaleEnemyToNormal();
+
+        SetEnemyAlphaColorToDefault();
+    }
+
+    private void ScaleEnemyToNormal() {
+        var temp = gameObject.transform.localScale;
+        temp.y = 1f;
+        temp.x = 1f;
+        gameObject.transform.localScale = temp;
+    }
+
+    private void SetEnemyAlphaColorToDefault() {
+        var renderTemp = GetComponent<SpriteRenderer>().color;
+        renderTemp.a = 1f;
+        GetComponent<SpriteRenderer>().color = renderTemp;
+    }
+
     #endregion
+
+    private void PlayDefaultAnimationIfAnimatorExists() {
+        if (enemyAnim != null) {
+            enemyAnim.Play("Default");
+        }
+    }
 }

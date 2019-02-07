@@ -5,6 +5,8 @@ using UnityEngine;
 [DisallowMultipleComponent, RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public abstract class Boss : MonoBehaviour, IDisposableObj {
 
+    public event System.EventHandler OnObjectDisposedEvent;
+
     protected delegate void OnBossDeathDelegate();
     protected delegate void OnSpellEndDelegate();
 
@@ -354,6 +356,10 @@ public abstract class Boss : MonoBehaviour, IDisposableObj {
     }
 
     public void Dispose() {
+        if (OnObjectDisposedEvent != null) {
+            OnObjectDisposedEvent(this, null);
+        }
+
         Destroy(gameObject);
     }
 }

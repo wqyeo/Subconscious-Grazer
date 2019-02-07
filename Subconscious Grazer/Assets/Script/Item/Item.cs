@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent, RequireComponent(typeof(Collider2D))]
 public class Item : MonoBehaviour, IDisposableObj {
+
+    public event EventHandler OnObjectDisposedEvent;
 
     [Separator("Base Item properties", true)]
 
@@ -27,10 +30,6 @@ public class Item : MonoBehaviour, IDisposableObj {
 
     [ConditionalField("fallingOnStart", false), SerializeField, Tooltip("The delay before this item gets absorbed by the player")]
     private float absorbDelay;
-
-    public delegate void ItemDisposedDelegate();
-
-    public ItemDisposedDelegate OnItemDisposed;
 
     #region Properties
 
@@ -93,8 +92,8 @@ public class Item : MonoBehaviour, IDisposableObj {
 
     public void Dispose() {
 
-        if (OnItemDisposed != null) {
-            OnItemDisposed();
+        if (OnObjectDisposedEvent != null) {
+            OnObjectDisposedEvent(this, null);
         }
 
         gameObject.SetActive(false);

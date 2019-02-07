@@ -70,7 +70,7 @@ MonoBehaviour:
   - position: {x: -8, y: 3}
     enemyPrefab: {fileID: 7279051512568692010, guid: 9a2c646f63976114ea3bcbd583d93fcd,
       type: 3}
-    enemyStartDirection: 2
+    enemyStartDirection: 3
     aiType: 2
     moveDuration: 1
     lingerDuration: 0.5
@@ -81,7 +81,7 @@ MonoBehaviour:
   - position: {x: 8, y: 3}
     enemyPrefab: {fileID: 7279051512568692010, guid: 9a2c646f63976114ea3bcbd583d93fcd,
       type: 3}
-    enemyStartDirection: 3
+    enemyStartDirection: 2
     aiType: 2
     moveDuration: 1
     lingerDuration: 0.5
@@ -94,7 +94,7 @@ MonoBehaviour:
       position: {x: 6, y: 3}
       enemyPrefab: {fileID: 6192392008066908678, guid: 203e5c174da87604680c7e3dbd841b65,
         type: 3}
-      enemyStartDirection: 3
+      enemyStartDirection: 2
       aiType: 1
       moveDuration: 0
       lingerDuration: 0

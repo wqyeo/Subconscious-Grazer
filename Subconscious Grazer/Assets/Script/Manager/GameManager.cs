@@ -99,18 +99,19 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void PenalizePlayer() {
+        /// TODO: CODE REFACTOR
         AddPoints(-200);
         AddPowerPoints(-0.1f);
     }
 
     public void HideSpellCardWarningAndStopCountDown() {
-        HideOrShowSpellCardTexts(false);
+        HideOrShowSpellCardInterface(false);
         countingDown = false;
         onSpellCountDownEndCallback = null;
     }
 
     public void WarnSpellCard(SpellCardName spellCardName) {
-        HideOrShowSpellCardTexts(true);
+        HideOrShowSpellCardInterface(true);
         currentSpellCardNameText.text = GetSpellCardNameAsStringWithoutSpaces(spellCardName);
     }
 
@@ -127,7 +128,7 @@ public class GameManager : Singleton<GameManager> {
         spellCardCountDownText.text = currentCountDown.ToString();
     }
 
-    private void HideOrShowSpellCardTexts(bool show) {
+    private void HideOrShowSpellCardInterface(bool show) {
         spellCardWarnText.gameObject.SetActive(show);
         currentSpellCardNameText.gameObject.SetActive(show);
         spellCardCountDownText.gameObject.SetActive(show);

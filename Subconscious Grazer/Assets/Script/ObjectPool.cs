@@ -23,7 +23,7 @@ public class ObjectPool<T> {
     public void ClearInactiveObjectsInPools() {
         foreach (var objPool in objectPools) {
             foreach (var obj in objPool.Value.ToArray()) {
-
+                // If the object is inactive, clear
                 if (!obj.activeInHierarchy) {
                     objPool.Value.Remove(obj);
 

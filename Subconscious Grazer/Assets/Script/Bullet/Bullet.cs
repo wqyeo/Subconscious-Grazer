@@ -4,7 +4,7 @@ using System;
 [DisallowMultipleComponent]
 public class Bullet : MonoBehaviour, IDisposableObj {
 
-    public event EventHandler OnBulletDisposedEvent;
+    public event EventHandler OnObjectDisposedEvent;
 
     [Separator("Base Bullet Properties", true)]
 
@@ -187,15 +187,15 @@ public class Bullet : MonoBehaviour, IDisposableObj {
 
     private void PoolBackBullet() {
         // Empty eventlistener.
-        OnBulletDisposedEvent = null;
+        OnObjectDisposedEvent = null;
         // Set itself to not active
         gameObject.SetActive(false);
     }
 
     public void Dispose() {
 
-        if (OnBulletDisposedEvent != null) {
-            OnBulletDisposedEvent.Invoke(this, null);
+        if (OnObjectDisposedEvent != null) {
+            OnObjectDisposedEvent.Invoke(this, null);
         }
 
         DetachFromShooter();
